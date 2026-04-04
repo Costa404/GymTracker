@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "ESNext",
+        "target": "ESNext",
+        "moduleResolution": "bundler",
+        "jsx": "react-jsx",
+        "strict": false,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "ignoreDeprecations": "6.0",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["resources/js/*"]
+        }
+    },
+    "include": ["resources/js/**/*"]
+}

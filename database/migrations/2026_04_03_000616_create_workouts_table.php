@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exercises', function (Blueprint $table) {
+        Schema::create('workouts', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nome do exercício
-            $table->string('muscle_group')->nullable(); // Opcional: para filtragem futura
+            $table->string('name'); // Onde guarda "Push Day", "Full Body", etc.
+            $table->unsignedBigInteger('user_id')->nullable(); // Para o futuro
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exercises');
+        Schema::dropIfExists('workouts');
     }
 };

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\WorkoutSessionController;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,10 @@ Route::prefix('workouts/{workout}')->controller(WorkoutSessionController::class)
 });
 
 Route::post('/workouts/finish/{workout}', [WorkoutSessionController::class, 'finish'])->name('workouts.finish');
+
+Route::get('/exercises/{exercise}', [ExerciseController::class, 'ExerciseDisplay'])
+    ->name('exercises.ExerciseDisplay');
+
+// NOVA ROTA para o Histórico (o botão Verde Glass que criámos)
+Route::get('/exercises/{exercise}/ExerciseHistory', [ExerciseController::class, 'ExerciseHistory'])
+    ->name('exercises.ExerciseHistory');

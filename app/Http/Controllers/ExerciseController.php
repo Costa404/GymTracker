@@ -3,56 +3,46 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exercise;
-use App\Models\ExerciseLog;
+use App\Models\Workout;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ExerciseController extends Controller
 {
-    /**
-     * Show the dashboard with all exercises.
-     */
-    public function index()
+    public function ExerciseHistory(Exercise $exercise)
     {
-        $exercises = Exercise::all();
-        return view('dashboard', compact('exercises'));
-    }
+        $history = \App\Models\WorkoutLog::where('exercise_id', $exercise->id)
+            ->where('user_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-    /**
-     * Show the form to create a new exercise.
-     */
-    public function create()
-    {
-        return view('exercises.create');
-    }
-
-    /**
-     * Store a newly created exercise in the database.
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
+        return Inertia::render('Exercises/ExerciseHistory', [
+            'exercise' => $exercise,
+            'history' => $history,
+            // Aqui vais buscar o nome do workout através da relação
+            'workout_name' => $exercise->workout->name ?? 'Workout'
         ]);
-
-        Exercise::create([
-            'name' => $request->name,
-        ]);
-
-        return redirect()->route('dashboard')->with('status', 'Exercise Protocol Initialized.');
     }
 
-    /**
-     * Show a specific exercise with its full performance history.
-     */
-    public function show(Exercise $exercise)
+    public function ExerciseDisplay(Exercise $exercise, Request $request)
     {
-        // Group logs by date for the "Timeline" view
-        $history = $exercise->logs()
-            ->get()
-            ->groupBy(function ($log) {
-                return $log->created_at->format('d M Y');
-            });
+        // Pegamos no workout_id que vem do link (?workout_id=84)
+        $workoutId = $request->query('workout_id');
 
-        return view('exercises.show', compact('exercise', 'history'));
+        // Usamos findOrFail para dar erro 404 se o workout não existir
+        $workout = Workout::findOrFail($workoutId);
+
+        return Inertia::render('Exercises/ExerciseDisplay', [ // Corrigido: Removida a quebra de linha
+            'exercise' => $exercise,
+            'workout' => $workout,
+
+            // Sugestão: Histórico GLOBAL deste exercício para o utilizador atual
+            // Assim ele vê as cargas de semanas passadas, não só de hoje.
+            'history' => \App\Models\WorkoutLog::where('exercise_id', $exercise->id)
+                ->where('user_id', auth()->id())
+                ->orderBy('created_at', 'desc')
+                ->take(10) // Pega os últimos 10 sets para não sobrecarregar
+                ->get()
+        ]);
     }
 }

@@ -18,8 +18,10 @@ export interface Exercise {
 // --- Novas Interfaces para o Store ---
 
 export interface Set {
-    reps: number;
     weight: number;
+    reps: number;
+    rir: number | null;
+    created_at?: string;
 }
 
 export interface ActiveExercise {
@@ -28,13 +30,18 @@ export interface ActiveExercise {
     sets: Set[];
 }
 
-// Interface completa para o Zustand
 export interface WorkoutSessionStore {
     activeSessionId: number | null;
     sessionExercises: ActiveExercise[];
     startSession: (workoutId: number) => void;
-    addExercise: (exerciseId: number, name: string) => void;
-    addSet: (exerciseId: number, weight: number, reps: number) => void;
+    addExercise: (id: number, name: string) => void;
+    // Verifica se os argumentos batem certo aqui:
+    addSet: (
+        exerciseId: number,
+        weight: number,
+        reps: number,
+        rir: number | null,
+    ) => void;
     finishSession: () => void;
 }
 
@@ -53,3 +60,19 @@ export interface WorkoutActions {
 
 // Interface completa para o Store
 export type WorkoutStore = WorkoutState & WorkoutActions;
+
+export interface LogData {
+    exercise_id: number;
+    workout_id: number;
+    weight: string | number;
+    reps: string | number;
+    rir: string | number | null;
+}
+
+export interface InputGroupProps {
+    label: string;
+    value: string;
+    onChange: (val: string) => void;
+    suffix?: string;
+    placeholder?: string;
+}

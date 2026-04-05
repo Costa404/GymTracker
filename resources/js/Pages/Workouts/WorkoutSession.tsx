@@ -1,16 +1,15 @@
 import { Head, Link } from "@inertiajs/react";
 import { useEffect } from "react";
-import ActiveExerciseCard from "../../Components/ActiveExerciseCard";
 import ExerciseLibraryItem from "../../Components/ExerciseLibraryItem";
+
 import useWorkoutSessionStore from "@/Hooks/useWorkoutSessionStore";
 import useFilteredExercises from "@/Hooks/useFilteredExercises";
+import ActiveExercisesInSession from "@/Components/ActiveExercisesInSession";
 
 const WorkoutSession = ({ workout, workoutData, exercises }) => {
-    // workoutData vem do PHP como ['Exercise Name' => [logs...]]
-    const activeExercises = Object.entries(workoutData || {});
     const { startSession } = useWorkoutSessionStore();
 
-    // Hook para filtrar a biblioteca (esconde ativos e filtra por categoria)
+    // A biblioteca continua a usar a lógica que já tinhas e que funciona bem
     const filteredLibrary = useFilteredExercises(
         exercises,
         workoutData,
@@ -18,7 +17,6 @@ const WorkoutSession = ({ workout, workoutData, exercises }) => {
     );
 
     useEffect(() => {
-        // Regista o ID da sessão no Zustand ao carregar
         startSession(workout.id);
     }, [workout.id]);
 
@@ -26,7 +24,6 @@ const WorkoutSession = ({ workout, workoutData, exercises }) => {
         <div className="max-w-md mx-auto pt-6 px-4 pb-48 text-left">
             <Head title={`War Room | ${workout.name}`} />
 
-            {/* HEADER */}
             <header className="mb-10 flex justify-between items-center">
                 <div>
                     <h1 className="text-white text-2xl font-black italic uppercase tracking-tighter">
@@ -44,34 +41,13 @@ const WorkoutSession = ({ workout, workoutData, exercises }) => {
                 </Link>
             </header>
 
-            <section className="space-y-4 mb-16">
-                <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
-                    <h2 className="text-[10px] text-cyan-500 font-black uppercase tracking-[0.4em] italic">
-                        Active Exercises
-                    </h2>
-                </div>
+            {/* PARTE DE CIMA: ZUSTAND APENAS */}
+            <ActiveExercisesInSession
+                workoutId={workout.id}
+                exercises={exercises}
+            />
 
-                {activeExercises.length > 0 ? (
-                    activeExercises.map(([name, logs]: [string, any]) => (
-                        <ActiveExerciseCard
-                            key={name}
-                            name={name}
-                            setsCount={logs.length}
-                            exerciseId={logs[0].exercise_id}
-                            workoutId={workout.id}
-                        />
-                    ))
-                ) : (
-                    <div className="py-16 text-center border-2 border-dashed border-zinc-800 rounded-3xl opacity-30">
-                        <p className="text-zinc-500 text-[9px] font-black uppercase italic">
-                            No exercises added yet
-                        </p>
-                    </div>
-                )}
-            </section>
-
-            {/* SEÇÃO 2: BIBLIOTECA (PARA ADICIONAR NOVOS) */}
+            {/* PARTE DE BAIXO: BIBLIOTECA (Lógica PHP/Filtros) */}
             <section className="space-y-4">
                 <div className="flex items-center gap-4 mb-6">
                     <div className="h-px bg-zinc-800 flex-1" />

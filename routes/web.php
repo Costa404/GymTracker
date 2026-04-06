@@ -40,3 +40,5 @@ Route::get('/exercises/{exercise}', [ExerciseController::class, 'ExerciseDisplay
 // NOVA ROTA para o Histórico (o botão Verde Glass que criámos)
 Route::get('/exercises/{exercise}/ExerciseHistory', [ExerciseController::class, 'ExerciseHistory'])
     ->name('exercises.ExerciseHistory');
+
+Route::post('/workouts/finish/{workout}', [WorkoutController::class, 'finish'])->name('workouts.finish');

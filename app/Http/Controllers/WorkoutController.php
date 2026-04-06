@@ -67,4 +67,45 @@ class WorkoutController extends Controller
 
         return redirect()->route('workouts.workoutSession', $workout->id);
     }
+
+    // Adiciona este método ANTES do último } do teu WorkoutController
+    public function finish(Request $request, Workout $workout)
+    {
+
+        // dd($request->all());
+        // 1. O React enviou { payload: ... }. Temos de usar 'payload'!
+        $exercises = $request->input('exercises');
+
+        // DEBUG RÁPIDO: Se quiseres ter a certeza absoluta do que está a chegar,
+        // tira o comentário da linha abaixo e clica em Finish no browser:
+        // dd($exercises);
+
+        if (empty($exercises)) {
+            return back()->with('error', 'Sem dados para gravar.');
+        }
+
+        foreach ($exercises as $exerciseData) {
+            // Para cada exercício, percorremos as séries (sets)
+            foreach ($exerciseData['sets'] as $index => $setData) {
+                \App\Models\WorkoutLog::create([
+                    'user_id'     => auth()->id(),
+                    'workout_id'  => $workout->id,
+                    'exercise_id' => $exerciseData['exercise_id'],
+                    'weight'      => $setData['weight'],
+                    'reps'        => $setData['reps'],
+                    'rir'         => $setData['rir'] ?? null,
+                    // O teu model pede 'set_number', vamos usar o índice do array + 1
+                    'set_number'  => $index + 1,
+                    'type'        => 'normal', // Valor padrão para o teu campo 'type'
+                ]);
+            }
+        }
+
+        // Marca o treino como finalizado (para aparecer no PastWorkouts)
+        $workout->update([
+            'completed_at' => now()
+        ]);
+
+        return redirect()->route('workouts.setup');
+    }
 }

@@ -9,11 +9,16 @@ import { LogSetList } from "./Components/LogSetList";
 import { RirSelector } from "./Components/RirSelector";
 import { InputGroup } from "./Components/InputGroup";
 
-const ExerciseDisplay = ({ exercise, workout }: any) => {
+const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
     const { weight, setWeight, reps, setReps, rir, setRir, saveLocally } =
         useLogExercise();
     const [saved, setSaved] = useState(false);
 
+    // Dados fictícios para teste de UI
+    const mockLastSession = {
+        weights: ["80", "80", "75"],
+        reps: ["12", "10", "8"],
+    };
     // Validação: Botão só ativa se houver peso e reps
     const isInvalid = !weight || !reps || weight === "0" || reps === "0";
 
@@ -54,29 +59,29 @@ const ExerciseDisplay = ({ exercise, workout }: any) => {
                     onSubmit={handleAction}
                     className="bg-[#0a1220]/50 border border-cyan-500/20 rounded-[2.5rem] p-8 backdrop-blur-xl shadow-[0_0_50px_rgba(0,0,0,0.8)] relative overflow-hidden transition-all duration-300"
                 >
-                    <div className="grid grid-cols-2 gap-12 relative z-10">
+                    <div className="grid grid-cols-2 gap-8 relative z-10">
                         <InputGroup
                             label="Weight"
                             value={weight}
                             onChange={setWeight}
                             suffix="KG"
+                            lastSets={lastWeights} // Passa o array de pesos
                         />
                         <InputGroup
                             label="Reps"
                             value={reps}
                             onChange={setReps}
+                            lastSets={lastReps} // Passa o array de reps
                         />
                     </div>
-
                     <div className="relative z-10 mt-2">
                         <RirSelector currentRir={rir} onSelect={setRir} />
                     </div>
-
                     {/* BOTÃO ESTILO COMMAND CENTER */}
                     <button
                         type="submit"
                         disabled={isInvalid || saved}
-                        className={`w-full mt-10 py-6 rounded-2xl font-black uppercase italic text-[12px] tracking-[0.4em] transition-all duration-500 shadow-2xl relative overflow-hidden group
+                        className={`w-full mt-4 py-6 rounded-2xl font-black uppercase italic text-[12px] tracking-[0.4em] transition-all duration-500 shadow-2xl relative overflow-hidden group
                             ${
                                 saved
                                     ? "bg-emerald-500 text-black shadow-emerald-500/50 scale-[0.97]"
@@ -94,7 +99,7 @@ const ExerciseDisplay = ({ exercise, workout }: any) => {
                         </span>
 
                         {!saved && !isInvalid && (
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                            <div className="absolute inset-0 bg-gradient-to-r   from-transparent via-cyan-500/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                         )}
                     </button>
                 </form>

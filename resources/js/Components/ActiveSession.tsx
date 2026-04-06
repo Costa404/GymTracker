@@ -6,15 +6,28 @@ const ActiveSession = () => {
         useWorkoutSessionStore();
 
     const finishWorkout = () => {
+        // 1. Bloqueio imediato se o user não tiver a certeza
+        const confirmacao = confirm(
+            "Desejas finalizar o treino e gravar os resultados?",
+        );
+        if (!confirmacao) return;
+
+        // 2. Envio dos dados "voláteis" para o servidor
         router.post(
             `/workouts/finish/${activeSessionId}`,
-            { payload: sessionExercises },
+            { exercises: sessionExercises }, // Mudei para 'exercises' para ser mais descritivo no PHP
             {
-                onSuccess: () => finishSession(),
-                onBefore: () =>
-                    confirm(
-                        "Desejas finalizar o treino e gravar os resultados?",
-                    ),
+                // 3. Só limpamos o telemóvel se o servidor confirmar que gravou com sucesso
+                onSuccess: () => {
+                    finishSession();
+                    console.log("Treino gravado no SQLite com sucesso!");
+                },
+                onError: (errors) => {
+                    console.error("Erro ao gravar na DB:", errors);
+                    alert(
+                        "Erro ao gravar. O treino continua guardado no buffer local.",
+                    );
+                },
             },
         );
     };

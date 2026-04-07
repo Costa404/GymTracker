@@ -1,7 +1,6 @@
 import { Head, Link } from "@inertiajs/react";
 import { LogHeader } from "./Components/LogHeader";
-import useWorkoutSessionStore from "@/Hooks/useWorkoutSessionStore";
-import { cwd } from "node:process";
+import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
 const ExerciseHistory = ({ exercise, ExerciseHistory, workout_name }: any) => {
     // Simulação: Se a DB estiver vazia, o 'ExerciseHistory' será um array vazio []

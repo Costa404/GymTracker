@@ -1,26 +1,24 @@
-import useWorkoutSessionStore from "@/Hooks/useWorkoutSessionStore";
-import { Link, router } from "@inertiajs/react";
+import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import { router } from "@inertiajs/react";
+import GlassBtn from "@/Components/Shared/GlassBtn"; // O nosso salvador
 
 const ActiveSession = () => {
     const { activeSessionId, sessionExercises, finishSession } =
         useWorkoutSessionStore();
 
     const finishWorkout = () => {
-        // 1. Bloqueio imediato se o user não tiver a certeza
         const confirmacao = confirm(
             "Desejas finalizar o treino e gravar os resultados?",
         );
         if (!confirmacao) return;
 
-        // 2. Envio dos dados "voláteis" para o servidor
         router.post(
             `/workouts/finish/${activeSessionId}`,
-            { exercises: sessionExercises }, // Mudei para 'exercises' para ser mais descritivo no PHP
+            { exercises: sessionExercises },
             {
-                // 3. Só limpamos o telemóvel se o servidor confirmar que gravou com sucesso
                 onSuccess: () => {
                     finishSession();
-                    console.log("Treino gravado no SQLite com sucesso!");
+                    console.log("Treino gravado com sucesso!");
                 },
                 onError: (errors) => {
                     console.error("Erro ao gravar na DB:", errors);
@@ -34,7 +32,7 @@ const ActiveSession = () => {
 
     return (
         <div className="space-y-8 animate-in fade-in duration-300 pb-8">
-            {/* PAINEL DE ESTADO EMERALD (Glass) */}
+            {/* PAINEL DE ESTADO (Mantemos o Glass custom aqui por ser um painel, não um botão) */}
             <div className="bg-emerald-950/10 backdrop-blur-md border border-emerald-500/10 p-6 rounded-3xl text-center shadow-lg shadow-black/20">
                 <div className="flex items-center justify-center gap-2 mb-2">
                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
@@ -53,32 +51,27 @@ const ActiveSession = () => {
             </div>
 
             {/* AÇÕES EM GLASS */}
-            <div className="grid grid-cols-1 gap-5">
-                {/* GO TO WORKOUT (Blue Glass) */}
-                <Link
+            <div className="grid grid-cols-1 gap-4">
+                {/* BOTÃO PARA VOLTAR AO TREINO */}
+                <GlassBtn
                     href={`/workouts/${activeSessionId}/workoutSession`}
-                    className="flex items-center justify-center gap-3 w-full bg-blue-500/10 backdrop-blur-lg border border-blue-500/20 hover:bg-blue-500/20 active:scale-[0.97] transition-all text-blue-100 py-6 rounded-2xl shadow-xl shadow-blue-500/5 group"
+                    variant="blue"
+                    className="w-full py-6 text-sm"
                 >
-                    <span className="text-base font-black uppercase italic tracking-widest text-blue-200 group-hover:text-white transition-colors">
-                        GO TO WORKOUT
-                    </span>
-                    <span className="text-lg text-blue-300 group-hover:text-white transition-colors">
-                        →
-                    </span>
-                </Link>
+                    Continue Workout →
+                </GlassBtn>
 
-                {/* FINISH WORKOUT (Intense Red Glass) */}
-                <button
+                {/* BOTÃO PARA FINALIZAR (RED) */}
+                <GlassBtn
                     onClick={finishWorkout}
-                    className="w-full bg-red-600/10 backdrop-blur-lg border border-red-500/30 hover:bg-red-600/20 active:scale-[0.97] transition-all py-5 rounded-2xl group shadow-xl shadow-red-500/5"
+                    variant="red"
+                    className="w-full py-5 flex flex-col gap-1"
                 >
-                    <span className="text-red-500 group-hover:text-red-400 font-black uppercase text-xs italic tracking-[0.2em] transition-colors">
-                        — Finish Workout —
-                    </span>
-                    <span className="block text-red-300/60 text-[8px] font-bold uppercase tracking-widest mt-1 group-hover:text-red-200 transition-colors">
+                    <span>— Finish Workout —</span>
+                    <span className="opacity-50 text-[7px] tracking-widest normal-case font-bold">
                         (End current session)
                     </span>
-                </button>
+                </GlassBtn>
             </div>
         </div>
     );

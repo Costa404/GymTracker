@@ -1,7 +1,7 @@
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 import { useLogExercise } from "@/Hooks/useLogExercise";
-import useWorkoutSessionStore from "@/Hooks/useWorkoutSessionStore";
+import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
 // Componentes Modulares
 import { LogHeader } from "./Components/LogHeader";
@@ -14,11 +14,6 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
         useLogExercise();
     const [saved, setSaved] = useState(false);
 
-    // Dados fictícios para teste de UI
-    const mockLastSession = {
-        weights: ["80", "80", "75"],
-        reps: ["12", "10", "8"],
-    };
     // Validação: Botão só ativa se houver peso e reps
     const isInvalid = !weight || !reps || weight === "0" || reps === "0";
 

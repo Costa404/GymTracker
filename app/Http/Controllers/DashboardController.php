@@ -25,14 +25,14 @@ class DashboardController extends Controller
         $exercises = Exercise::all();
 
         // 4. Últimos 5 Treinos realizados para o "Past Workouts"
-        $pastWorkouts = Workout::latest()->take(5)->get();
+        $WorkoutsHistory = Workout::latest()->take(5)->get();
 
         return Inertia::render('Dashboard', [
-            'currentDate'  => $currentDate,
-            'currentTime'  => $currentTime,
+            'currentDate' => $currentDate,
+            'currentTime' => $currentTime,
             'weeklyVolume' => (int) $weeklyVolume, // Forçamos a número para o React não se queixar
-            'exercises'    => $exercises,
-            'pastWorkouts' => $pastWorkouts
+            'exercises' => $exercises,
+            'WorkoutsHistory' => $WorkoutsHistory
         ]);
     }
 }

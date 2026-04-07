@@ -1,15 +1,15 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import { useEffect } from "react";
-import ExerciseLibraryItem from "../../Components/ExerciseLibraryItem";
+import SessionExercisePicker from "./Components/SessionExercisePicker";
+import GlassBtn from "@/Components/Shared/GlassBtn"; // Importamos o novo componente
 
-import useWorkoutSessionStore from "@/Hooks/useWorkoutSessionStore";
+import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
 import useFilteredExercises from "@/Hooks/useFilteredExercises";
-import ActiveExercisesInSession from "@/Components/ActiveExercisesInSession";
+import ActiveExercisesInSession from "@/Pages/Workouts/Components/ActiveExercisesInSession";
 
 const WorkoutSession = ({ workout, workoutData, exercises }) => {
     const { startSession } = useWorkoutSessionStore();
 
-    // A biblioteca continua a usar a lógica que já tinhas e que funciona bem
     const filteredLibrary = useFilteredExercises(
         exercises,
         workoutData,
@@ -20,54 +20,72 @@ const WorkoutSession = ({ workout, workoutData, exercises }) => {
         startSession(workout.id);
     }, [workout.id]);
 
+    // No teu WorkoutSession.jsx
+    const { sessionExercises } = useWorkoutSessionStore();
+
+    // Obtemos apenas os IDs dos exercícios que já estão ativos
+    const activeIds = sessionExercises.map((item) => item.exercise_id);
+
+    // A biblioteca filtrada só mostra o que ainda NÃO foi adicionado
+    const libraryToDisplay = filteredLibrary.filter(
+        (ex) => !activeIds.includes(ex.id),
+    );
+
     return (
-        <div className="max-w-md mx-auto pt-6 px-4 pb-48 text-left">
+        <div className="max-w-md mx-auto  px-4 pb-48 text-left">
             <Head title={`War Room | ${workout.name}`} />
 
-            <header className="mb-10 flex justify-between items-center">
+            <header className="mb-6 flex justify-between items-end">
                 <div>
-                    <h1 className="text-white text-2xl font-black italic uppercase tracking-tighter">
+                    <h1 className="text-white text-xl font-black uppercase tracking-tighter leading-none">
                         {workout.name}
                     </h1>
-                    <p className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest">
-                        Session in progress
-                    </p>
+                    <div className="flex items-center gap-1.5 mt-1">
+                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                        <p className="text-[8px] text-zinc-500 font-bold uppercase tracking-[0.2em]">
+                            Live Session
+                        </p>
+                    </div>
                 </div>
-                <Link
+
+                <GlassBtn
                     href="/workouts/setup"
-                    className="text-[9px] text-zinc-400 font-black uppercase border border-zinc-800 px-4 py-2 rounded-xl italic hover:bg-zinc-900 transition"
+                    variant="zinc"
+                    className="px-3 py-1.5 text-[10px]"
                 >
-                    Back
-                </Link>
+                    Setup
+                </GlassBtn>
             </header>
 
-            {/* PARTE DE CIMA: ZUSTAND APENAS */}
+            {/* PARTE DE CIMA: ZUSTAND */}
             <ActiveExercisesInSession
                 workoutId={workout.id}
                 exercises={exercises}
             />
 
-            {/* PARTE DE BAIXO: BIBLIOTECA (Lógica PHP/Filtros) */}
+            {/* PARTE DE BAIXO: BIBLIOTECA */}
             <section className="space-y-4">
                 <div className="flex items-center gap-4 mb-6">
                     <div className="h-px bg-zinc-800 flex-1" />
-                    <h2 className="text-[10px] text-zinc-500 font-black uppercase tracking-[0.4em] italic">
+                    {/* Removido o italic daqui */}
+                    <h2 className="text-[10px] text-zinc-500 font-black uppercase tracking-[0.4em]">
                         Add to Session
                     </h2>
                     <div className="h-px bg-zinc-800 flex-1" />
                 </div>
 
                 <div className="grid grid-cols-1 gap-3">
-                    {filteredLibrary.length > 0 ? (
-                        filteredLibrary.map((ex) => (
-                            <ExerciseLibraryItem
+                    {libraryToDisplay.length > 0 ? (
+                        libraryToDisplay.map((ex) => (
+                            <SessionExercisePicker
                                 key={ex.id}
                                 exercise={ex}
                                 workoutId={workout.id}
                             />
                         ))
                     ) : (
-                        <p className="text-center text-[10px] text-zinc-600 uppercase font-bold italic">
+                        /* Removido o italic daqui */
+                        <p className="text-center text-[10px] text-zinc-600 uppercase font-bold">
                             All category exercises added
                         </p>
                     )}

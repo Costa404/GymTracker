@@ -6,7 +6,7 @@ interface Workout {
     created_at: string;
 }
 
-const WorkoutCard = ({ workout }: { workout: Workout }) => (
+const WorkoutsHistoryItem = ({ workout }: { workout: Workout }) => (
     <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#252525] flex justify-between items-center active:scale-[0.98] transition-all">
         <div>
             <p className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">
@@ -25,4 +25,4 @@ const WorkoutCard = ({ workout }: { workout: Workout }) => (
     </div>
 );
 
-export default WorkoutCard;
+export default WorkoutsHistoryItem;

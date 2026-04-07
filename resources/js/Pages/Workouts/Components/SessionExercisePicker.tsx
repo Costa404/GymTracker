@@ -1,8 +1,8 @@
 import { Link } from "@inertiajs/react";
 
-const ExerciseLibraryItem = ({ exercise, workoutId }) => (
+const SessionExercisePicker = ({ exercise, workoutId }) => (
     <Link
-        href={`/exercises/${exercise.id}?workout_id=${workoutId}`}
+        href={`/workout/${workoutId}/exercise/${exercise.id}`}
         className="bg-zinc-900/50 border border-zinc-800 p-5 rounded-2xl flex justify-between items-center active:bg-orange-500/10 active:border-orange-500/40 transition-all group"
     >
         <div className="flex items-center gap-4">
@@ -21,4 +21,4 @@ const ExerciseLibraryItem = ({ exercise, workoutId }) => (
     </Link>
 );
 
-export default ExerciseLibraryItem;
+export default SessionExercisePicker;

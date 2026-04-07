@@ -1,8 +1,8 @@
 import { Link } from "@inertiajs/react";
 
-const ActiveExerciseCard = ({ name, setsCount, exerciseId, workoutId }) => (
+const SessionExerciseCard = ({ name, setsCount, exerciseId, workoutId }) => (
     <Link
-        href={`/exercises/${exerciseId}?workout_id=${workoutId}`}
+        href={`/workout/${workoutId}/exercise/${exerciseId}`}
         className="block bg-gradient-to-br from-cyan-900/20 to-black border border-cyan-500/30 p-6 rounded-3xl active:scale-[0.98] transition-all group shadow-[0_0_20px_rgba(6,182,212,0.1)]"
     >
         <div className="flex justify-between items-center">
@@ -36,4 +36,4 @@ const ActiveExerciseCard = ({ name, setsCount, exerciseId, workoutId }) => (
     </Link>
 );
 
-export default ActiveExerciseCard;
+export default SessionExerciseCard;

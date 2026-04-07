@@ -3,29 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Workout;
+use App\Models\WorkoutLog;
 use Illuminate\Http\Request;
 use Inertia\Inertia; // Não te esqueças do import!
 
 class WorkoutController extends Controller
 {
-    public function PastWorkouts(Request $request)
+    public function WorkoutsHistory(Request $request)
     {
-        // 1. Iniciamos a query (filtramos apenas treinos finalizados)
         $query = Workout::query()->whereNotNull('completed_at');
 
-        // 2. FILTRO DE CATEGORIA: Se houver um 'type' no URL, filtramos o nome
-        if ($request->has('type')) {
-            $query->where('name', 'like', '%' . $request->type . '%');
+        if ($request->filled('type')) {
+            // 1. Pegamos em "Push Day" e extraímos apenas a primeira palavra: "Push"
+            $primeiraPalavra = explode(' ', $request->type)[0];
+
+            // 2. Filtramos apenas por essa palavra (ex: %Push%)
+            $query->where('name', 'like', '%' . $primeiraPalavra . '%');
         }
 
-        // 3. Pegamos nos resultados ordenados pelos mais recentes
         $workouts = $query->latest()->get();
 
-        // 4. Enviamos para o React
-        return Inertia::render('Workouts/PastWorkouts', [
+        return Inertia::render('WorkoutsHistory/WorkoutsHistory', [
             'workouts' => $workouts,
             'filters' => [
-                'type' => $request->type // Importante para o React saber qual botão "acender"
+                'type' => $request->type
             ]
         ]);
     }
@@ -87,21 +88,21 @@ class WorkoutController extends Controller
         foreach ($exercises as $exerciseData) {
             // Para cada exercício, percorremos as séries (sets)
             foreach ($exerciseData['sets'] as $index => $setData) {
-                \App\Models\WorkoutLog::create([
-                    'user_id'     => auth()->id(),
-                    'workout_id'  => $workout->id,
+                WorkoutLog::create([
+                    'user_id' => 1,
+                    'workout_id' => $workout->id,
                     'exercise_id' => $exerciseData['exercise_id'],
-                    'weight'      => $setData['weight'],
-                    'reps'        => $setData['reps'],
-                    'rir'         => $setData['rir'] ?? null,
+                    'weight' => $setData['weight'],
+                    'reps' => $setData['reps'],
+                    'rir' => $setData['rir'] ?? null,
                     // O teu model pede 'set_number', vamos usar o índice do array + 1
-                    'set_number'  => $index + 1,
-                    'type'        => 'normal', // Valor padrão para o teu campo 'type'
+                    'set_number' => $index + 1,
+                    'type' => 'normal', // Valor padrão para o teu campo 'type'
                 ]);
             }
         }
 
-        // Marca o treino como finalizado (para aparecer no PastWorkouts)
+        // Marca o treino como finalizado (para aparecer no WorkoutsHistory)
         $workout->update([
             'completed_at' => now()
         ]);

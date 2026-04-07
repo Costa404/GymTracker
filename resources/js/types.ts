@@ -30,17 +30,18 @@ export interface ActiveExercise {
     sets: Set[];
 }
 
-export interface WorkoutSessionStore {
+export interface SessionStore {
     activeSessionId: number | null;
-    sessionExercises: ActiveExercise[];
-    startSession: (workoutId: number) => void;
-    addExercise: (id: number, name: string) => void;
-    // Verifica se os argumentos batem certo aqui:
+    sessionExercises: any[];
+    startTime: number | null;
+    elapsedSeconds: number;
+    tick: () => void;
+    startSession: (id: number) => void;
     addSet: (
         exerciseId: number,
         weight: number,
         reps: number,
-        rir: number | null,
+        rir: number,
     ) => void;
     finishSession: () => void;
 }

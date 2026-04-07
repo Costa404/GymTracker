@@ -4,45 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Models\Exercise;
 use App\Models\Workout;
-use Illuminate\Http\Request;
+use App\Models\WorkoutLog;
+
 use Inertia\Inertia;
 
 class ExerciseController extends Controller
 {
-    public function ExerciseHistory(Exercise $exercise)
+    // Agora recebes os dois objetos diretamente nos parênteses
+    public function ExerciseHistory(Workout $workout, Exercise $exercise)
     {
-        $history = \App\Models\WorkoutLog::where('exercise_id', $exercise->id)
-            ->where('user_id', auth()->id())
-            ->orderBy('created_at', 'desc')
+        // Procuramos os logs que pertencem a este EXERCÍCIO e a este TREINO
+        $history = WorkoutLog::where('exercise_id', $exercise->id)
+            ->where('workout_id', $workout->id)
+            ->where('user_id', 1)
+            ->with('workout') // Para teres a data, etc.
+            ->latest()
             ->get();
 
         return Inertia::render('Exercises/ExerciseHistory', [
             'exercise' => $exercise,
-            'history' => $history,
-
-            'workout_name' => $exercise->workout->name ?? 'Workout'
+            'workout' => $workout,
+            'history' => $history
         ]);
     }
-
-    public function ExerciseDisplay(Exercise $exercise, Request $request)
+    public function ExerciseDisplay(Workout $workout, Exercise $exercise)
     {
-        $workoutId = $request->query('workout_id');
-        $workout = Workout::findOrFail($workoutId);
-
-        // 1. Procurar o ID do treino mais RECENTE onde este exercício foi feito
-        // Importante: latest() sem argumentos usa 'created_at' por defeito
-        $lastWorkoutId = \App\Models\WorkoutLog::where('exercise_id', $exercise->id)
-            ->where('user_id', auth()->id())
-            ->where('workout_id', '!=', $workoutId)
+        // 1. Procurar o ID do treino mais RECENTE onde este exercício foi feito (excluindo o atual)
+        $lastWorkoutId = WorkoutLog::where('exercise_id', $exercise->id)
+            ->where('user_id', 1)
+            ->where('workout_id', '!=', $workout->id) // Usamos o objeto $workout injetado
             ->latest()
             ->value('workout_id');
 
-        // 2. Buscar as séries desse treino específico
-        $lastSets = collect(); // Começa vazio
+        // 2. Buscar as séries desse treino anterior para as "badges" verdes
+        $lastSets = collect();
         if ($lastWorkoutId) {
-            $lastSets = \App\Models\WorkoutLog::where('exercise_id', $exercise->id)
+            $lastSets = WorkoutLog::where('exercise_id', $exercise->id)
                 ->where('workout_id', $lastWorkoutId)
-                ->orderBy('id', 'asc') // Ordem cronológica: Set 1, Set 2, Set 3
+                ->orderBy('id', 'asc')
                 ->take(3)
                 ->get();
         }

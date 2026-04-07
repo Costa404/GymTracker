@@ -25,11 +25,11 @@ export const InputGroup = ({
                     {lastSets.slice(0, 3).map((val, idx) => (
                         <div
                             key={idx}
-                            className="bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded shrink-0"
+                            className="bg-emerald-500/5 border border-emerald-500/20 w-[35px] h-[22px] flex items-center justify-center rounded-md shrink-0 shadow-[0_0_10px_rgba(16,185,129,0.05)]"
                         >
                             <span className="text-[9px] font-black text-emerald-400 italic leading-none">
                                 {val}
-                                {suffix?.toLowerCase()}
+                                {label === "Weight" && suffix?.toLowerCase()}
                             </span>
                         </div>
                     ))}

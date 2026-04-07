@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useWorkoutSessionStore from "@/Hooks/useWorkoutSessionStore";
+import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
 export const useLogExercise = (initialWeight = "", initialReps = "") => {
     const [weight, setWeight] = useState(initialWeight);

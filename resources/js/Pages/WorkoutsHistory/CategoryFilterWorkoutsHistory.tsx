@@ -4,7 +4,7 @@ interface Props {
     currentType: string | null;
 }
 
-const CategoryFilterPastWorkouts = ({ currentType }: Props) => {
+const CategoryFilterWorkoutsHistory = ({ currentType }: Props) => {
     const types = ["Upper Body", "Push Day", "Pull Day", "Legs Day"];
 
     const getStyle = (type: string | null) =>
@@ -15,7 +15,7 @@ const CategoryFilterPastWorkouts = ({ currentType }: Props) => {
     return (
         <div className="flex gap-2 overflow-x-auto pb-4 mb-4 no-scrollbar -mx-4 px-4 mask-fade-edges">
             <Link
-                href="/workouts"
+                href="/workouts/history"
                 className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border transition-all duration-300 ${getStyle(null)}`}
             >
                 All
@@ -23,7 +23,7 @@ const CategoryFilterPastWorkouts = ({ currentType }: Props) => {
             {types.map((type) => (
                 <Link
                     key={type}
-                    href={`/workouts?type=${type}`}
+                    href={`/workouts/history?type=${type}`}
                     className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] whitespace-nowrap border transition-all duration-300 ${getStyle(type)}`}
                 >
                     {type.replace(" Day", "")}
@@ -33,4 +33,4 @@ const CategoryFilterPastWorkouts = ({ currentType }: Props) => {
     );
 };
 
-export default CategoryFilterPastWorkouts;
+export default CategoryFilterWorkoutsHistory;

@@ -1,11 +1,12 @@
 import { Link, usePage } from "@inertiajs/react";
+import TimerDisplay from "./TimerDisplay";
 
 function Navbar() {
     const { url } = usePage();
     const isDashboard = url === "/" || url === "/dashboard";
 
     return (
-        <nav className="fixed top-0 left-0 right-0 bg-black/40 backdrop-blur-xl border-b border-white/5 z-[100] shadow-2xl shadow-black/50">
+        <nav className="fixed top-0 left-0 right-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-xl border-b border-white/[0.05] z-[100]">
             <div className="max-w-md mx-auto flex justify-between items-center px-6 py-5">
                 {/* LOGO COM GLOW AZUL */}
                 <Link href="/" className="group flex items-center gap-1">
@@ -16,7 +17,7 @@ function Navbar() {
                         </span>
                     </span>
                 </Link>
-
+                <TimerDisplay />
                 {/* ICON DE NAVEGAÇÃO GLASS */}
                 <div className="flex items-center">
                     <Link

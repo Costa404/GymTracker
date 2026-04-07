@@ -5,40 +5,44 @@ use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\WorkoutSessionController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
+// Forçar HTTPS se necessário
 if (request()->isSecure() || str_contains(request()->getHost(), 'ngrok')) {
     \Illuminate\Support\Facades\URL::forceScheme('https');
 }
 
-// 1. DASHBOARD ()
+// 1. DASHBOARD
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
-// 2. WORKOUT SETUP
-
+// 2. GESTÃO DE TREINOS (History, Setup, Start)
 Route::controller(WorkoutController::class)->group(function () {
-    Route::get('/workouts', 'index')->name('workouts.index');
+    // Nota: Mudei para /workouts/history para não colidir com o setup
+    Route::get('/workouts/history', 'WorkoutsHistory')->name('workouts.history');
     Route::get('/workouts/setup', 'setup')->name('workouts.setup');
     Route::post('/workouts/start', 'start')->name('workouts.start');
-
-    Route::get('/workouts', [WorkoutController::class, 'PastWorkouts'])->name('workouts.index');
 });
-// 3. SESSÃO ATIVA
+
+// 3. SESSÃO ATIVA (Treino em curso)
 Route::prefix('workouts/{workout}')->controller(WorkoutSessionController::class)->group(function () {
     Route::get('/', 'show')->name('workouts.show');
+
+    // MUDA DE '/session' PARA '/workoutSession'
     Route::get('/workoutSession', 'run')->name('workouts.workoutSession');
+
     Route::post('/apply-template/{template}', 'applyTemplate')->name('workouts.apply-template');
-    Route::post('/finish', 'finish')->name('workouts.finish');
+
 });
-
-Route::post('/workouts/finish/{workout}', [WorkoutSessionController::class, 'finish'])->name('workouts.finish');
-
-Route::get('/exercises/{exercise}', [ExerciseController::class, 'ExerciseDisplay'])
-    ->name('exercises.ExerciseDisplay');
-
-// NOVA ROTA para o Histórico (o botão Verde Glass que criámos)
-Route::get('/exercises/{exercise}/ExerciseHistory', [ExerciseController::class, 'ExerciseHistory'])
-    ->name('exercises.ExerciseHistory');
-
 Route::post('/workouts/finish/{workout}', [WorkoutController::class, 'finish'])->name('workouts.finish');
+
+// 4. EXERCÍCIOS (Display & History)
+Route::controller(ExerciseController::class)->group(function () {
+    // Visualização geral do exercício
+    Route::get('/exercises/{exercise}', 'ExerciseDisplay')->name('exercises.ExerciseDisplay');
+
+    // Contexto específico de um treino (Registo de Stats)
+    Route::get('/workout/{workout}/exercise/{exercise}', 'ExerciseDisplay')->name('exercises.workout.display');
+
+    // Histórico específico do exercício (O botão verde/glass)
+    Route::get('/workout/{workout}/exercise/{exercise}/history', 'ExerciseHistory')->name('exercises.ExerciseHistory');
+});

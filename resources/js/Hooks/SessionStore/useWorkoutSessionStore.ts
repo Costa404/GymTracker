@@ -9,14 +9,20 @@ import { SessionStore } from "@/types";
 // Podes usar os tipos que já tens no @/types ou definir aqui para ser mais rápido
 
 // 2. Passa o tipo <SessionStore> para o create
-const useWorkoutSessionStore = create<SessionStore>()(
+export const useWorkoutSessionStore = create<SessionStore>()(
     persist(
         (set, get) => ({
             ...createTimerSlice(set, get),
             ...createExerciseSlice(set, get),
         }),
-        { name: "active-workout-session" },
+        {
+            name: "active-workout-session",
+            partialize: (state) => ({
+                activeSessionId: state.activeSessionId,
+                sessionExercises: state.sessionExercises,
+                startTime: state.startTime, // ← persiste o startTime
+                elapsedSeconds: state.elapsedSeconds,
+            }),
+        },
     ),
 );
-
-export default useWorkoutSessionStore;

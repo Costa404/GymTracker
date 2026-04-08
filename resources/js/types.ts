@@ -45,7 +45,6 @@ export interface SessionStore {
     ) => void;
     finishSession: () => void;
 }
-
 export interface WorkoutState {
     selectedIndex: number;
     templates: Template[];

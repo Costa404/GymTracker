@@ -1,27 +1,25 @@
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { useEffect } from "react";
 import SessionExercisePicker from "./Components/SessionExercisePicker";
-import GlassBtn from "@/Components/Shared/GlassBtn"; // Importamos o novo componente
 
-import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
 import useFilteredExercises from "@/Hooks/useFilteredExercises";
 import ActiveExercisesInSession from "@/Pages/Workouts/Components/ActiveExercisesInSession";
+import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
 const WorkoutSession = ({ workout, workoutData, exercises }) => {
-    const { startSession } = useWorkoutSessionStore();
+    const startSession = useWorkoutSessionStore((s) => s.startSession);
+    const sessionExercises = useWorkoutSessionStore((s) => s.sessionExercises);
 
     const filteredLibrary = useFilteredExercises(
         exercises,
         workoutData,
         workout.name,
     );
-
+    console.log("ola");
     useEffect(() => {
         startSession(workout.id);
     }, [workout.id]);
-
     // No teu WorkoutSession.jsx
-    const { sessionExercises } = useWorkoutSessionStore();
 
     // Obtemos apenas os IDs dos exercícios que já estão ativos
     const activeIds = sessionExercises.map((item) => item.exercise_id);
@@ -35,26 +33,52 @@ const WorkoutSession = ({ workout, workoutData, exercises }) => {
         <div className="max-w-md mx-auto  px-4 pb-48 text-left">
             <Head title={`War Room | ${workout.name}`} />
 
-            <header className="mb-6 flex justify-between items-end">
-                <div>
-                    <h1 className="text-white text-xl font-black uppercase tracking-tighter leading-none">
+            <header className="mb-4 flex justify-between items-start">
+                <div className="flex-1">
+                    {/* Título com data em destaque técnico */}
+                    <h1 className="text-white text-2xl font-black uppercase tracking-tighter leading-none mb-2">
                         {workout.name}
                     </h1>
-                    <div className="flex items-center gap-1.5 mt-1">
-                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                        <p className="text-[8px] text-zinc-500 font-bold uppercase tracking-[0.2em]">
-                            Live Session
-                        </p>
+
+                    {/* Badge de Status: Emerald para "Live" é o padrão técnico */}
+                    <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-md">
+                            <span className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_5px_rgba(16,185,129,0.5)]" />
+                            <p className="text-[7px] text-emerald-500 font-black uppercase tracking-[0.2em]">
+                                Active Session
+                            </p>
+                        </div>
+                        {/* Opcional: ID da Sessão pequeno ao lado */}
+                        <span className="text-[7px] text-zinc-600 font-bold uppercase tracking-widest">
+                            Ref: #15
+                        </span>
                     </div>
                 </div>
 
-                <GlassBtn
+                {/* CONSOLE: Substitui o antigo "Setup" */}
+                <Link
                     href="/workouts/setup"
-                    variant="zinc"
-                    className="px-3 py-1.5 text-[10px]"
+                    className="flex flex-col items-end gap-1.5 group transition-all"
                 >
-                    Setup
-                </GlassBtn>
+                    <div className="p-2.5 bg-zinc-900/50  border border-zinc-800 rounded-xl group-active:border-blue-500/50 group-active:bg-blue-500/5 transition-all shadow-inner">
+                        <svg
+                            className="w-4 h-4 text-zinc-500 group-hover:text-blue-400 transition-colors"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                            />
+                        </svg>
+                    </div>
+                    <span className="text-[7px] text-zinc-500 font-bold uppercase tracking-[0.3em] group-hover:text-zinc-300 transition-colors">
+                        Console
+                    </span>
+                </Link>
             </header>
 
             {/* PARTE DE CIMA: ZUSTAND */}

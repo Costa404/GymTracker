@@ -6,11 +6,12 @@ interface Props {
 
 const CategoryFilterWorkoutsHistory = ({ currentType }: Props) => {
     const types = ["Upper Body", "Push Day", "Pull Day", "Legs Day"];
+    console.log("ola");
 
     const getStyle = (type: string | null) =>
         currentType === type
             ? "bg-blue-600 text-white border-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.4)]"
-            : "bg-white/5 text-zinc-500 border-white/10 backdrop-blur-md";
+            : "bg-white/5 text-zinc-500 border-white/10 ";
 
     return (
         <div className="flex gap-2 overflow-x-auto pb-4 mb-4 no-scrollbar -mx-4 px-4 mask-fade-edges">

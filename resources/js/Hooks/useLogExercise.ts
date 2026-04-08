@@ -1,12 +1,12 @@
 import { useState } from "react";
-import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import { useWorkoutSessionStore } from "./SessionStore/useWorkoutSessionStore";
 
 export const useLogExercise = (initialWeight = "", initialReps = "") => {
     const [weight, setWeight] = useState(initialWeight);
     const [reps, setReps] = useState(initialReps);
     const [rir, setRir] = useState("");
 
-    const { addSet } = useWorkoutSessionStore();
+    const addSet = useWorkoutSessionStore((s) => s.addSet);
 
     const saveLocally = (exerciseId: number) => {
         if (!weight || !reps) {

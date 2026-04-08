@@ -1,45 +1,47 @@
 import { Head } from "@inertiajs/react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useLogExercise } from "@/Hooks/useLogExercise";
-import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
-
-// Componentes Modulares
-import { LogHeader } from "./Components/LogHeader";
 import { LogSetList } from "./Components/LogSetList";
 import { RirSelector } from "./Components/RirSelector";
 import { InputGroup } from "./Components/InputGroup";
+import LogHeader from "./Components/LogHeader";
+import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
 const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
     const { weight, setWeight, reps, setReps, rir, setRir, saveLocally } =
         useLogExercise();
     const [saved, setSaved] = useState(false);
 
-    // Validação: Botão só ativa se houver peso e reps
-    const isInvalid = !weight || !reps || weight === "0" || reps === "0";
-
+    // Seletor Atómico: Importante para ignorar o timer global
     const currentExercise = useWorkoutSessionStore((s) =>
         s.sessionExercises.find((ex) => ex.exercise_id === exercise.id),
     );
 
+    const isInvalid = !weight || !reps || weight === "0" || reps === "0";
+
     const handleAction = (e: React.FormEvent) => {
         e.preventDefault();
         if (isInvalid) return;
-        console.log(
-            "DEBUG - Store após saveLocally:",
-            useWorkoutSessionStore.getState().sessionExercises,
-        );
         saveLocally(exercise.id);
         setSaved(true);
         setTimeout(() => setSaved(false), 1500);
     };
 
+    // LOG: Agora só deve aparecer quando alteras o formulário, não a cada segundo
+    console.log("LOG: [ExerciseDisplay] Render.");
+
     return (
-        /* Div principal transparente para deixar a imagem do MainLayout aparecer */
-        <div className="min-h-screen text-white p-6 font-sans relative overflow-hidden">
+        <div className="min-h-screen text-white font-sans relative overflow-hidden px-4">
             <Head title={`Log | ${exercise.name}`} />
 
-            {/* Brilho Ciano centralizado para dar profundidade ao vidro */}
-            <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[40%] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none z-0" />
+            {/* GLOW DE FUNDO: Substituímos o blur dinâmico por um gradiente radial simples */}
+            <div
+                className="absolute top-[-5%] left-[-5%] w-[50%] h-[30%] pointer-events-none z-0 opacity-40"
+                style={{
+                    background:
+                        "radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%)",
+                }}
+            />
 
             <div className="relative z-10 max-w-lg mx-auto">
                 <LogHeader
@@ -49,10 +51,10 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
                     workoutId={workout.id}
                 />
 
-                {/* FORM COM A COR AZUL GLASS DA IMAGEM */}
+                {/* FORMULÁRIO: Removido o backdrop-blur, usamos uma cor sólida profunda */}
                 <form
                     onSubmit={handleAction}
-                    className="bg-[#0a1220]/50 border border-cyan-500/20 rounded-[2.5rem] p-8 backdrop-blur-xl shadow-[0_0_50px_rgba(0,0,0,0.8)] relative overflow-hidden transition-all duration-300"
+                    className="bg-[#0c1425] border border-cyan-500/20 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden"
                 >
                     <div className="grid grid-cols-2 gap-8 relative z-10">
                         <InputGroup
@@ -60,29 +62,31 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
                             value={weight}
                             onChange={setWeight}
                             suffix="KG"
-                            lastSets={lastWeights} // Passa o array de pesos
+                            lastSets={lastWeights}
                         />
                         <InputGroup
                             label="Reps"
                             value={reps}
                             onChange={setReps}
-                            lastSets={lastReps} // Passa o array de reps
+                            lastSets={lastReps}
                         />
                     </div>
+
                     <div className="relative z-10 mt-2">
                         <RirSelector currentRir={rir} onSelect={setRir} />
                     </div>
-                    {/* BOTÃO ESTILO COMMAND CENTER */}
+
+                    {/* BOTÃO SAVE: Removido o pulse e sombras pesadas */}
                     <button
                         type="submit"
                         disabled={isInvalid || saved}
-                        className={`w-full mt-4 py-6 rounded-2xl font-black uppercase italic text-[12px] tracking-[0.4em] transition-all duration-500 shadow-2xl relative overflow-hidden group
+                        className={`w-full mt-6 py-6 rounded-2xl font-black uppercase italic text-[11px] tracking-[0.4em] transition-all duration-300 relative overflow-hidden group
                             ${
                                 saved
-                                    ? "bg-emerald-500 text-black shadow-emerald-500/50 scale-[0.97]"
+                                    ? "bg-emerald-500 text-black scale-[0.98]"
                                     : isInvalid
-                                      ? "bg-white/5 border-white/5 text-zinc-700 cursor-not-allowed opacity-50"
-                                      : "bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 backdrop-blur-md hover:bg-cyan-500/20 shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+                                      ? "bg-zinc-900 border-zinc-800 text-zinc-700 cursor-not-allowed"
+                                      : "bg-cyan-500/10 border border-cyan-500/40 text-cyan-400 active:bg-cyan-500/30"
                             }`}
                     >
                         <span className="relative z-10">
@@ -93,12 +97,14 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
                                   : "Save Set"}
                         </span>
 
+                        {/* Efeito de brilho ao passar (CSS puro, muito leve) */}
                         {!saved && !isInvalid && (
-                            <div className="absolute inset-0 bg-gradient-to-r   from-transparent via-cyan-500/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent translate-x-[-100%] group-active:translate-x-[100%] transition-transform duration-500" />
                         )}
                     </button>
                 </form>
 
+                {/* LISTA DE SÉRIES: Garante que o LogSetList também é "lite" */}
                 <LogSetList sets={currentExercise?.sets || []} />
             </div>
         </div>

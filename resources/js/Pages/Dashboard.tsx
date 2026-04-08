@@ -2,6 +2,7 @@ import GlassBtn from "@/Components/Shared/GlassBtn";
 import { Head } from "@inertiajs/react";
 
 const Dashboard = () => {
+    console.log("ola");
     return (
         <>
             <Head title="Command Center" />

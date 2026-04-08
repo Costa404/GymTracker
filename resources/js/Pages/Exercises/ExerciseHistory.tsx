@@ -1,94 +1,108 @@
 import { Head, Link } from "@inertiajs/react";
-import { LogHeader } from "./Components/LogHeader";
-import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
-const ExerciseHistory = ({ exercise, ExerciseHistory, workout_name }: any) => {
-    // Simulação: Se a DB estiver vazia, o 'ExerciseHistory' será um array vazio []
-    const hasExerciseHistory = ExerciseHistory && ExerciseHistory.length > 0;
+import { useEffect, useMemo } from "react";
+import LogHeader from "./Components/LogHeader";
+import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
-    const { sessionExercises } = useWorkoutSessionStore();
+const ExerciseHistory = ({
+    exercise,
+    workout,
+    history = [],
+    workout_name,
+}: any) => {
+    // DEBUG 1: Monitorizar se o componente está a re-renderizar em loop
+    console.log("LOG: [ExerciseHistory] Renderizou agora.");
 
-    // DEBUG 1: O que está no Store neste momento?
-    console.log("DEBUG - Zustand sessionExercises:", sessionExercises);
-
-    const activeItems = sessionExercises.filter(
-        (ex) => ex.sets && ex.sets.length > 0,
+    // Pegamos no Store mas apenas no que precisamos (Selector)
+    // Isto evita que o componente re-renderize por causa do TIMER da Navbar
+    const sessionExercises = useWorkoutSessionStore(
+        (state) => state.sessionExercises,
     );
 
-    // DEBUG 2: O filtro de séries está a deixar passar alguma coisa?
-    console.log("DEBUG - Active Items após filtro:", activeItems);
-    // DEBUG 2: O filtro de séries está a deixar passar alguma coisa?
-    console.log("DEBUG - Active Items após filtro:", activeItems);
+    useEffect(() => {
+        console.log(
+            "DEBUG - Zustand sessionExercises mudou:",
+            sessionExercises,
+        );
+    }, [sessionExercises]);
+
+    // UseMemo para evitar cálculos pesados e re-renders inúteis
+    const hasHistory = useMemo(() => history && history.length > 0, [history]);
+
     return (
-        <div className="min-h-screen text-white p-6 font-sans relative overflow-hidden">
-            <Head title={`ExerciseHistory | ${exercise.name}`} />
+        <div className="min-h-screen bg-black text-white p-6 font-sans relative overflow-hidden">
+            <Head title={`Archive | ${exercise.name}`} />
 
             {/* Efeito de Brilho Verde (Emerald) para o Histórico */}
-            <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[40%] bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none z-0" />
+            <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[40%] bg-emerald-500/5  rounded-full pointer-events-none z-0" />
 
             <div className="relative z-10 max-w-lg mx-auto">
                 <LogHeader
                     exerciseName={exercise.name}
                     exerciseId={exercise.id}
-                    workoutName={workout_name}
-                    workoutId={null}
+                    workoutName={workout_name || workout?.name}
+                    workoutId={workout?.id}
                     showHistoryButton={false}
                 />
 
-                <div className="space-y-6">
-                    {hasExerciseHistory ? (
-                        ExerciseHistory.map((log: any, index: number) => (
+                <div className="space-y-6 mt-8">
+                    {hasHistory ? (
+                        history.map((log: any, index: number) => (
                             <div
-                                key={index}
-                                className="bg-[#0a1220]/40 border border-emerald-500/20 rounded-[2rem] p-6 backdrop-blur-xl shadow-xl flex justify-between items-center group hover:border-emerald-500/40 transition-all"
+                                key={log.id || index}
+                                className="group relative overflow-hidden rounded-[2rem] p-[1px] transition-all"
                             >
-                                <div>
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500/60 block mb-1">
-                                        {new Date(
-                                            log.created_at,
-                                        ).toLocaleDateString("pt-PT")}
-                                    </span>
-                                    <div className="flex items-baseline gap-2">
-                                        <span className="text-3xl font-black italic">
-                                            {log.weight}
+                                {/* Borda Glass Emerald Permanente */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-white/5 to-transparent" />
+
+                                <div className="relative bg-zinc-950/80 -xl rounded-[2rem] p-6 flex justify-between items-center shadow-2xl">
+                                    <div className="flex flex-col gap-2">
+                                        <span className="text-[8px] font-black uppercase tracking-[0.4em] text-emerald-500/60 block">
+                                            {log.created_at
+                                                ? new Date(
+                                                      log.created_at,
+                                                  ).toLocaleDateString("pt-PT")
+                                                : "MISSION DATA"}
                                         </span>
-                                        <span className="text-xs font-black text-emerald-400 uppercase">
-                                            KG
-                                        </span>
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-4xl font-black italic tracking-tighter text-white">
+                                                {log.weight}
+                                            </span>
+                                            <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">
+                                                KG
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="text-right font-black italic">
-                                    <span className="text-2xl text-white/90">
-                                        {log.reps}
-                                    </span>
-                                    <span className="text-[10px] text-zinc-500 uppercase ml-1">
-                                        Reps
-                                    </span>
+
+                                    <div className="flex items-center gap-4">
+                                        <div className="h-10 w-[1px] bg-zinc-800/50" />
+                                        <div className="text-right">
+                                            <div className="flex items-baseline justify-end gap-1.5">
+                                                <span className="text-2xl font-black italic text-white/90">
+                                                    {log.reps}
+                                                </span>
+                                                <span className="text-[8px] text-zinc-500 font-bold uppercase tracking-widest">
+                                                    Reps
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         ))
                     ) : (
-                        /* ESTADO VAZIO (SIMULAÇÃO) */
-                        <div className="bg-[#0a1220]/60 border border-dashed border-white/10 rounded-[2.5rem] p-16 backdrop-blur-3xl flex flex-col items-center justify-center text-center space-y-4">
-                            <div className="w-20 h-20 rounded-full bg-emerald-500/5 border border-emerald-500/20 flex items-center justify-center animate-pulse">
-                                <span className="text-3xl opacity-40">📈</span>
+                        /* EMPTY STATE TÉCNICO */
+                        <div className="border border-dashed border-zinc-800 rounded-[2.5rem] p-16 flex flex-col items-center justify-center text-center">
+                            <div className="w-16 h-16 rounded-full bg-emerald-500/5 border border-emerald-500/10 flex items-center justify-center mb-6 animate-pulse">
+                                <span className="text-2xl opacity-20">📡</span>
                             </div>
-                            <div>
-                                <h3 className="text-sm font-black uppercase tracking-[0.3em] text-white/80">
-                                    No Data Detected
-                                </h3>
-                                <p className="text-[10px] text-zinc-600 font-black italic uppercase mt-2 tracking-widest leading-relaxed">
-                                    System standby. <br />
-                                    Complete your first set to sync performance.
-                                </p>
-                            </div>
-
-                            <Link
-                                href={`/exercises/${exercise.id}?workout_id=${1}`} // Exemplo
-                                className="mt-4 px-8 py-3 bg-white/5 border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-emerald-500/20 hover:border-emerald-500/40 transition-all"
-                            >
-                                Start Training
-                            </Link>
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-600">
+                                No Logs Found
+                            </h3>
+                            <p className="text-[8px] text-zinc-700 font-bold uppercase mt-3 tracking-[0.2em] leading-relaxed">
+                                Archive is empty. <br />
+                                Execute a session to sync log data.
+                            </p>
                         </div>
                     )}
                 </div>

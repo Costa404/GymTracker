@@ -4,6 +4,7 @@ import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createRoot } from "react-dom/client";
 import MainLayout from "@/Layouts/MainLayout";
+import { route } from "ziggy-js"; // 1. Importa a função do Ziggy
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -21,6 +22,7 @@ createInertiaApp({
         return page;
     },
     setup({ el, App, props }) {
+        window.route = route;
         const root = createRoot(el);
         root.render(<App {...props} />);
     },

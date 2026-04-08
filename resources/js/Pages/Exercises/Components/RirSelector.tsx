@@ -38,7 +38,7 @@ export const RirSelector = ({
     currentRir: string;
     onSelect: (v: string) => void;
 }) => (
-    <div className="mt-4 flex items-center gap-4 bg-black/20 border border-white/5 p-1 rounded-xl backdrop-blur-md">
+    <div className="mt-4 flex items-center gap-4 bg-black/20 border border-white/5 p-1 rounded-xl ">
         {/* Label lateral fixa para poupar altura vertical */}
         <div className="pl-2 pr-1 border-r border-white/5">
             <label className="text-[7px] font-black uppercase text-zinc-600 tracking-widest italic leading-none block">

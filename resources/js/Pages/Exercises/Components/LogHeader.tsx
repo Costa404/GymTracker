@@ -1,8 +1,8 @@
 import { Link } from "@inertiajs/react";
+import { memo } from "react";
 
-// Removi o TypeScript (interface) se estiveres a usar JS puro,
-// ou podes manter se o teu projeto for TS.
-export const LogHeader = ({
+// 1. Definimos o componente numa constante normal
+const LogHeader = ({
     exerciseName,
     workoutName,
     exerciseId,
@@ -11,19 +11,20 @@ export const LogHeader = ({
 }) => {
     const handleBack = (e) => {
         e.preventDefault();
-        window.history.back();
+        // Se houver um workoutId, voltamos para a sessão, senão history back
+        if (window.history.length > 1) {
+            window.history.back();
+        }
     };
 
     return (
         <header className="mb-6 flex flex-col items-center px-1 relative z-10 w-full">
             <div className="flex justify-between w-full items-center">
                 <div className="flex flex-col gap-2 items-start">
-                    {" "}
-                    {/* Removi o w-[80px] e usei flex-col */}
                     {showHistoryButton ? (
                         <Link
                             href={`/workout/${workoutId}/exercise/${exerciseId}/history`}
-                            className="group relative h-[32px] px-3 flex items-center justify-center bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-xl rounded-xl text-[8px] font-black uppercase tracking-widest text-emerald-400 hover:bg-emerald-500/20 transition-all"
+                            className="group relative h-[32px] px-3 flex items-center justify-center bg-emerald-500/10 border border-emerald-500/20 -xl rounded-xl text-[8px] font-black uppercase tracking-widest text-emerald-400 hover:bg-emerald-500/20 transition-all"
                         >
                             <span className="flex items-center gap-1">
                                 <span className="text-[10px]">📈</span>
@@ -42,9 +43,10 @@ export const LogHeader = ({
                     )}
                 </div>
 
+                {/* Botão Back - Mudei para Zinc/Ciano para não confundir com "Perigo" */}
                 <button
                     onClick={handleBack}
-                    className="h-[32px] w-[80px] flex items-center justify-center bg-red-500/10 border border-red-500/30 backdrop-blur-xl rounded-xl text-[9px] font-black uppercase tracking-widest text-red-500 hover:bg-red-500/20 hover:border-red-500/50 hover:text-red-400 transition-all duration-300 shadow-[0_0_20px_rgba(239,68,68,0.1)]"
+                    className="h-[32px] w-[80px] flex items-center justify-center bg-zinc-900/50 border border-zinc-800 -xl rounded-xl text-[9px] font-black uppercase tracking-widest text-zinc-400 hover:text-white hover:border-zinc-500 transition-all duration-300"
                 >
                     Back
                 </button>
@@ -59,3 +61,5 @@ export const LogHeader = ({
         </header>
     );
 };
+
+export default LogHeader; // ← Adiciona esta linha

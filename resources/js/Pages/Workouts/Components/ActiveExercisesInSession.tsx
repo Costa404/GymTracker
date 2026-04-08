@@ -1,6 +1,7 @@
 // Components/ActiveExercisesInSession.tsx
-import ActiveExerciseCard from "./SessionExerciseCard";
-import useWorkoutSessionStore from "@/Hooks/SessionStore/useWorkoutSessionStore";
+
+import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import SessionExerciseCard from "./SessionExerciseCard";
 
 interface ActiveExercisesInSessionProps {
     workoutId: number;
@@ -11,7 +12,7 @@ const ActiveExercisesInSession = ({
     workoutId,
     exercises,
 }: ActiveExercisesInSessionProps) => {
-    const { sessionExercises } = useWorkoutSessionStore();
+    const sessionExercises = useWorkoutSessionStore((s) => s.sessionExercises);
 
     // Filtramos exercícios que já tenham pelo menos uma série gravada
     // Ou que o utilizador acabou de selecionar (dependendo da tua lógica de 'active')
@@ -23,6 +24,8 @@ const ActiveExercisesInSession = ({
     if (activeItems.length === 0) {
         return null;
     }
+
+    console.log("ola");
 
     return (
         <section className="mb-6 animate-in fade-in slide-in-from-top-2 duration-500">
@@ -43,7 +46,7 @@ const ActiveExercisesInSession = ({
                     );
 
                     return (
-                        <ActiveExerciseCard
+                        <SessionExerciseCard
                             key={item.exercise_id}
                             name={exerciseInfo?.name || "Unknown Exercise"}
                             setsCount={item.sets.length}

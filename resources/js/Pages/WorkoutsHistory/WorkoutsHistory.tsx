@@ -10,6 +10,7 @@ interface Props {
 }
 
 const WorkoutsHistory = ({ workouts, filters }: Props) => {
+    console.log("ola");
     return (
         <div className="max-w-md mx-auto pt-4 px-4 pb-20">
             <Head title="Past Workouts" />

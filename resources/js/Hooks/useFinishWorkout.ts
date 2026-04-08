@@ -1,0 +1,32 @@
+import { router } from "@inertiajs/react";
+import { useShallow } from "zustand/react/shallow";
+import { useWorkoutSessionStore } from "./SessionStore/useWorkoutSessionStore";
+
+export const useFinishWorkout = () => {
+    const { activeSessionId, sessionExercises, finishSession } =
+        useWorkoutSessionStore(
+            useShallow((s) => ({
+                activeSessionId: s.activeSessionId,
+                sessionExercises: s.sessionExercises,
+                finishSession: s.finishSession,
+            })),
+        );
+
+    const finishWorkout = () => {
+        if (!confirm("End Workout?")) return;
+        console.log("exercises:", sessionExercises);
+        // EM VEZ DE: `/workouts/finish/${activeSessionId}`
+        // USAMOS O NOME DA ROTA:
+        console.log(route("workouts.finish", { workout: activeSessionId }));
+        router.post(
+            route("workouts.finish", { workout: activeSessionId }),
+            { exercises: sessionExercises },
+            {
+                onSuccess: () => finishSession(),
+                onError: (err) => console.error(err),
+            },
+        );
+    };
+
+    return { finishWorkout };
+};

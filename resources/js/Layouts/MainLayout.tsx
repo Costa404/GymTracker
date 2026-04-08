@@ -17,7 +17,7 @@ function MainLayout({ children }) {
                 </div>
             </div>
 
-            <main className="relative z-10 min-h-screen pt-20 no-scrollbar overflow-y-auto">
+            <main className="relative z-10 min-h-screen pt-16 no-scrollbar overflow-y-auto">
                 {children}
             </main>
 

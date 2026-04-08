@@ -21,6 +21,6 @@ class Workout extends Model
      */
     public function logs()
     {
-        return $this->hasMany(ExerciseLog::class);
+        return $this->hasMany(WorkoutLog::class);
     }
 }

@@ -11,7 +11,7 @@ export const useFinishWorkout = () => {
                 finishSession: s.finishSession,
             })),
         );
-
+    console.log("URL:", route("workouts.finish", { workout: activeSessionId }));
     const finishWorkout = () => {
         if (!confirm("End Workout?")) return;
         console.log("exercises:", sessionExercises);

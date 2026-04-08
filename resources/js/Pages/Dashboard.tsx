@@ -1,8 +1,11 @@
 import GlassBtn from "@/Components/Shared/GlassBtn";
+import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 import { Head } from "@inertiajs/react";
 
 const Dashboard = () => {
-    console.log("ola");
+    // useWorkoutSessionStore.getState().finishSession();
+    // localStorage.clear();
+    // location.reload();
     return (
         <>
             <Head title="Command Center" />

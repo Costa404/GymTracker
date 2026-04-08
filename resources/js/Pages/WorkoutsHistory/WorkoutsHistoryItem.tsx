@@ -7,7 +7,6 @@ interface Workout {
 }
 
 const WorkoutsHistoryItem = ({ workout }: { workout: Workout }) => {
-    console.log("ola");
     return (
         <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#252525] flex justify-between items-center active:scale-[0.98] transition-all">
             <div>

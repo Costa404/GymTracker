@@ -25,8 +25,6 @@ const ActiveExercisesInSession = ({
         return null;
     }
 
-    console.log("ola");
-
     return (
         <section className="mb-6 animate-in fade-in slide-in-from-top-2 duration-500">
             {/* Header da Secção mais compacto */}

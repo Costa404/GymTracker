@@ -15,7 +15,6 @@ const WorkoutSession = ({ workout, workoutData, exercises }) => {
         workoutData,
         workout.name,
     );
-    console.log("ola");
     useEffect(() => {
         startSession(workout.id);
     }, [workout.id]);

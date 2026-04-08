@@ -4,20 +4,25 @@ import useWorkoutStore from "@/Hooks/useWorkoutStore";
 import GlassBtn from "@/Components/Shared/GlassBtn";
 import ActiveSessionDecider from "./ActiveSessionDecider";
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import { useShallow } from "zustand/react/shallow";
 
 const WorkoutSetup = ({ templates }) => {
     const { selectedIndex, next, prev, handleStart, setTemplates } =
-        useWorkoutStore();
+        useWorkoutStore(
+            useShallow((s) => ({
+                selectedIndex: s.selectedIndex,
+                next: s.next,
+                prev: s.prev,
+                handleStart: s.handleStart,
+                setTemplates: s.setTemplates,
+            })),
+        );
 
-    // Seletor atómico: Este componente agora ignora o Timer completamente
     const activeSessionId = useWorkoutSessionStore((s) => s.activeSessionId);
 
     useEffect(() => {
         setTemplates(templates);
     }, [templates]);
-
-    // O "ola" agora só deve aparecer se mudares o template (selectedIndex)
-    console.log("LOG: [WorkoutSetup] Render.");
 
     const currentTemplate = useMemo(
         () => templates[selectedIndex] || {},

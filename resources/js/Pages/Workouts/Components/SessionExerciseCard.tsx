@@ -2,7 +2,6 @@ import { Link } from "@inertiajs/react";
 import { HiChevronRight } from "react-icons/hi";
 
 const SessionExerciseCard = ({ name, setsCount, exerciseId, workoutId }) => {
-    console.log("ola");
     return (
         <Link
             href={`/workout/${workoutId}/exercise/${exerciseId}`}

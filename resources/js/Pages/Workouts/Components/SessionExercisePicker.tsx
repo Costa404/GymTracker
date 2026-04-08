@@ -2,7 +2,6 @@ import { Link } from "@inertiajs/react";
 import { HiPlus } from "react-icons/hi";
 
 const SessionExercisePicker = ({ exercise, workoutId }) => {
-    console.log("ola");
     return (
         <Link
             href={`/workout/${workoutId}/exercise/${exercise.id}`}

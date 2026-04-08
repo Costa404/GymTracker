@@ -10,8 +10,6 @@ const ActiveSessionDecider = () => {
     );
 
     const { finishWorkout } = useFinishWorkout();
-    console.log("ola");
-
     return (
         <div className="space-y-8 animate-in fade-in duration-300 pb-8">
             {/* PAINEL STATUS */}

@@ -48,11 +48,14 @@ class WorkoutSessionController extends Controller
                     'rir' => $setData['rir'] ?? null,
                     'set_number' => $index + 1,
                     'type' => 'normal',
+
                 ]);
             }
         }
 
-        $workout->update(['completed_at' => now()]);
+        $workout->update(['completed_at' => now(),  'duration_seconds' => $request->input('duration_seconds'),]);
+
+
 
         return redirect()->route('workouts.setup');
     }

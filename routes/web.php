@@ -45,5 +45,6 @@ Route::controller(ExerciseController::class)->group(function () {
     Route::get('/workout/{workout}/exercise/{exercise}', 'ExerciseDisplay')->name('exercises.workout.display');
 
     // Histórico (Botão Verde)
-    Route::get('/workout/{workout}/exercise/{exercise}/history', 'ExerciseHistory')->name('exercises.ExerciseHistory');
+    Route::get('/workout/{workout}/exercise/{exercise}/history', 'ExerciseHistory')
+        ->name('exercises.ExerciseHistory');
 });

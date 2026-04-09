@@ -4,7 +4,7 @@ import { useLogExercise } from "@/Hooks/useLogExercise";
 import { LogSetList } from "./Components/LogSetList";
 import { RirSelector } from "./Components/RirSelector";
 import { InputGroup } from "./Components/InputGroup";
-import LogHeader from "./Components/LogHeader";
+import ExercisesHeader from "./Components/ExercisesHeader";
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
 const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
@@ -44,7 +44,7 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
             />
 
             <div className="relative z-10 max-w-lg mx-auto">
-                <LogHeader
+                <ExercisesHeader
                     exerciseName={exercise.name}
                     workoutName={workout.name}
                     exerciseId={exercise.id}

@@ -32,6 +32,8 @@ const GlassBtn = ({
 
         // OPÇÃO 3: Glass White (Vidro Fosco claro)
         white: "bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:text-white/90",
+        // Dentro do objeto variants no GlassBtn.tsx
+        green: "bg-emerald-600/10 text-emerald-500 border-emerald-500/30 hover:bg-emerald-600/20 shadow-xl shadow-emerald-500/5",
     };
 
     const combinedStyle = `${baseStyle} ${variants[variant]} ${className}`;

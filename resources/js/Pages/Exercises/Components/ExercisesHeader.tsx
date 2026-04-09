@@ -1,17 +1,13 @@
-import { Link } from "@inertiajs/react";
-import { memo } from "react";
+import GlassBtn from "@/Components/Shared/GlassBtn";
 
-// 1. Definimos o componente numa constante normal
-const LogHeader = ({
+const ExercisesHeader = ({
     exerciseName,
     workoutName,
     exerciseId,
     workoutId,
     showHistoryButton = true,
 }) => {
-    const handleBack = (e) => {
-        e.preventDefault();
-        // Se houver um workoutId, voltamos para a sessão, senão history back
+    const handleBack = () => {
         if (window.history.length > 1) {
             window.history.back();
         }
@@ -22,15 +18,16 @@ const LogHeader = ({
             <div className="flex justify-between w-full items-center">
                 <div className="flex flex-col gap-2 items-start">
                     {showHistoryButton ? (
-                        <Link
+                        <GlassBtn
                             href={`/workout/${workoutId}/exercise/${exerciseId}/history`}
-                            className="group relative h-[32px] px-3 flex items-center justify-center bg-emerald-500/10 border border-emerald-500/20 -xl rounded-xl text-[8px] font-black uppercase tracking-widest text-emerald-400 hover:bg-emerald-500/20 transition-all"
+                            variant="green"
+                            className="h-[32px] px-3 text-[8px] text-emerald-400 border-emerald-500/20 bg-emerald-500/10 hover:bg-emerald-500/20"
                         >
                             <span className="flex items-center gap-1">
                                 <span className="text-[10px]">📈</span>
                                 <span>History</span>
                             </span>
-                        </Link>
+                        </GlassBtn>
                     ) : (
                         <div className="flex flex-col leading-none">
                             <span className="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-600">
@@ -43,13 +40,13 @@ const LogHeader = ({
                     )}
                 </div>
 
-                {/* Botão Back - Mudei para Zinc/Ciano para não confundir com "Perigo" */}
-                <button
+                <GlassBtn
                     onClick={handleBack}
-                    className="h-[32px] w-[80px] flex items-center justify-center bg-zinc-900/50 border border-zinc-800 -xl rounded-xl text-[9px] font-black uppercase tracking-widest text-zinc-400 hover:text-white hover:border-zinc-500 transition-all duration-300"
+                    variant="zinc"
+                    className="h-[32px] w-[80px] text-[9px]"
                 >
                     Back
-                </button>
+                </GlassBtn>
             </div>
 
             <div className="mt-4 flex flex-col justify-center items-center w-full px-4">
@@ -62,4 +59,4 @@ const LogHeader = ({
     );
 };
 
-export default LogHeader; // ← Adiciona esta linha
+export default ExercisesHeader;

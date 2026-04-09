@@ -13,15 +13,12 @@ class ExerciseController extends Controller
     // Agora recebes os dois objetos diretamente nos parênteses
     public function ExerciseHistory(Workout $workout, Exercise $exercise)
     {
-        // Procuramos os logs que pertencem a este EXERCÍCIO e a este TREINO
         $history = WorkoutLog::where('exercise_id', $exercise->id)
-            ->where('workout_id', $workout->id)
             ->where('user_id', 1)
-            ->with('workout') // Para teres a data, etc.
             ->latest()
             ->get();
 
-        return Inertia::render('Exercises/ExerciseHistory', [
+        return Inertia::render('Exercises/ExercisesHistory/ExerciseHistory', [
             'exercise' => $exercise,
             'workout' => $workout,
             'history' => $history

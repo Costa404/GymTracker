@@ -20,7 +20,11 @@ export const useFinishWorkout = () => {
         console.log(route("workouts.finish", { workout: activeSessionId }));
         router.post(
             route("workouts.finish", { workout: activeSessionId }),
-            { exercises: sessionExercises },
+            {
+                exercises: sessionExercises,
+                duration_seconds:
+                    useWorkoutSessionStore.getState().elapsedSeconds,
+            },
             {
                 onSuccess: () => finishSession(),
                 onError: (err) => console.error(err),

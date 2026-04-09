@@ -34,6 +34,10 @@ const GlassBtn = ({
         white: "bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:text-white/90",
         // Dentro do objeto variants no GlassBtn.tsx
         green: "bg-emerald-600/10 text-emerald-500 border-emerald-500/30 hover:bg-emerald-600/20 shadow-xl shadow-emerald-500/5",
+        fuchsia:
+            "bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/30 hover:bg-fuchsia-500/20 shadow-[0_0_20px_rgba(217,70,239,0.15)]",
+        lime: "bg-lime-400/10 text-lime-400 border-lime-400/30 hover:bg-lime-400/20 shadow-[0_0_15px_rgba(163,230,53,0.1)]",
+        cyan: "bg-cyan-500/10 text-cyan-400 border-cyan-500/40 hover:bg-cyan-500/20 hover:text-cyan-300 shadow-[0_0_20px_rgba(6,182,212,0.15)]",
     };
 
     const combinedStyle = `${baseStyle} ${variants[variant]} ${className}`;

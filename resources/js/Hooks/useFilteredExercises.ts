@@ -20,11 +20,6 @@ const useFilteredExercises = (
                 return false;
             }
 
-            // REGRA B: Filtragem por Categoria (Push/Pull/Legs)
-            if (name.includes("custom") || name.includes("manual")) {
-                return true;
-            }
-
             const muscleGroup = ex.muscle_group.toLowerCase();
             if (name.includes("legs")) return muscleGroup.includes("legs");
             if (name.includes("push")) return muscleGroup.includes("push");

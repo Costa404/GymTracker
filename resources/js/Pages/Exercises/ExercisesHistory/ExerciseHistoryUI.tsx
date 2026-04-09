@@ -10,7 +10,7 @@ export const Stat = ({ value, label, color = "text-zinc-500" }: any) => (
 
 // Componente para quando não há dados
 export const EmptyExerciseHistory = () => (
-    <div className="bg-[#0a1220]/60 border border-dashed border-white/10 rounded-[2.5rem] p-16 backdrop-blur-3xl text-center space-y-4">
+    <div className="bg-[#0a1220]/60 border border-dashed border-white/10 rounded-[2.5rem] p-16  text-center space-y-4">
         <div className="w-20 h-20 rounded-full bg-emerald-500/5 border border-emerald-500/20 flex items-center justify-center mx-auto animate-pulse">
             <span className="text-3xl opacity-40">📈</span>
         </div>

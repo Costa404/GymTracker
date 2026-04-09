@@ -14,7 +14,7 @@ function Navbar() {
                 <div className="flex items-center gap-3">
                     <div className="relative flex items-center justify-center">
                         {/* Glow azul mais focado para não "comer" o ícone */}
-                        <div className="absolute inset-0 bg-blue-500/10 blur-sm rounded-full" />
+                        <div className="absolute inset-0 bg-blue-500/10  rounded-full" />
                         <CgGym className="text-blue-500 text-lg relative z-10 drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]" />
                     </div>
 

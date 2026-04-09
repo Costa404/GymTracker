@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Exercise;
 use App\Models\Workout;
 use App\Models\WorkoutLog;
-
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ExerciseController extends Controller
@@ -49,5 +49,22 @@ class ExerciseController extends Controller
             'lastWeights' => $lastSets->pluck('weight')->toArray(),
             'lastReps' => $lastSets->pluck('reps')->toArray(),
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Exercises/Create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'muscle_group' => 'required|string',
+        ]);
+
+        Exercise::create($validated);
+
+        return redirect()->route('dashboard')->with('success', 'Exercise created!');
     }
 }

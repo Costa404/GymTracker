@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exercise;
-use App\Models\ExerciseLog;
+
 use App\Models\Workout;
+use App\Models\WorkoutLog;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -17,10 +18,10 @@ class DashboardController extends Controller
         $currentTime = now()->format('H:i');
 
         // 2. Cálculo do Volume Semanal (Soma de peso * reps dos últimos 7 dias)
-        $weeklyVolume = ExerciseLog::where('created_at', '>=', now()->subDays(7))
+        $weeklyVolume = WorkoutLog::where('created_at', '>=', now()->subDays(7))
+            // Filtramos por user se tiveres autenticação: ->where('user_id', auth()->id())
             ->select(DB::raw('SUM(weight * reps) as total'))
             ->first()->total ?? 0;
-
         // 3. Lista de Exercícios para o Quick Select
         $exercises = Exercise::all();
 

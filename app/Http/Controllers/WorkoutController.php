@@ -30,8 +30,11 @@ class WorkoutController extends Controller
         $templates = [
             ['id' => 1, 'name' => 'Push Alpha'],
             ['id' => 2, 'name' => 'Pull Heavy'],
-            ['id' => 3, 'name' => 'Legs Destruction']
+            ['id' => 3, 'name' => 'Legs Destruction'],
+            ['id' => 4, 'name' => 'Upper Destruction'],
+            ['id' => 5, 'name' => 'Full Body'],
         ];
+
 
         $active = Workout::whereNull('completed_at')->latest()->first();
 

@@ -29,7 +29,7 @@ const DetailsWorkoutsHistory = ({
                     {new Date(workout.completed_at).toLocaleDateString("pt-PT")}
                 </p>
                 {workout.duration_seconds && (
-                    <p className="text-zinc-500 text-[9px] font-bold uppercase tracking-[0.3em]">
+                    <p className="text-zinc-500 text-[9px] font-bold  tracking-[0.3em]">
                         Duration: {Math.floor(workout.duration_seconds / 60)}m{" "}
                         {workout.duration_seconds % 60}s
                     </p>

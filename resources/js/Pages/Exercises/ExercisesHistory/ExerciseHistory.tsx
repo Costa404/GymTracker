@@ -24,7 +24,7 @@ const ExerciseHistory = ({ exercise, history, workout }: any) => {
                         sortedGroups.map((group: any, idx: number) => (
                             <div
                                 key={idx}
-                                className="bg-[#0a1220]/40 border border-emerald-500/20 rounded-[2rem] p-6 backdrop-blur-xl shadow-xl"
+                                className="bg-[#0a1220]/40 border border-emerald-500/20 rounded-[2rem] p-6  shadow-xl"
                             >
                                 <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500/60 block mb-4">
                                     {formatDate(group.logs[0].created_at)}

@@ -17,7 +17,7 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
 
             <div className="relative w-full px-8 space-y-6 max-w-md mx-auto pt-4">
                 {/* BOTÕES DE ACÇÃO */}
-                <div className="space-y-4 pt-4">
+                <div className="space-y-4">
                     <GlassBtn
                         href="/workouts/setup"
                         variant="blue"
@@ -34,10 +34,10 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
                         Past Workouts
                     </GlassBtn>
 
-                    {/* Botão para Adicionar Exercício (O que planeaste antes) */}
+                    {/* Botão para Adicionar Exercício */}
                     <GlassBtn
                         href="/exercises/create"
-                        variant="cyan" // Ou uma variante mais discreta
+                        variant="cyan"
                         className="w-full py-3 opacity-60 hover:opacity-100"
                     >
                         + Create New Exercise
@@ -46,7 +46,7 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
                 {/* PAINEL DE STATUS & MÉTRICAS */}
                 <div className="grid grid-cols-2 gap-4">
                     {/* Card de Volume Semanal */}
-                    <div className="col-span-2 bg-emerald-500/[0.05] border border-emerald-500/30 rounded-[2rem] p-6 backdrop-blur-xl shadow-[0_0_50px_rgba(16,185,129,0.1)] flex flex-col items-center justify-center text-center relative overflow-hidden">
+                    <div className="col-span-2 bg-emerald-500/[0.05] border border-emerald-500/30 rounded-[2rem] p-6 shadow-[0_0_50px_rgba(16,185,129,0.1)] flex flex-col items-center justify-center text-center relative overflow-hidden">
                         {/* Um pequeno detalhe de luz no canto */}
                         <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 blur-3xl" />
 

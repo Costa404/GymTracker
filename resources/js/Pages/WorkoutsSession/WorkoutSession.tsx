@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import SessionExercisePicker from "./Components/SessionExercisePicker";
 
 import useFilteredExercises from "@/Hooks/useFilteredExercises";
-import ActiveExercisesInSession from "@/Pages/Workouts/Components/ActiveExercisesInSession";
+
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import ActiveExercisesInSession from "./Components/ActiveExercisesInSession";
 
 const WorkoutSession = ({ workout, workoutData, exercises }) => {
     const startSession = useWorkoutSessionStore((s) => s.startSession);

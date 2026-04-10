@@ -37,7 +37,7 @@ const ActiveSession = () => {
                 {/* GO TO WORKOUT (Blue Glass) */}
                 <Link
                     href={`/workouts/${activeSessionId}/workoutSession`}
-                    className="flex items-center justify-center gap-3 w-full bg-blue-500/10 backdrop-blur-lg border border-blue-500/20 hover:bg-blue-500/20 active:scale-[0.97] transition-all text-blue-100 py-6 rounded-2xl shadow-xl shadow-blue-500/5 group"
+                    className="flex items-center justify-center gap-3 w-full bg-blue-500/10  border border-blue-500/20 hover:bg-blue-500/20 active:scale-[0.97] transition-all text-blue-100 py-6 rounded-2xl shadow-xl shadow-blue-500/5 group"
                 >
                     <span className="text-base font-black uppercase italic tracking-widest text-blue-200 group-hover:text-white transition-colors">
                         GO TO WORKOUT
@@ -50,7 +50,7 @@ const ActiveSession = () => {
                 {/* FINISH WORKOUT (Intense Red Glass) */}
                 <button
                     onClick={finishWorkout}
-                    className="w-full bg-red-600/10 backdrop-blur-lg border border-red-500/30 hover:bg-red-600/20 active:scale-[0.97] transition-all py-5 rounded-2xl group shadow-xl shadow-red-500/5"
+                    className="w-full bg-red-600/10  border border-red-500/30 hover:bg-red-600/20 active:scale-[0.97] transition-all py-5 rounded-2xl group shadow-xl shadow-red-500/5"
                 >
                     <span className="text-red-500 group-hover:text-red-400 font-black uppercase text-xs italic tracking-[0.2em] transition-colors">
                         — Finish Workout —

@@ -18,7 +18,7 @@ class WorkoutSessionController extends Controller
             ->get()
             ->groupBy(fn($log) => $log->exercise->name);
 
-        return Inertia::render('Workouts/WorkoutSession', [
+        return Inertia::render('WorkoutsSession/WorkoutSession', [
             'workout' => $workout,
             'workoutData' => $workoutData,
             'exercises' => Exercise::all()

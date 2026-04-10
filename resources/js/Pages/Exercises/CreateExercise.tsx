@@ -13,7 +13,16 @@ const CreateExercise = () => {
     };
 
     // Lista de grupos musculares para o select
-    const muscleGroups = ["Chest", "Back", "Legs", "Shoulders", "Arms", "Core"];
+    const muscleGroups = [
+        "Chest",
+        "Back",
+        "Legs",
+        "Shoulders",
+        "Biceps",
+        "Triceps",
+        "Forearm",
+        "Core",
+    ];
 
     return (
         <div className="max-w-md mx-auto pt-12 px-6 min-h-screen bg-black">

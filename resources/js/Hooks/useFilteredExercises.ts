@@ -1,34 +1,44 @@
 import { useMemo } from "react";
 
-// Adicionamos activeExercises como argumento
 const useFilteredExercises = (
     exercises: any[],
     activeExercises: any[],
     workoutName: string,
 ) => {
     return useMemo(() => {
+        // Transformamos o nome do treino em minúsculas para comparar
         const name = workoutName.toLowerCase();
-
-        // 1. Criar um conjunto (Set) com os IDs dos exercícios que já estão no treino
-        // Usamos Set para uma pesquisa super rápida (Performance O(1))
         const activeIds = new Set(activeExercises.map((ex) => ex.exercise_id));
 
-        // 2. Filtrar a lista total
         return exercises.filter((ex) => {
-            // REGRA A: Já está ativo? Se sim, retira (false)
-            if (activeIds.has(ex.id)) {
-                return false;
+            if (activeIds.has(ex.id)) return false;
+
+            // A categoria na DB pode ser "Upper Push", "Upper Pull" ou "Lower"
+            const category = (ex.category || "").toLowerCase();
+
+            // Filtro para Pernas / Lower
+            if (name.includes("legs") || name.includes("lower")) {
+                return category.includes("lower");
             }
 
-            const muscleGroup = ex.muscle_group.toLowerCase();
-            if (name.includes("legs")) return muscleGroup.includes("legs");
-            if (name.includes("push")) return muscleGroup.includes("push");
-            if (name.includes("pull")) return muscleGroup.includes("pull");
-            if (name.includes("upper")) return muscleGroup.includes("upper");
+            // Filtro específico para PUSH (mostra apenas Upper Push)
+            if (name.includes("push")) {
+                return category.includes("push");
+            }
+
+            // Filtro específico para PULL (mostra apenas Upper Pull)
+            if (name.includes("pull")) {
+                return category.includes("pull");
+            }
+
+            // Filtro para UPPER geral (mostra tudo o que seja Upper Push ou Pull)
+            if (name.includes("upper")) {
+                return category.includes("upper");
+            }
 
             return true;
         });
-    }, [exercises, activeExercises, workoutName]); // Recalcula se os ativos mudarem
+    }, [exercises, activeExercises, workoutName]);
 };
 
 export default useFilteredExercises;

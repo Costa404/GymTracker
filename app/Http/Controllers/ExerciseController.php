@@ -53,7 +53,7 @@ class ExerciseController extends Controller
 
     public function create()
     {
-        return Inertia::render('Exercises/Create');
+        return Inertia::render('Exercises/CreateExercise');
     }
 
     public function store(Request $request)

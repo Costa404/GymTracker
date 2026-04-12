@@ -11,7 +11,7 @@ interface Props {
 
 const WorkoutsHistory = ({ workouts, filters }: Props) => {
     return (
-        <div className="max-w-md mx-auto pt-4 px-4 pb-20">
+        <div className="px-4 mx-auto pt-4  pb-20">
             <Head title="Past Workouts" />
 
             <h1 className="text-white font-black uppercase tracking-widest mb-8 text-center italic text-xl">

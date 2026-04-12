@@ -41,6 +41,7 @@ Route::middleware([App\Http\Middleware\CheckPin::class])->group(function () {
         Route::get('/workouts/setup', 'setup')->name('workouts.setup');
         Route::post('/workouts/start', 'start')->name('workouts.start');
         Route::get('/workouts/{workout}/history-detail', 'showHistoryDetail')->name('workouts.history.detail');
+        Route::delete('/workouts/{workout}', 'destroy')->name('workouts.destroy');
     });
 
     // 3. SESSÃO ATIVA (WorkoutSessionController)

@@ -15,14 +15,19 @@ function MainLayout({ children }) {
             {/* 2. Só mostra a imagem de fundo e o degradê se NÃO for a página do PIN */}
             {!isPinPage && (
                 <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-                    <div className="absolute bottom-0 left-0 right-0 h-[75%]">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black z-10"></div>
+                    <div className="absolute bottom-0 left-0 right-0 h-[80%]">
+                        {/* Gradiente mais dramático para fundir com o topo e fundo */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black z-10"></div>
+
                         <img
                             src="/img/gym.jpg"
-                            className="w-full h-full object-contain object-bottom opacity-30 grayscale"
+                            className="w-full h-full object-contain object-bottom opacity-[0.08] grayscale blur-[2px] transition-opacity duration-1000"
                             alt="Background"
                         />
                     </div>
+
+                    {/* Vinheta extra nas laterais para focar o conteúdo no centro */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,black_90%)] z-10 opacity-60"></div>
                 </div>
             )}
 

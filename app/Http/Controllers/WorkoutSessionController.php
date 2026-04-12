@@ -26,13 +26,22 @@ class WorkoutSessionController extends Controller
     }
 
     // O método "Finish" final: Recebe o payload do Zustand e grava tudo
-    public function finish(Request $request, Workout $workout)
+    public function finish(Request $request, string $workout)
     {
+
+
+        $workoutModel = Workout::find($workout); // find em vez de findOrFail
+
+        if (!$workoutModel) {
+            return redirect()->route('workouts.setup');
+        }
+
         $exercises = $request->input('exercises');
+
 
         if (empty($exercises)) {
             // Se não houve exercício nenhum, apaga o treino fantasma
-            $workout->delete();
+            $workoutModel->delete();
             return redirect()->route('workouts.setup');
         }
 
@@ -41,7 +50,7 @@ class WorkoutSessionController extends Controller
             foreach ($exerciseData['sets'] as $index => $setData) {
                 WorkoutLog::create([
                     'user_id' => auth()->id() ?? 1, // Usa o user logado
-                    'workout_id' => $workout->id,
+                    'workout_id' => $workoutModel->id,
                     'exercise_id' => $exerciseData['exercise_id'],
                     'weight' => $setData['weight'],
                     'reps' => $setData['reps'],
@@ -53,7 +62,7 @@ class WorkoutSessionController extends Controller
             }
         }
 
-        $workout->update(['completed_at' => now(),  'duration_seconds' => $request->input('duration_seconds'),]);
+        $workoutModel->update(['completed_at' => now(),  'duration_seconds' => $request->input('duration_seconds'),]);
 
 
 

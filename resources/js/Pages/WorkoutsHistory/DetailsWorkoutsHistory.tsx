@@ -1,4 +1,9 @@
 import { Head, Link } from "@inertiajs/react";
+import {
+    HiOutlineArrowLeft,
+    HiOutlineClock,
+    HiOutlineCalendar,
+} from "react-icons/hi";
 
 interface DetailsWorkoutsHistoryProps {
     workout: any;
@@ -9,67 +14,93 @@ const DetailsWorkoutsHistory = ({
     workout,
     workoutData,
 }: DetailsWorkoutsHistoryProps) => {
-    console.log("Workout Data:", workoutData);
     return (
-        <div className="max-w-2xl mx-auto py-8 px-6">
+        <div className="max-w-2xl mx-auto py-8 px-6 pb-20">
             <Head title={`Report: ${workout.name}`} />
 
-            <div className="mb-8">
+            {/* HEADER AREA */}
+            <div className="mb-10">
                 <Link
                     href={route("workouts.history")}
-                    className="text-cyan-500 text-[10px] font-black uppercase tracking-widest hover:text-cyan-400 transition-colors"
+                    className="group inline-flex items-center gap-2 text-zinc-500 text-[10px] font-black uppercase tracking-widest hover:text-white transition-colors"
                 >
-                    ← Back to Archive
+                    <HiOutlineArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform" />
+                    Back to Archive
                 </Link>
-                <h1 className="text-2xl font-black italic text-white uppercase mt-4 tracking-tighter">
-                    {workout.name}
-                </h1>
-                <p className="text-zinc-500 text-[9px] font-bold uppercase tracking-[0.3em]">
-                    Mission Completed at{" "}
-                    {new Date(workout.completed_at).toLocaleDateString("pt-PT")}
-                </p>
-                {workout.duration_seconds && (
-                    <p className="text-zinc-500 text-[9px] font-bold  tracking-[0.3em]">
-                        Duration: {Math.floor(workout.duration_seconds / 60)}m{" "}
-                        {workout.duration_seconds % 60}s
-                    </p>
-                )}
+
+                <div className="mt-6">
+                    <h1 className="text-3xl font-black italic text-white uppercase tracking-tighter leading-none">
+                        {workout.name}
+                    </h1>
+
+                    <div className="flex flex-wrap gap-4 mt-4">
+                        <div className="flex items-center gap-2">
+                            <HiOutlineCalendar className="text-blue-500 text-xs" />
+                            <p className="text-zinc-500 text-[9px] font-bold uppercase tracking-[0.2em]">
+                                {new Date(
+                                    workout.completed_at,
+                                ).toLocaleDateString("pt-PT", {
+                                    day: "2-digit",
+                                    month: "long",
+                                    year: "numeric",
+                                })}
+                            </p>
+                        </div>
+
+                        {workout.duration_seconds && (
+                            <div className="flex items-center gap-2">
+                                <HiOutlineClock className="text-blue-500 text-xs" />
+                                <p className="text-zinc-500 text-[9px] font-bold uppercase tracking-[0.2em]">
+                                    Duration:{" "}
+                                    {Math.floor(workout.duration_seconds / 60)}m{" "}
+                                    {workout.duration_seconds % 60}s
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
 
-            <div className="space-y-6">
+            {/* EXERCISES LIST */}
+            <div className="space-y-4">
                 {Object.entries(workoutData).map(([exerciseName, sets]) => (
                     <div
                         key={exerciseName}
-                        className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-5"
+                        className="bg-zinc-900/40 border border-zinc-800 rounded-2xl overflow-hidden"
                     >
-                        <h2 className="text-cyan-500 text-[11px] font-black uppercase tracking-widest mb-4">
-                            {exerciseName}
-                        </h2>
+                        {/* Exercise Title Header */}
+                        <div className="px-5 py-3 border-b border-zinc-800/50 bg-zinc-800/20">
+                            <h2 className="text-blue-500 text-[11px] font-black uppercase tracking-[0.2em] italic">
+                                {exerciseName}
+                            </h2>
+                        </div>
 
-                        <div className="space-y-2">
+                        {/* Sets Grid */}
+                        <div className="p-5 space-y-3">
                             {sets.map((set, idx) => (
                                 <div
                                     key={idx}
-                                    className="flex justify-between items-center py-2 border-b border-zinc-800/50 last:border-0"
+                                    className="flex justify-between items-center py-1 group"
                                 >
-                                    <span className="text-zinc-500 font-black italic text-[10px]">
-                                        SET {idx + 1}
+                                    <span className="text-zinc-600 font-black italic text-[10px] uppercase tracking-tighter group-hover:text-zinc-400 transition-colors">
+                                        Set {idx + 1}
                                     </span>
-                                    <div className="flex gap-4">
-                                        <div className="text-right">
-                                            <span className="text-white font-black text-sm">
+
+                                    <div className="flex gap-6">
+                                        <div className="flex flex-col items-end">
+                                            <span className="text-white font-black text-base leading-none">
                                                 {set.weight}
-                                            </span>
-                                            <span className="text-zinc-600 text-[8px] font-bold ml-1 uppercase">
-                                                KG
+                                                <span className="text-zinc-600 text-[8px] ml-1">
+                                                    KG
+                                                </span>
                                             </span>
                                         </div>
-                                        <div className="text-right">
-                                            <span className="text-white font-black text-sm">
+                                        <div className="flex flex-col items-end min-w-[40px]">
+                                            <span className="text-white font-black text-base leading-none">
                                                 {set.reps}
-                                            </span>
-                                            <span className="text-zinc-600 text-[8px] font-bold ml-1 uppercase">
-                                                REPS
+                                                <span className="text-zinc-600 text-[8px] ml-1">
+                                                    REPS
+                                                </span>
                                             </span>
                                         </div>
                                     </div>

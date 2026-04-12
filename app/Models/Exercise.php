@@ -28,12 +28,11 @@ class Exercise extends Model
                 'Back'      => 'Upper Pull',
                 'Biceps'    => 'Upper Pull',
 
-                // LOWER + FOREARM (A tua combinação personalizada)
                 'Legs'      => 'Lower',
-                'Forearm'   => 'Lower', // Mágica aqui: Antebraço conta como Lower para o filtro
+                'Forearm'   => 'Lower',
 
                 // OTHERS
-                'Core'      => 'Full Body',
+                'Core'          => 'Full Body',
             ];
 
             $exercise->category = $mapping[$exercise->muscle_group] ?? 'Full Body';

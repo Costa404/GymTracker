@@ -28,11 +28,11 @@ class WorkoutController extends Controller
     public function setup()
     {
         $templates = [
-            ['id' => 1, 'name' => 'Push Alpha'],
-            ['id' => 2, 'name' => 'Pull Heavy'],
-            ['id' => 3, 'name' => 'Legs Destruction'],
-            ['id' => 4, 'name' => 'Upper Destruction'],
-            ['id' => 5, 'name' => 'Full Body'],
+            ['id' => 1, 'name' => 'Push Day'],
+            ['id' => 2, 'name' => 'Pull Day'],
+            ['id' => 3, 'name' => 'Legs Day'],
+            ['id' => 4, 'name' => 'Upper Day'],
+            ['id' => 5, 'name' => 'Full Body Day'],
         ];
 
 
@@ -67,5 +67,16 @@ class WorkoutController extends Controller
             'workout' => $workout,
             'workoutData' => $workoutData
         ]);
+    }
+
+    public function destroy(Workout $workout)
+    {
+
+
+        // 2. Apagar o registo
+        $workout->delete();
+
+        // 3. Redirecionar de volta para o histórico com uma mensagem
+        return redirect()->route('workouts.history')->with('message', 'Workout deleted successfully');
     }
 }

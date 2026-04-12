@@ -12,32 +12,21 @@ const ActiveExercisesInSession = ({
     workoutId,
     exercises,
 }: ActiveExercisesInSessionProps) => {
+    // 1. Obtemos a lista de exercícios da sessão
     const sessionExercises = useWorkoutSessionStore((s) => s.sessionExercises);
 
-    // Filtramos exercícios que já tenham pelo menos uma série gravada
-    // Ou que o utilizador acabou de selecionar (dependendo da tua lógica de 'active')
-    const activeItems = sessionExercises.filter(
-        (ex) => ex.sets && ex.sets.length > 0,
-    );
+    // LOGICA: Agora mostramos TUDO o que está no store da sessão.
+    // Se o utilizador carregou um template, os exercícios já estão aqui,
+    // mesmo que sets esteja vazio [].
+    const activeItems = sessionExercises;
 
-    // Se não houver nada ativo, não renderizamos a secção para poupar scroll vertical
-    if (activeItems.length === 0) {
+    if (!activeItems || activeItems.length === 0) {
         return null;
     }
 
     return (
-        <section className="mb-6 animate-in fade-in slide-in-from-top-2 duration-500">
-            {/* Header da Secção mais compacto */}
-            <div className="flex items-center gap-2 mb-4">
-                <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.5)]"></span>
-                <h2 className="text-[9px] text-cyan-500 font-black uppercase tracking-[0.3em]">
-                    Active Exercises
-                </h2>
-                <div className="h-px bg-cyan-950 flex-1 opacity-30" />
-            </div>
-
-            {/* Lista de Cards */}
-            <div className="space-y-3">
+        <section className="mb-4 animate-in fade-in slide-in-from-top-2 duration-500">
+            <div className="space-y-2">
                 {activeItems.map((item) => {
                     const exerciseInfo = exercises.find(
                         (e) => e.id === item.exercise_id,
@@ -47,7 +36,9 @@ const ActiveExercisesInSession = ({
                         <SessionExerciseCard
                             key={item.exercise_id}
                             name={exerciseInfo?.name || "Unknown Exercise"}
-                            setsCount={item.sets.length}
+                            // CORREÇÃO LÓGICA: Se o template carregar o exercício sem o array de sets,
+                            // usamos o optional chaining ou default para evitar crash (0 sets).
+                            setsCount={item.sets?.length || 0}
                             exerciseId={item.exercise_id}
                             workoutId={workoutId}
                         />

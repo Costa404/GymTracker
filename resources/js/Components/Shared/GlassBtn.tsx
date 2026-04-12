@@ -18,16 +18,19 @@ interface Props {
         | "white";
     preserveState?: boolean;
     preserveScroll?: boolean;
+    type?: "button" | "submit" | "reset"; // ← adiciona isto
+    disabled?: boolean; // ← e isto
 }
-
 const GlassBtn = ({
     href,
     onClick,
     children,
     className = "",
     variant = "blue",
-    preserveState = true, // Definido como true por padrão para SPA feel
+    preserveState = true,
     preserveScroll = true,
+    type = "button", // ← default continua "button"
+    disabled,
 }: Props) => {
     // Base do estilo Glass - Adicionado focus e active para mobile
     const baseStyle =
@@ -65,7 +68,12 @@ const GlassBtn = ({
     }
 
     return (
-        <button type="button" onClick={onClick} className={combinedStyle}>
+        <button
+            onClick={onClick}
+            className={combinedStyle}
+            type={type}
+            disabled={disabled}
+        >
             {children}
         </button>
     );

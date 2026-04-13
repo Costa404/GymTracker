@@ -1,6 +1,7 @@
 import GlassBtn from "@/Components/Shared/GlassBtn";
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 import { Head } from "@inertiajs/react";
+import GraficoTeste from "./GraficoTeste";
 
 interface Props {
     weeklyVolume: number;
@@ -87,6 +88,7 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
                         </span>
                     </div>
                 </div>
+                <GraficoTeste />
             </div>
         </>
     );

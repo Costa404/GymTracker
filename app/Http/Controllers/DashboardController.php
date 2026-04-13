@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exercise;
-
+use Illuminate\Http\Request;
 use App\Models\Workout;
 use App\Models\WorkoutLog;
 use Illuminate\Support\Facades\DB;
@@ -35,5 +35,14 @@ class DashboardController extends Controller
             'exercises' => $exercises,
             'WorkoutsHistory' => $WorkoutsHistory
         ]);
+    }
+
+    public function verifyPin(Request $request)
+    {
+        if ($request->input('pin') === config('app.pin_code')) {
+            session(['pin_verified' => true]);
+            return redirect()->route('dashboard');
+        }
+        return back()->withErrors(['pin' => 'PIN Incorreto']);
     }
 }

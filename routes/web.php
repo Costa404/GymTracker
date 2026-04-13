@@ -15,17 +15,12 @@ if (request()->isSecure() || str_contains(request()->getHost(), 'ngrok')) {
 }
 
 // --- ROTAS DO PIN (PÚBLICAS) ---
+
 Route::get('/login-pin', function () {
     return Inertia::render('PinLogin');
 })->name('pin.show');
 
-Route::post('/login-pin', function (Request $request) {
-    if ($request->input('pin') === env('APP_PIN')) {
-        $request->session()->put('pin_verified', true);
-        return redirect()->route('dashboard');
-    }
-    return back()->withErrors(['pin' => 'PIN Incorreto']);
-})->name('pin.verify');
+Route::post('/login-pin', [DashboardController::class, 'verifyPin'])->name('pin.verify');
 
 
 // --- TODAS AS TUAS ROTAS ORIGINAIS (PROTEGIDAS) ---

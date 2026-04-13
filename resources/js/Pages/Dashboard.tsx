@@ -88,7 +88,7 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
                         </span>
                     </div>
                 </div>
-                <GraficoTeste />
+                {/* <GraficoTeste /> */}
             </div>
         </>
     );

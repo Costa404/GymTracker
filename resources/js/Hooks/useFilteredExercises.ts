@@ -8,7 +8,12 @@ const useFilteredExercises = (
     return useMemo(() => {
         // Transformamos o nome do treino em minúsculas para comparar
         const name = workoutName.toLowerCase();
-        const activeIds = new Set(activeExercises.map((ex) => ex.exercise_id));
+        const safeActiveExercises = Array.isArray(activeExercises)
+            ? activeExercises
+            : [];
+        const activeIds = new Set(
+            safeActiveExercises.map((ex) => ex.exercise_id),
+        );
 
         return exercises.filter((ex) => {
             if (activeIds.has(ex.id)) return false;

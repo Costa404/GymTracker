@@ -67,4 +67,26 @@ class ExerciseController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Exercise created!');
     }
+
+    public function showIndividualHistory(Exercise $exercise)
+    {
+        // 1. Procuramos TODOS os logs deste exercício para este utilizador
+        $history = \App\Models\WorkoutLog::where('exercise_id', $exercise->id)
+            ->where('user_id', auth()->id())
+            ->with('workout') // Crucial para o frontend saber as datas e nomes dos treinos
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // 2. Extraímos o treino mais recente apenas para o cabeçalho não rebentar
+        $lastWorkout = $history->first()?->workout;
+
+        return Inertia::render('Exercises/ExercisesHistory/ExerciseHistory', [
+            'exercise' => $exercise,
+            'history' => $history, // Aqui vai a coleção completa de logs
+            'workout' => $lastWorkout ?? [
+                'id' => null,
+                'name' => 'General History'
+            ]
+        ]);
+    }
 }

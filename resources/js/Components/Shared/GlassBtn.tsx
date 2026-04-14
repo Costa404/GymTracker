@@ -44,7 +44,7 @@ const GlassBtn = ({
         red: "bg-red-600/10 text-red-500 border-red-500/30 hover:bg-red-600/20 shadow-xl shadow-red-500/5",
         slate: "bg-slate-800/20 text-slate-400 border-slate-700/50 hover:bg-slate-800/40 hover:text-slate-300",
         white: "bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:text-white/90",
-        green: "bg-emerald-600/10 text-emerald-500 border-emerald-500/30 hover:bg-emerald-600/20 shadow-xl shadow-emerald-500/5",
+        green: "bg-emerald-600/10 text-performance border-performance/30 hover:bg-emerald-600/20 shadow-xl shadow-text-performance/5",
         fuchsia:
             "bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/30 hover:bg-fuchsia-500/20 shadow-[0_0_20px_rgba(217,70,239,0.15)]",
         lime: "bg-lime-400/10 text-lime-400 border-lime-400/30 hover:bg-lime-400/20 shadow-[0_0_15px_rgba(163,230,53,0.1)]",

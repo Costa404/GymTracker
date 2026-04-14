@@ -22,31 +22,51 @@ const WorkoutSetup = ({ templates }) => {
     }, [templates]);
 
     return (
-        <div className="max-w-md mx-auto pt-8 px-6">
+        /* Contentor padrão: px-6 e espaçamento vertical generoso */
+        <div className="min-h-screen max-w-md mx-auto px-6 pt-12 pb-20 relative overflow-hidden ">
             <Head title="Preparation" />
-            {activeSessionId ? (
-                <ActiveSessionDecider workoutId={activeSessionId} />
-            ) : (
-                <div className="space-y-3">
-                    <p className="text-[9px] text-zinc-600 font-black uppercase tracking-[0.3em] text-center mb-6">
-                        Select Mission
-                    </p>
-                    {templates.map((template) => (
-                        <GlassBtn
-                            key={template.id}
-                            onClick={() =>
-                                handleStart(template.name, template.id)
-                            }
-                            variant="blue"
-                            className="w-full py-5 text-[11px]"
-                        >
-                            {template.name}
-                        </GlassBtn>
-                    ))}
-                </div>
-            )}
+
+            {/* Glow de Sistema (Azul) para o modo de escolha */}
+            {/* {!activeSessionId && (
+                <div
+                    className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[30%] pointer-events-none opacity-20 z-0"
+                    style={{
+                        background:
+                            "radial-gradient(circle at top, var(--color-system) 0%, transparent 80%)",
+                    }}
+                />
+            )} */}
+
+            <div className="relative z-10">
+                {activeSessionId ? (
+                    <ActiveSessionDecider />
+                ) : (
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-4 mb-8">
+                            <h2 className="text-[10px] text-zinc-600 font-black uppercase tracking-[0.4em] italic">
+                                Select Mission
+                            </h2>
+                            <div className="h-[1px] bg-system/10 flex-1" />
+                        </div>
+
+                        <div className="space-y-3">
+                            {templates.map((template) => (
+                                <GlassBtn
+                                    key={template.id}
+                                    onClick={() =>
+                                        handleStart(template.name, template.id)
+                                    }
+                                    /* Botão estilo Industrial: Fundo Black, Borda System */
+                                    className="w-full py-6 rounded-2xl bg-system/5 border border-system/20 text-system-light font-black uppercase italic tracking-widest hover:bg-system/10 hover:border-system/40 transition-all text-[11px]"
+                                >
+                                    {template.name}
+                                </GlassBtn>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
-
 export default WorkoutSetup;

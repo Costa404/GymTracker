@@ -19,14 +19,14 @@
           /* Usando a mesma opacidade que usaste no PIN (20%) para a borda base */
           border: 2px solid rgba(59, 130, 246, 0.2);
           /* O azul sólido Blue-500 para a parte que roda */
-          border-top: 2px solid #3b82f6;
+          border-top: 2px solid text-performance;
           border-radius: 50%;
           animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       }
 
       .loader-text {
           margin-top: 24px;
-          color: #3b82f6;
+          color: text-performance;
           /* Blue-500 */
           font-family: sans-serif;
           font-size: 8px;

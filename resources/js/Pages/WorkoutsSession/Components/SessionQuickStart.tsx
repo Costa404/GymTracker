@@ -47,12 +47,12 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
     return (
         <>
             {isSessionClean && currentTemplates.length > 0 && (
-                <section className="mb-4 animate-in fade-in zoom-in duration-500">
-                    <div className="flex items-center gap-3 mb-4">
-                        <h2 className="text-[10px] text-zinc-500 font-black uppercase tracking-[0.4em]">
+                <section className="mb-8 animate-in fade-in zoom-in-95 duration-500">
+                    <div className="flex items-center gap-3 mb-4 px-1">
+                        <h2 className="text-[10px] text-zinc-600 font-black uppercase tracking-[0.4em] italic">
                             Quick Start
                         </h2>
-                        <div className="h-px bg-zinc-800/50 flex-1" />
+                        <div className="h-[1px] bg-system/10 flex-1" />
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
@@ -60,21 +60,23 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
                             <button
                                 key={idx}
                                 onClick={() => handleLoadTemplate(template.ids)}
-                                className={`group relative p-4 bg-blue-500/5 border border-blue-500/10 rounded-2xl text-left transition-all active:scale-95 hover:border-blue-500/40 ${
+                                className={`group relative p-5 bg-system/5 border border-system/15 rounded-[1.5rem] text-left transition-all active:scale-95 hover:border-system/40 hover:bg-system/10 backdrop-blur-sm ${
                                     currentTemplates.length === 1
                                         ? "col-span-2"
                                         : "col-span-1"
                                 }`}
                             >
                                 <div className="relative z-10">
-                                    <p className="text-blue-400 font-black uppercase italic text-[11px] tracking-tighter">
+                                    <p className="text-system-light font-black uppercase italic text-[12px] tracking-tight group-hover:text-white transition-colors">
                                         {template.name}
                                     </p>
-                                    <p className="text-[8px] text-zinc-500 font-bold uppercase mt-1">
+                                    <p className="text-[8px] text-system/40 font-bold uppercase mt-1 tracking-widest">
                                         {template.ids.length} Exercises
                                     </p>
                                 </div>
-                                <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/5 transition-colors rounded-2xl" />
+
+                                {/* Efeito de brilho sutil no canto ao passar o rato */}
+                                <div className="absolute top-0 right-0 w-16 h-16 bg-system/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                             </button>
                         ))}
                     </div>

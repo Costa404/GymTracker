@@ -53,5 +53,8 @@ Route::middleware([App\Http\Middleware\CheckPin::class])->group(function () {
         Route::get('/exercises/{exercise}', 'ExerciseDisplay')->name('exercises.ExerciseDisplay');
         Route::get('/workout/{workout}/exercise/{exercise}', 'ExerciseDisplay')->name('exercises.workout.display');
         Route::get('/workout/{workout}/exercise/{exercise}/history', 'ExerciseHistory')->name('exercises.ExerciseHistory');
+        Route::get('/exercise/{exercise}/history', 'ExerciseHistory')
+            ->name('exercises.IndividualHistory');
     });
+
 });

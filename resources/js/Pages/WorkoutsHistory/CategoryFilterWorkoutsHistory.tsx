@@ -13,7 +13,7 @@ const CategoryFilterWorkoutsHistory = ({ currentType }: Props) => {
             : "bg-zinc-900/60 text-zinc-500 border-zinc-800 hover:border-zinc-700 hover:text-zinc-300";
 
     return (
-        <div className="flex justify-center w-full mb-6">
+        <div className="flex justify-center w-full mb-4">
             <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 items-center">
                 <Link
                     href="/workouts/history"

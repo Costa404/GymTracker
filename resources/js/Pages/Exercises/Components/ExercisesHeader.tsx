@@ -16,30 +16,6 @@ const ExercisesHeader = ({
     return (
         <header className="mb-6 flex flex-col items-center px-1 relative z-10 w-full">
             <div className="flex justify-between w-full items-center">
-                <div className="flex flex-col gap-2 items-start">
-                    {showHistoryButton ? (
-                        <GlassBtn
-                            href={`/workout/${workoutId}/exercise/${exerciseId}/history`}
-                            variant="green"
-                            className="h-[32px] px-3 text-[8px] text-emerald-400 border-emerald-500/20 bg-emerald-500/10 hover:bg-emerald-500/20"
-                        >
-                            <span className="flex items-center gap-1">
-                                <span className="text-[10px]">📈</span>
-                                <span>History</span>
-                            </span>
-                        </GlassBtn>
-                    ) : (
-                        <div className="flex flex-col leading-none">
-                            <span className="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-600">
-                                Session
-                            </span>
-                            <span className="text-[9px] font-black uppercase text-cyan-400 italic truncate max-w-[80px]">
-                                {workoutName}
-                            </span>
-                        </div>
-                    )}
-                </div>
-
                 <GlassBtn
                     onClick={handleBack}
                     variant="zinc"
@@ -47,6 +23,29 @@ const ExercisesHeader = ({
                 >
                     Back
                 </GlassBtn>
+                <div className="flex flex-col gap-2 items-start">
+                    {showHistoryButton && workoutId ? (
+                        <GlassBtn
+                            href={`/workout/${workoutId}/exercise/${exerciseId}/history`}
+                            variant="green"
+                            className="h-[32px] px-3 text-[8px] text-performance-light border-performance/20 bg-performance/10 hover:bg-performance/20"
+                        >
+                            <span className="flex items-center gap-1">
+                                <span className="text-[10px]">📈</span>
+                                <span>History</span>
+                            </span>
+                        </GlassBtn>
+                    ) : !showHistoryButton && workoutName ? (
+                        <div className="flex flex-col leading-none">
+                            <span className="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-600">
+                                Session
+                            </span>
+                            <span className="text-[9px] font-black uppercase text-cyan-400 italic truncate ">
+                                {workoutName}
+                            </span>
+                        </div>
+                    ) : null}
+                </div>
             </div>
 
             <div className="mt-4 flex flex-col justify-center items-center w-full px-4">

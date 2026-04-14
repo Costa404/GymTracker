@@ -25,7 +25,7 @@ const CreateExercise = () => {
     ];
 
     return (
-        <div className="max-w-md mx-auto pt-12 px-6 min-h-screen bg-black">
+        <div className="max-w-md mx-auto pt-12  min-h-screen bg-black">
             <Head title="New Mission" />
 
             <h1 className="text-cyan-400 font-black uppercase tracking-[0.4em] text-center mb-10 italic">

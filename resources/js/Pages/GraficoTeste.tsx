@@ -51,12 +51,12 @@ export default function GraficoEvolucao() {
                             >
                                 <stop
                                     offset="5%"
-                                    stopColor="#3b82f6"
+                                    stopColor="text-performance"
                                     stopOpacity={0.4}
                                 />
                                 <stop
                                     offset="95%"
-                                    stopColor="#3b82f6"
+                                    stopColor="text-performance"
                                     stopOpacity={0}
                                 />
                             </linearGradient>
@@ -92,18 +92,24 @@ export default function GraficoEvolucao() {
                                 boxShadow:
                                     "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
                             }}
-                            itemStyle={{ color: "#3b82f6", fontWeight: "bold" }}
+                            itemStyle={{
+                                color: "text-performance",
+                                fontWeight: "bold",
+                            }}
                             labelStyle={{
                                 color: "#94a3b8",
                                 marginBottom: "4px",
                             }}
-                            cursor={{ stroke: "#3b82f6", strokeWidth: 2 }}
+                            cursor={{
+                                stroke: "text-performance",
+                                strokeWidth: 2,
+                            }}
                         />
 
                         <Area
                             type="monotone"
                             dataKey="peso"
-                            stroke="#3b82f6"
+                            stroke="text-performance"
                             strokeWidth={4}
                             fillOpacity={1}
                             fill="url(#colorPeso)"

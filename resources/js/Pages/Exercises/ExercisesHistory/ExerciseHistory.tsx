@@ -14,21 +14,10 @@ const ExerciseHistory = ({ exercise, history, workout }: any) => {
         }))
         .reverse();
 
-    const mockData = [
-        { date: "01 Jan", peso: 40 },
-        { date: "15 Jan", peso: 42.5 },
-        { date: "02 Fev", peso: 45 },
-        { date: "20 Fev", peso: 48 },
-        { date: "10 Mar", peso: 48 }, // Plateau
-        { date: "25 Mar", peso: 52 },
-        { date: "05 Abr", peso: 55 },
-        { date: "13 Abr", peso: 60 },
-    ];
-
     return (
-        <div className="min-h-screen text-white font-sans px-4 relative">
+        <div className="min-h-screen text-white font-sans  relative">
             <Head title={`History | ${exercise.name}`} />
-            <ExerciseProgressGraph data={mockData} />
+
             <div className="max-w-lg mx-auto relative z-10">
                 <ExercisesHeader
                     exerciseName={exercise.name}
@@ -37,23 +26,24 @@ const ExerciseHistory = ({ exercise, history, workout }: any) => {
                     workoutId={workout.id}
                     showHistoryButton={false}
                 />
+                <ExerciseProgressGraph data={chartData} />
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                     {sortedGroups.length > 0 ? (
                         sortedGroups.map((group: any, idx: number) => (
                             <div
                                 key={idx}
-                                className="bg-[#0a1220]/40 border border-emerald-500/20 rounded-[2rem] p-6  shadow-xl"
+                                className="bg-[#0a1220]/40 border border-performance/20 rounded-[2rem] p-6 py-4 shadow-xl"
                             >
-                                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500/60 block mb-4">
+                                <span className="text-[10px] font-black uppercase tracking-widest text-performance/60 block ">
                                     {formatDate(group.logs[0].created_at)}
                                 </span>
 
-                                <div className="space-y-3">
+                                <div className="space-y-2">
                                     {group.logs.map((log: any, i: number) => (
                                         <div
                                             key={i}
-                                            className="flex justify-between items-center py-2 border-b border-emerald-500/10 last:border-0"
+                                            className="flex justify-between items-center py-2 border-b border-performance/10 last:border-0"
                                         >
                                             <span className="text-zinc-500 font-black text-[10px] uppercase">
                                                 SET {i + 1}
@@ -62,7 +52,7 @@ const ExerciseHistory = ({ exercise, history, workout }: any) => {
                                                 <Stat
                                                     value={log.weight}
                                                     label="KG"
-                                                    color="text-emerald-400"
+                                                    color="text-performance-light"
                                                 />
                                                 <Stat
                                                     value={log.reps}

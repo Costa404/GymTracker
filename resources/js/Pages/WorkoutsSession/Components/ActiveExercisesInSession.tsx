@@ -12,22 +12,26 @@ const ActiveExercisesInSession = ({
     workoutId,
     exercises,
 }: ActiveExercisesInSessionProps) => {
-    // 1. Obtemos a lista de exercícios da sessão
+    // 1. Obtemos a lista de exercícios da sessão (seletor atómico para performance)
     const sessionExercises = useWorkoutSessionStore((s) => s.sessionExercises);
 
-    // LOGICA: Agora mostramos TUDO o que está no store da sessão.
-    // Se o utilizador carregou um template, os exercícios já estão aqui,
-    // mesmo que sets esteja vazio [].
-    const activeItems = sessionExercises;
-
-    if (!activeItems || activeItems.length === 0) {
+    // Se a sessão estiver vazia, não renderizamos nada
+    if (!sessionExercises || sessionExercises.length === 0) {
         return null;
     }
 
     return (
-        <section className="mb-4 animate-in fade-in slide-in-from-top-2 duration-500">
-            <div className="space-y-2">
-                {activeItems.map((item) => {
+        <section className="mb-0 animate-in fade-in slide-in-from-top-4 duration-700 ease-out">
+            {/* Título opcional para dar contexto de sistema (System) */}
+            <div className="flex items-center gap-2 mb-4 ">
+                <div className="h-[1px] flex-1 bg-gradient-to-r from-system/20 to-transparent" />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-system-light/40 italic">
+                    Current Sequence
+                </span>
+            </div>
+
+            <div className="space-y-3">
+                {sessionExercises.map((item) => {
                     const exerciseInfo = exercises.find(
                         (e) => e.id === item.exercise_id,
                     );
@@ -36,8 +40,7 @@ const ActiveExercisesInSession = ({
                         <SessionExerciseCard
                             key={item.exercise_id}
                             name={exerciseInfo?.name || "Unknown Exercise"}
-                            // CORREÇÃO LÓGICA: Se o template carregar o exercício sem o array de sets,
-                            // usamos o optional chaining ou default para evitar crash (0 sets).
+                            // Lógica de contagem robusta
                             setsCount={item.sets?.length || 0}
                             exerciseId={item.exercise_id}
                             workoutId={workoutId}
@@ -45,6 +48,9 @@ const ActiveExercisesInSession = ({
                     );
                 })}
             </div>
+
+            {/* Linha final para fechar o bloco visualmente */}
+            <div className=" h-[1px] w-full bg-gradient-to-r from-transparent via-system/5 to-transparent" />
         </section>
     );
 };

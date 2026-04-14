@@ -8,3 +8,12 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+@theme {
+    --color-performance: #10b981;
+    --color-system: #3b82f6;
+    --color-performance-light: #34d399;
+
+    /* Se quiseres manter os teus tons de fundo personalizados: */
+    --color-deep-black: #050505;
+    --color-deep-card: #0a0a0a;
+}

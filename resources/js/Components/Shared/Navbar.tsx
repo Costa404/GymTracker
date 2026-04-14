@@ -10,44 +10,39 @@ function Navbar() {
     const activeSessionId = useWorkoutSessionStore((s) => s.activeSessionId);
 
     return (
-        <nav className="fixed top-0 left-0 right-0 bg-black/40 backdrop-blur-md border-b border-white/[0.08] z-[100] h-14">
-            <div className="max-w-md mx-auto h-full flex justify-between items-center px-4">
-                {/* LADO ESQUERDO: TELEMETRIA (Ícone + Timer) */}
-                <div className="flex items-center gap-3">
-                    <div className="relative flex items-center justify-center">
-                        <Link
-                            href="/"
-                            className="group inline-flex items-center"
-                        >
-                            <h1 className="text-2xl font-black tracking-tighter italic">
-                                {/* Parte "my" em branco limpo */}
-                                <span className="text-white opacity-90 group-hover:opacity-100 transition-opacity">
-                                    my
-                                </span>
+        <nav className="fixed top-0 left-0 right-0 z-[100] h-16 overflow-hidden">
+            {/* 1. O GLOW DENTRO DA NAVBAR */}
+            {/* Este div cria a luz que nasce do topo da moldura do telemóvel */}
 
-                                {/* Parte "Gym" com efeito Blue Glass */}
-                                <span className="relative ml-0.5 ">
-                                    <span className="text-blue-500/80 drop-shadow-[0_0_4px_rgba(59,130,246,0.6)]">
-                                        Gym
-                                    </span>
-                                </span>
-                            </h1>
-                        </Link>
-                    </div>
-                    {/* timer só aparece se tiver sessão ativa, para não poluir visualmente quando não estiver em treino */}{" "}
+            {/* 2. EFEITO DE VIDRO (BACKDROP BLUR) */}
+            {/* Usamos um blur leve e uma borda muito fina para definir a barra */}
+            <div className="absolute inset-0 bg-black/5 backdrop-blur-xl border-b border-white/[0.03] z-10" />
+
+            {/* 3. CONTEÚDO DA NAVBAR */}
+            <div className="relative z-20 max-w-md mx-auto h-full flex justify-between items-center px-6">
+                <div className="flex items-center gap-3">
+                    <Link href="/" className="group inline-flex items-center">
+                        <h1 className="text-2xl font-black tracking-tighter italic">
+                            <span className="text-white opacity-90 group-hover:opacity-100 transition-opacity">
+                                my
+                            </span>
+                            <span className="relative ml-0.5 text-system-light drop-shadow-[0_0_10px_var(--color-system)]">
+                                Gym
+                            </span>
+                        </h1>
+                    </Link>
                 </div>
 
-                {/* LADO DIREITO: HOME / DASHBOARD */}
                 <div className="flex items-center">
                     {activeSessionId ? (
                         <TimerDisplay />
                     ) : (
                         <Link
                             href="/"
-                            className={`p-2 rounded-xl transition-all duration-300 active:scale-90 ${
+                            className={`p-2.5 rounded-xl transition-all duration-300 active:scale-90 ${
                                 isDashboard
-                                    ? "text-blue-500 bg-blue-500/5 border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
-                                    : "text-zinc-700 border border-transparent opacity-60 hover:opacity-100"
+                                    ? "text-system-light bg-system/10 border border-system/20 shadow-[0_0_15px_var(--color-system)/15]"
+                                    : "text-zinc-600 border border-transparent opacity-60 hover:opacity-100"
                             }`}
                         >
                             <svg

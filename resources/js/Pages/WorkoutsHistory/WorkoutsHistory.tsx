@@ -11,27 +11,46 @@ interface Props {
 
 const WorkoutsHistory = ({ workouts, filters }: Props) => {
     return (
-        <div className="px-4 mx-auto pt-4  pb-20">
+        <div className="max-w-2xl mx-auto  pb-24  font-sans">
             <Head title="Past Workouts" />
 
-            <h1 className="text-white font-black uppercase tracking-widest mb-8 text-center italic text-xl">
-                Workouts History
-            </h1>
+            {/* HEADER REFORMULADO */}
+            <div className="mb-4 text-center">
+                <h1 className="text-5xl font-black italic text-white uppercase tracking-tighter leading-none">
+                    Archive
+                </h1>
+                <div className="inline-block  px-3 py-1 bg-performance/10 border border-performance/20 rounded-full">
+                    <p className="text-performance text-[9px] font-black uppercase tracking-[0.2em]">
+                        {workouts.length} Total Sessions
+                    </p>
+                </div>
+            </div>
 
-            <CategoryFilterWorkoutsHistory currentType={filters.type} />
+            {/* FILTROS COM SCROLL HORIZONTAL (Caso cresçam) */}
+            <div className=" overflow-x-auto no-scrollbar">
+                <div className="flex justify-center min-w-max">
+                    <CategoryFilterWorkoutsHistory currentType={filters.type} />
+                </div>
+            </div>
 
-            <div className="space-y-3">
+            {/* LISTA DE TREINOS */}
+            <div className="space-y-4">
                 {workouts.length > 0 ? (
-                    workouts.map((workout) => (
-                        <WorkoutsHistoryItem
-                            key={workout.id}
-                            workout={workout}
-                        />
-                    ))
+                    <div className="flex flex-col">
+                        {workouts.map((workout, index) => (
+                            <WorkoutsHistoryItem
+                                key={workout.id}
+                                workout={workout}
+                            />
+                        ))}
+                    </div>
                 ) : (
-                    <div className="py-20 text-center opacity-30">
-                        <p className="text-zinc-500 font-black text-xs uppercase tracking-[0.3em]">
-                            No workouts found
+                    <div className="py-24 text-center">
+                        <div className="mb-4 opacity-20 flex justify-center">
+                            <div className="w-16 h-[1px] bg-zinc-500" />
+                        </div>
+                        <p className="text-zinc-500 font-black text-[10px] uppercase tracking-[0.4em]">
+                            No records in this category
                         </p>
                     </div>
                 )}

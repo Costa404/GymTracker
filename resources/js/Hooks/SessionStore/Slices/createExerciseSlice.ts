@@ -28,6 +28,22 @@ export const createExerciseSlice = (set: any, get: any) => ({
         });
     },
 
+    removeSet: (exerciseId: number, setIndex: number) => {
+        set((state: any) => ({
+            sessionExercises: state.sessionExercises.map((ex: any) =>
+                ex.exercise_id === exerciseId
+                    ? {
+                          ...ex,
+                          // Filtramos pelo index para remover a série exata
+                          sets: ex.sets.filter(
+                              (_: any, index: number) => index !== setIndex,
+                          ),
+                      }
+                    : ex,
+            ),
+        }));
+    },
+
     addSet: (exerciseId: number, weight: number, reps: number, rir: number) => {
         set((state: any) => {
             // Se o exercício ainda não estiver na sessão (adicionado manualmente pelo picker)

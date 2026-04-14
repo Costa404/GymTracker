@@ -18,115 +18,111 @@ const DetailsWorkoutsHistory = ({
     workoutData,
 }: DetailsWorkoutsHistoryProps) => {
     return (
-        <div className="max-w-2xl mx-auto font-sans bg-[#050a12] min-h-screen text-white">
+        <div className="w-full text-white pb-20">
             <Head title={`Report: ${workout.name}`} />
 
-            {/* HEADER AREA */}
-            <div className="mb-10">
+            {/* HEADER AREA - Compacta e Técnica */}
+            <div className="mb-8">
                 <GlassBtn
                     href={route("workouts.history")}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-dashed border-zinc-700 bg-zinc-800/[0.04] text-zinc-500 transition-all hover:bg-zinc-800/[0.1] hover:border-performance/40 hover:text-performance-light group"
+                    variant="system"
+                    className="h-[32px] px-3 text-[9px] mb-6"
                 >
-                    <HiOutlineArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform" />
-                    <span className="text-[9px] tracking-widest font-black uppercase">
-                        Back to Archive
-                    </span>
+                    <HiOutlineArrowLeft className="mr-2" />
+                    Back to Archive
                 </GlassBtn>
-                <div className="mt-6 flex justify-between items-start gap-4">
+
+                <div className="flex justify-between items-end border-b border-white/[0.05] pb-6">
                     <div className="min-w-0">
-                        <h1 className="text-3xl font-black italic text-white uppercase tracking-tighter leading-none mb-4 truncate">
+                        {/* Título Reduzido: Mais elegante e profissional */}
+                        <h1 className="text-xl font-black italic text-white uppercase tracking-tight leading-none mb-3">
                             {workout.name}
                         </h1>
 
-                        <div className="flex flex-wrap gap-6">
-                            <div className="flex items-center gap-2">
-                                <HiOutlineCalendar className="text-performance text-sm" />
-                                <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-widest">
+                        <div className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.2em]">
+                            <div className="flex items-center gap-1.5 text-zinc-500">
+                                <HiOutlineCalendar className="text-system" />
+                                <span>
                                     {new Date(
                                         workout.completed_at ||
                                             workout.created_at,
                                     ).toLocaleDateString("pt-PT", {
                                         day: "2-digit",
-                                        month: "long",
+                                        month: "short",
                                         year: "numeric",
                                     })}
-                                </p>
+                                </span>
                             </div>
 
                             {workout.duration_seconds && (
-                                <div className="flex items-center gap-2">
-                                    <HiOutlineClock className="text-performance text-sm" />
-                                    <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-widest">
+                                <div className="flex items-center gap-1.5 text-zinc-500">
+                                    <HiOutlineClock className="text-system" />
+                                    <span>
                                         {Math.floor(
                                             workout.duration_seconds / 60,
                                         )}
                                         m {workout.duration_seconds % 60}s
-                                    </p>
+                                    </span>
                                 </div>
                             )}
                         </div>
                     </div>
 
-                    {/* Botão Archive/Delete Estilizado */}
-                    <button className="flex-shrink-0 bg-red-500/5 hover:bg-red-500/20 border border-red-500/10 hover:border-red-500/40 text-red-500/60 hover:text-red-500 p-3 rounded-xl transition-all duration-300">
-                        <HiOutlineTrash className="text-xl" />
+                    {/* Botão Delete: Discreto mas acessível */}
+                    <button className="p-2.5 rounded-xl border border-red-500/10 bg-red-500/5 text-red-500/40 hover:text-red-500 transition-all active:scale-90">
+                        <HiOutlineTrash className="text-lg" />
                     </button>
                 </div>
             </div>
 
-            {/* EXERCISES LIST */}
+            {/* EXERCISES LIST - Mantendo a clareza técnica */}
             <div className="space-y-4">
                 {Object.entries(workoutData).map(
                     ([exerciseName, sets]: [string, any[]]) => (
                         <div
                             key={exerciseName}
-                            className="bg-[#0a1220]/40 border border-performance/10 rounded-2xl overflow-hidden shadow-2xl"
+                            className="bg-zinc-900/20 border border-white/[0.05] rounded-2xl overflow-hidden"
                         >
-                            {/* Tornamos o Header um Link para o detalhe do exercício */}
                             <Link
                                 href={route(
                                     "exercises.IndividualHistory",
                                     sets[0].exercise_id,
                                 )}
-                                className="block px-5 py-3 border-b border-performance/5 bg-performance/5 hover:bg-performance/10 transition-colors group/header"
+                                className="flex justify-between items-center px-5 py-4 bg-white/[0.02] border-b border-white/[0.03] group/header hover:bg-white/[0.05] transition-all"
                             >
-                                <div className="flex justify-between items-center">
-                                    <h2 className="text-performance-light text-[11px] font-black uppercase tracking-[0.2em] italic">
-                                        {exerciseName}
-                                    </h2>
-                                    <span className="text-[8px] text-performance/40 font-black uppercase opacity-0 group-hover/header:opacity-100 transition-opacity">
-                                        View Progress →
-                                    </span>
-                                </div>
+                                <h2 className="text-zinc-400 text-[10px] font-black uppercase tracking-[0.2em] italic group-hover/header:text-system-light transition-colors">
+                                    {exerciseName}
+                                </h2>
+                                <span className="text-[8px] text-system/40 font-black uppercase opacity-0 group-hover/header:opacity-100 transition-opacity">
+                                    Telemetry →
+                                </span>
                             </Link>
 
-                            <div className="px-3 py-3 space-y-2">
+                            <div className="p-4 space-y-3">
                                 {sets.map((set, idx) => (
                                     <div
                                         key={idx}
-                                        className="flex justify-between items-center py-1 group border-b border-white/5 last:border-0"
+                                        className="flex justify-between items-center group"
                                     >
-                                        <span className="text-zinc-500 font-black italic text-[9px] uppercase tracking-tighter group-hover:text-performance/50 transition-colors">
+                                        <span className="text-zinc-600 font-black italic text-[9px] uppercase tracking-tighter">
                                             Set {idx + 1}
                                         </span>
 
                                         <div className="flex gap-8">
-                                            {/* Peso */}
                                             <div className="flex items-baseline">
-                                                <span className="text-white font-black text-lg leading-none tracking-tighter">
+                                                <span className="text-white font-black text-base leading-none tracking-tighter">
                                                     {set.weight}
                                                 </span>
-                                                <span className="text-performance/60 font-black text-[8px] ml-1 uppercase">
+                                                <span className="text-zinc-600 font-black text-[8px] ml-1 uppercase">
                                                     kg
                                                 </span>
                                             </div>
 
-                                            {/* Repetições */}
-                                            <div className="flex items-baseline min-w-[45px] justify-end">
-                                                <span className="text-white font-black text-lg leading-none tracking-tighter">
+                                            <div className="flex items-baseline min-w-[40px] justify-end">
+                                                <span className="text-white font-black text-base leading-none tracking-tighter">
                                                     {set.reps}
                                                 </span>
-                                                <span className="text-zinc-600 font-black text-[8px] ml-1 uppercase">
+                                                <span className="text-zinc-600 font-black text-[8px] ml-1 uppercase text-right">
                                                     reps
                                                 </span>
                                             </div>

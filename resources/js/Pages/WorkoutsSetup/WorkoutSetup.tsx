@@ -23,26 +23,15 @@ const WorkoutSetup = ({ templates }) => {
 
     return (
         /* Contentor padrão: px-6 e espaçamento vertical generoso */
-        <div className="min-h-screen max-w-md mx-auto px-6 pt-12 pb-20 relative overflow-hidden ">
+        <div className="min-h-screen max-w-md mx-auto pt-6 pb-20 relative overflow-hidden ">
             <Head title="Preparation" />
-
-            {/* Glow de Sistema (Azul) para o modo de escolha */}
-            {/* {!activeSessionId && (
-                <div
-                    className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[30%] pointer-events-none opacity-20 z-0"
-                    style={{
-                        background:
-                            "radial-gradient(circle at top, var(--color-system) 0%, transparent 80%)",
-                    }}
-                />
-            )} */}
 
             <div className="relative z-10">
                 {activeSessionId ? (
                     <ActiveSessionDecider />
                 ) : (
                     <div className="space-y-6">
-                        <div className="flex items-center gap-4 mb-8">
+                        <div className="flex items-center gap-4 mb-3">
                             <h2 className="text-[10px] text-zinc-600 font-black uppercase tracking-[0.4em] italic">
                                 Select Mission
                             </h2>

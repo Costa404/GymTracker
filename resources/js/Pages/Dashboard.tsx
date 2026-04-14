@@ -13,7 +13,7 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
 
     return (
         /* Contentor Pai com Padding Lateral Padrão e o Glow de Sistema no topo */
-        <div className="min-h-screen bg-black text-white px-6 pt-12 pb-32 relative overflow-hidden">
+        <div className="min-h-screen  text-white px-6 pt-12 pb-32 relative overflow-hidden">
             <Head title="Command Center" />
 
             <div className="relative z-10 max-w-md mx-auto space-y-10">

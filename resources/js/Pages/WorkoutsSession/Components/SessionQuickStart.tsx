@@ -47,8 +47,8 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
     return (
         <>
             {isSessionClean && currentTemplates.length > 0 && (
-                <section className="mb-8 animate-in fade-in zoom-in-95 duration-500">
-                    <div className="flex items-center gap-3 mb-4 px-1">
+                <section className="mb-4 animate-in fade-in zoom-in-95 duration-500">
+                    <div className="flex items-center gap-3 mb-2 px-1">
                         <h2 className="text-[10px] text-zinc-600 font-black uppercase tracking-[0.4em] italic">
                             Quick Start
                         </h2>
@@ -60,7 +60,7 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
                             <button
                                 key={idx}
                                 onClick={() => handleLoadTemplate(template.ids)}
-                                className={`group relative p-5 bg-system/5 border border-system/15 rounded-[1.5rem] text-left transition-all active:scale-95 hover:border-system/40 hover:bg-system/10 backdrop-blur-sm ${
+                                className={`group relative p-5 bg-system/5 border border-system/15 rounded-[1rem] text-left transition-all active:scale-95 hover:border-system/40 hover:bg-system/10 backdrop-blur-sm ${
                                     currentTemplates.length === 1
                                         ? "col-span-2"
                                         : "col-span-1"

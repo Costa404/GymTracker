@@ -14,33 +14,41 @@ const ExercisesHeader = ({
     };
 
     return (
-        <header className="mb-6 flex flex-col items-center px-1 relative z-10 w-full">
+        <header className="mb-10 flex flex-col items-center relative z-10 w-full">
+            {/* LINHA DE TOPO: Ações Rápidas */}
             <div className="flex justify-between w-full items-center">
                 <GlassBtn
                     onClick={handleBack}
-                    variant="zinc"
-                    className="h-[32px] w-[80px] text-[9px]"
+                    variant="system" // <--- Muda para system
+                    className="h-[32px] w-[80px] text-[9px]" // Mantém apenas o tamanho
                 >
-                    Back
+                    BACK
                 </GlassBtn>
-                <div className="flex flex-col gap-2 items-start">
+
+                <div className="flex flex-col gap-2 items-end">
+                    {" "}
+                    {/* Alinhado à direita */}
                     {showHistoryButton && workoutId ? (
                         <GlassBtn
                             href={`/workout/${workoutId}/exercise/${exerciseId}/history`}
-                            variant="green"
-                            className="h-[32px] px-3 text-[8px] text-performance-light border-performance/20 bg-performance/10 hover:bg-performance/20"
+                            /* CORREÇÃO: Usamos o variant para definir a base e
+                               forçamos as cores de performance no className
+                            */
+                            className="h-[32px] px-4 text-[9px] font-black uppercase tracking-widest border-performance/30 bg-performance/10 text-performance-light hover:bg-performance/20 transition-all italic"
                         >
-                            <span className="flex items-center gap-1">
-                                <span className="text-[10px]">📈</span>
+                            <span className="flex items-center gap-2">
+                                <span className="text-[10px] not-italic">
+                                    📈
+                                </span>
                                 <span>History</span>
                             </span>
                         </GlassBtn>
                     ) : !showHistoryButton && workoutName ? (
-                        <div className="flex flex-col leading-none">
-                            <span className="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-600">
+                        <div className="flex flex-col items-end leading-none">
+                            <span className="text-[7px] font-black uppercase tracking-[0.3em] text-zinc-600 mb-1">
                                 Session
                             </span>
-                            <span className="text-[9px] font-black uppercase text-cyan-400 italic truncate ">
+                            <span className="text-[10px] font-black uppercase text-system-light italic truncate">
                                 {workoutName}
                             </span>
                         </div>
@@ -48,11 +56,16 @@ const ExercisesHeader = ({
                 </div>
             </div>
 
-            <div className="mt-4 flex flex-col justify-center items-center w-full px-4">
-                <h1 className="text-2xl font-black italic uppercase tracking-tighter leading-none text-white text-center">
+            {/* TÍTULO CENTRAL: O foco do exercício */}
+            <div className="mt-8 flex flex-col justify-center items-center w-full">
+                <h1 className="text-3xl font-black italic uppercase tracking-tighter leading-none text-white text-center drop-shadow-2xl">
                     {exerciseName}
                 </h1>
-                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent mt-2"></div>
+
+                {/* LINHA DECORATIVA:
+                   Troquei cyan-500 por system ou performance para manter a consistência
+                */}
+                <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-performance/40 to-transparent mt-3"></div>
             </div>
         </header>
     );

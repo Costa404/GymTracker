@@ -11,6 +11,13 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
     const { weight, setWeight, reps, setReps, rir, setRir, saveLocally } =
         useLogExercise();
     const [saved, setSaved] = useState(false);
+    // Extraímos a nova função da store
+    const removeSet = useWorkoutSessionStore((s) => s.removeSet);
+
+    const deleteSet = (index: number) => {
+        // Chamamos a store enviando o ID do exercício atual e o index da série
+        removeSet(exercise.id, index);
+    };
 
     // Seletor Atómico para evitar re-renders desnecessários do timer
     const currentExercise = useWorkoutSessionStore((s) =>
@@ -28,12 +35,12 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
     };
 
     return (
-        <div className="min-h-screen text-white font-sans relative overflow-hidden bg-[#050505]">
+        <div className="min-h-screen text-white font-sans relative overflow-hidden ">
             <Head title={`Log | ${exercise.name}`} />
 
             {/* GLOW DE FUNDO: Usa a tua variável light para o ambiente */}
 
-            <div className="relative z-10 max-w-lg mx-auto px-4 pt-4">
+            <div className="relative z-10 max-w-lg mx-auto ">
                 <ExercisesHeader
                     exerciseName={exercise.name}
                     workoutName={workout.name}
@@ -44,7 +51,7 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
                 {/* FORMULÁRIO PRINCIPAL */}
                 <form
                     onSubmit={handleAction}
-                    className="bg-[#0a0a0a] border-2 border-performance/30 ring-1 ring-performance/5 rounded-[2.5rem] p-8 shadow-[0_0_50px_rgba(16,185,129,0.05)] relative overflow-hidden"
+                    className=" border-2 border-performance/30 ring-1 ring-performance/5 rounded-[2.5rem] p-8 shadow-[0_0_50px_rgba(16,185,129,0.05)] relative overflow-hidden"
                 >
                     {/* Brilho interno no canto superior direito */}
                     <div className="absolute -top-10 -right-10 w-32 h-32 bg-performance/15 blur-[40px] pointer-events-none" />
@@ -99,7 +106,10 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
 
                 {/* LISTAGEM DE SÉRIES ANTERIORES */}
                 <div className="mt-4">
-                    <LogSetList sets={currentExercise?.sets || []} />
+                    <LogSetList
+                        sets={currentExercise?.sets || []}
+                        onDelete={deleteSet}
+                    />
                 </div>
             </div>
         </div>

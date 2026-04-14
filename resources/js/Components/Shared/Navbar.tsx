@@ -11,13 +11,6 @@ function Navbar() {
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-[100] h-16 overflow-hidden">
-            {/* 1. O GLOW DENTRO DA NAVBAR */}
-            {/* Este div cria a luz que nasce do topo da moldura do telemóvel */}
-
-            {/* 2. EFEITO DE VIDRO (BACKDROP BLUR) */}
-            {/* Usamos um blur leve e uma borda muito fina para definir a barra */}
-            <div className="absolute inset-0 bg-black/5 backdrop-blur-xl border-b border-white/[0.03] z-10" />
-
             {/* 3. CONTEÚDO DA NAVBAR */}
             <div className="relative z-20 max-w-md mx-auto h-full flex justify-between items-center px-6">
                 <div className="flex items-center gap-3">
@@ -26,7 +19,7 @@ function Navbar() {
                             <span className="text-white opacity-90 group-hover:opacity-100 transition-opacity">
                                 my
                             </span>
-                            <span className="relative ml-0.5 text-system-light drop-shadow-[0_0_10px_var(--color-system)]">
+                            <span className="ml-0.5 text-system-light font-black italic">
                                 Gym
                             </span>
                         </h1>

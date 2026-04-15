@@ -71,7 +71,7 @@ class ExerciseController extends Controller
     public function showIndividualHistory(Exercise $exercise)
     {
         // 1. Procuramos TODOS os logs deste exercício para este utilizador
-        $history = \App\Models\WorkoutLog::where('exercise_id', $exercise->id)
+        $history = WorkoutLog::where('exercise_id', $exercise->id)
             ->where('user_id', auth()->id())
             ->with('workout') // Crucial para o frontend saber as datas e nomes dos treinos
             ->orderBy('created_at', 'desc')

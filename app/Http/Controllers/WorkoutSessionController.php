@@ -62,7 +62,7 @@ class WorkoutSessionController extends Controller
             }
         }
 
-        $workoutModel->update(['completed_at' => now(),  'duration_seconds' => $request->input('duration_seconds'),]);
+        $workoutModel->update(['completed_at' => now(), 'duration_seconds' => $request->input('duration_seconds'),]);
 
 
 

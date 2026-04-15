@@ -85,7 +85,7 @@ function MainLayout({ children }) {
 
                 {/* O CONTEÚDO: Garante que é relativo e z-10 para ficar À FRENTE do novo glow */}
                 <div
-                    className={`${!isPinPage ? "max-w-md mx-auto px-6 py-2" : ""} relative z-10`}
+                    className={`${!isPinPage ? "max-w-md mx-auto px-6 py-4" : ""} relative z-10`}
                 >
                     {children}
                 </div>

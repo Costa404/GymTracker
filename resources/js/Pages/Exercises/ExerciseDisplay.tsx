@@ -26,7 +26,7 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
 
     const isInvalid = !weight || !reps || weight === "0" || reps === "0";
 
-    const handleAction = (e: React.FormEvent) => {
+    const handleAction = (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (isInvalid) return;
         saveLocally(exercise.id);

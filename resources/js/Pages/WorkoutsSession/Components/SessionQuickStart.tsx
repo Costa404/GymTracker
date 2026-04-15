@@ -3,14 +3,13 @@ import ActiveExercisesInSession from "./ActiveExercisesInSession";
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
 const TEMPLATES_MAP: Record<string, any[]> = {
-    PUSH: [{ name: "Push Alpha", ids: [1, 4, 7] }],
-    PULL: [{ name: "Pull Heavy", ids: [10, 12, 15] }],
+    PUSH: [{ name: "Push", ids: [7, 8, 10, 11, 12, 13, 14, 9] }],
+    PULL: [{ name: "Pull", ids: [27, 30, 28, 29, 32, 33, 31] }],
     LEGS: [
-        { name: "Legs A", ids: [20, 22, 25] },
-        { name: "Legs B", ids: [20, 26, 28] },
+        { name: "Legs A", ids: [1, 2, 3, 4, 6] },
+        { name: "Legs B", ids: [35, 36, 3, 4, 37] },
     ],
-    UPPER: [{ name: "Upper Body", ids: [1, 10, 4, 12] }],
-    FULL: [{ name: "Full Body", ids: [1, 10, 30, 45] }],
+    UPPER: [{ name: "Upper", ids: [8, 10, 11, 9, 18, 16, 21, 25, 26] }],
 };
 
 interface SessionQuickStartProps {

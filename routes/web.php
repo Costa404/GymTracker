@@ -57,4 +57,12 @@ Route::middleware([App\Http\Middleware\CheckPin::class])->group(function () {
             ->name('exercises.IndividualHistory');
     });
 
+
+
+});
+use App\Models\Exercise;
+
+Route::get('/exercicios-lista', function () {
+    // Seleciona apenas as colunas id e name da tabela exercises
+    return Exercise::select('id', 'name')->get();
 });

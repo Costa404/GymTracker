@@ -78,7 +78,7 @@ function MainLayout({ children }) {
                         className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] pointer-events-none z-0 opacity-25"
                         style={{
                             background:
-                                "radial-gradient(circle at top, var(--color-system) 0%, transparent 80%)",
+                                "radial-gradient(circle at top, var(--color-system) 0%, transparent 20%)",
                         }}
                     />
                 )}

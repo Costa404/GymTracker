@@ -14,7 +14,7 @@ const ExercisesHeader = ({
     };
 
     return (
-        <header className="mb-10 flex flex-col items-center relative z-10 w-full">
+        <header className="mb-4 flex flex-col items-center relative z-10 w-full">
             {/* LINHA DE TOPO: Ações Rápidas */}
             <div className="flex justify-between w-full items-center">
                 <GlassBtn
@@ -57,7 +57,7 @@ const ExercisesHeader = ({
             </div>
 
             {/* TÍTULO CENTRAL: O foco do exercício */}
-            <div className="mt-8 flex flex-col justify-center items-center w-full">
+            <div className="mt-4 flex flex-col justify-center items-center w-full">
                 <h1 className="text-3xl font-black italic uppercase tracking-tighter leading-none text-white text-center drop-shadow-2xl">
                     {exerciseName}
                 </h1>

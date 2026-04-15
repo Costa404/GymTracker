@@ -23,8 +23,8 @@ const WorkoutSetup = ({ templates }) => {
 
     return (
         /* Contentor padrão: px-6 e espaçamento vertical generoso */
-        <div className="min-h-screen max-w-md mx-auto pt-6 pb-20 relative overflow-hidden ">
-            <Head title="Preparation" />
+        <div className="min-h-screen max-w-md mx-auto  relative overflow-hidden ">
+            <Head title="Setup" />
 
             <div className="relative z-10">
                 {activeSessionId ? (

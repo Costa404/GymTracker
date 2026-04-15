@@ -78,14 +78,14 @@ function MainLayout({ children }) {
                         className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] pointer-events-none z-0 opacity-25"
                         style={{
                             background:
-                                "radial-gradient(circle at top, var(--color-system) 0%, transparent 20%)",
+                                "radial-gradient(circle at top, var(--color-system) 0%, transparent 40%)",
                         }}
                     />
                 )}
 
                 {/* O CONTEÚDO: Garante que é relativo e z-10 para ficar À FRENTE do novo glow */}
                 <div
-                    className={`${!isPinPage ? "max-w-md mx-auto px-6" : ""} relative z-10`}
+                    className={`${!isPinPage ? "max-w-md mx-auto px-6 py-2" : ""} relative z-10`}
                 >
                     {children}
                 </div>

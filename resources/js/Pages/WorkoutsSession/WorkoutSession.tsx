@@ -29,7 +29,7 @@ const WorkoutSession = ({ workout, workoutData, exercises }) => {
 
     return (
         /* 1. O Contentor Pai com Padding Lateral Fixo (px-6) e Fundo Dark */
-        <div className="min-h-screen max-w-md mx-auto  text-white  pb-48 text-left relative overflow-x-hidden">
+        <div className="min-h-screen max-w-md mx-auto  text-white text-left relative overflow-x-hidden">
             <Head title={`${workout.name}`} />
 
             {/* 2. Glow de Fundo Subtil para dar profundidade à página inteira */}

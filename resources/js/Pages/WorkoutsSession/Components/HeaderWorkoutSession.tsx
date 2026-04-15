@@ -9,7 +9,7 @@ interface HeaderWorkoutSessionProps {
 
 const HeaderWorkoutSession = ({ workout }: HeaderWorkoutSessionProps) => {
     return (
-        <header className=" pt-4">
+        <header className=" p">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     {/* Badge de Status LIVE: Alinhado com o tema Performance */}

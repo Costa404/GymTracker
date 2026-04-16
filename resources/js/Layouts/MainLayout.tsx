@@ -75,14 +75,14 @@ function MainLayout({ children }) {
                 {/* O GLOW ENTRA AQUI: Agora ele faz parte da mesma camada que o conteúdo */}
                 {!isPinPage && (
                     <div
-                        className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] pointer-events-none z-0 opacity-25"
+                        className="absolute left-1/2 -translate-x-1/2 w-full h-[600px] pointer-events-none z-0 opacity-25"
                         style={{
+                            top: "calc(-1 * env(safe-area-inset-top))",
                             background:
                                 "radial-gradient(circle at top, var(--color-system) 0%, transparent 40%)",
                         }}
                     />
                 )}
-
                 {/* O CONTEÚDO: Garante que é relativo e z-10 para ficar À FRENTE do novo glow */}
                 <div
                     className={`${!isPinPage ? "max-w-md mx-auto px-6 py-4" : ""} relative z-10`}

@@ -29,11 +29,10 @@
 
         .spinner {
             width: 40px;
-            /* Um pouco mais pequena para ser elegante */
+
             height: 40px;
-            /* Usando a mesma opacidade que usaste no PIN (20%) para a borda base */
+
             border: 2px solid rgba(59, 130, 246, 0.2);
-            /* O azul sólido Blue-500 para a parte que roda */
             border-top: 2px solid text-performance;
             border-radius: 50%;
             animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;

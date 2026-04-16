@@ -10,7 +10,7 @@ function Navbar() {
     const activeSessionId = useWorkoutSessionStore((s) => s.activeSessionId);
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-[100] h-16 overflow-hidden">
+        <nav className="fixed top-10 left-0 right-0 z-[100] h-16 overflow-hidden">
             {/* 3. CONTEÚDO DA NAVBAR */}
             <div className="relative z-20 max-w-md mx-auto h-full flex justify-between items-center px-6">
                 <div className="flex items-center gap-3">

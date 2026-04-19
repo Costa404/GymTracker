@@ -28,12 +28,19 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
         if (name.includes("PULL")) return TEMPLATES_MAP["PULL"];
         if (name.includes("LEGS")) return TEMPLATES_MAP["LEGS"];
         if (name.includes("UPPER")) return TEMPLATES_MAP["UPPER"];
-        if (name.includes("FULL")) return TEMPLATES_MAP["FULL"];
+        // if (name.includes("FULL")) return TEMPLATES_MAP["FULL"];
+
+        // NAO PRECISAMOS ESTE ULTIMO IF PORQUE se for full VAI DAR RETURN EM TODOS OS EXERCICOS
         return [];
     };
+    // console.log("🟠 exercises prop:", exercises);
 
     const currentTemplates = getActiveTemplates();
 
+    // console.log(
+    //     "🔵 SessionQuickStart Rendered with workout name:",
+    //     workout.name,
+    // );
     const handleLoadTemplate = (exerciseIds: number[]) => {
         startSession(workout.id);
         loadTemplate(exerciseIds);

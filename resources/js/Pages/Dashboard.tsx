@@ -5,7 +5,6 @@ import { Head } from "@inertiajs/react";
 interface Props {
     weeklyVolume: number;
     currentDate: string;
-    currentTime: string;
 }
 
 const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
@@ -13,7 +12,7 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
 
     return (
         /* Contentor Pai com Padding Lateral Padrão e o Glow de Sistema no topo */
-        <div className="min-h-screen py-8  text-white  relative overflow-hidden">
+        <div className="min-h-screen  text-white  relative overflow-hidden">
             <Head title="Command Center" />
 
             <div className="relative z-10 max-w-md mx-auto space-y-10">

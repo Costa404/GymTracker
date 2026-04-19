@@ -65,27 +65,33 @@ function MainLayout({ children }) {
     const isPinPage = url.startsWith("/login-pin");
 
     return (
-        /* O fundo preto fica aqui na base */
-        <div className="bg-black min-h-screen relative overflow-x-hidden font-sans antialiased text-gray-300">
+        <div className="fixed inset-0 bg-black overflow-hidden font-sans antialiased text-gray-300">
+            {/* 1. O GLOW (Z-0) - Fica colado ao fundo do ecrã, imovél */}
+            {!isPinPage && (
+                <div
+                    className="absolute inset-x-0 top-0 h-[500px] pointer-events-none z-0 opacity-30"
+                    style={{
+                        background:
+                            "radial-gradient(circle at top, var(--color-system) 0%, transparent 70%)",
+                    }}
+                />
+            )}
+
+            {/* 2. NAVBAR (Z-50) - Transparente por cima do Glow */}
             {!isPinPage && <Navbar />}
 
+            {/* 3. ÁREA DE SCROLL (Z-10) */}
             <main
-                className={`relative z-10 min-h-screen no-scrollbar overflow-y-auto ${!isPinPage ? "pt-14" : ""} px-0`}
+                className="absolute inset-0 overflow-y-auto no-scrollbar"
+                style={{
+                    /* O segredo: o scroll começa aqui, mas o clip-path impede-o de subir */
+                    paddingTop: "calc(env(safe-area-inset-top) + 4.5rem)",
+                    clipPath:
+                        "inset(calc(env(safe-area-inset-top) + 2.5rem) 0 0 0)",
+                }}
             >
-                {/* O GLOW ENTRA AQUI: Agora ele faz parte da mesma camada que o conteúdo */}
-                {!isPinPage && (
-                    <div
-                        className="absolute left-1/2 -translate-x-1/2 w-full h-[600px] pointer-events-none z-0 opacity-25"
-                        style={{
-                            top: "calc(-1 * env(safe-area-inset-top))",
-                            background:
-                                "radial-gradient(circle at top, var(--color-system) 0%, transparent 40%)",
-                        }}
-                    />
-                )}
-                {/* O CONTEÚDO: Garante que é relativo e z-10 para ficar À FRENTE do novo glow */}
                 <div
-                    className={`${!isPinPage ? "max-w-md mx-auto px-6 py-4" : ""} relative z-10`}
+                    className={`${!isPinPage ? "max-w-md mx-auto px-6 py-5 pb-20" : ""}`}
                 >
                     {children}
                 </div>
@@ -96,12 +102,10 @@ function MainLayout({ children }) {
                     __html: `
                 .no-scrollbar::-webkit-scrollbar { display: none; }
                 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-                body { background-color: black; }
             `,
                 }}
             />
         </div>
     );
 }
-
 export default MainLayout;

@@ -11,54 +11,72 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Cybrex Gym">
+    <meta name="apple-mobile-web-app-title" content="myGym">
     <link rel="apple-touch-icon" href="/icon.png">
 
     <style>
-        /* Loader Styles - CSS Puro para ser instantâneo */
+        /* 1. Reset Global para evitar o salto de tamanho quando o Tailwind carrega */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body.loading {
+            overflow: hidden !important;
+            height: 100vh !important;
+            width: 100vw !important;
+            margin: 0;
+            position: fixed;
+            /* Previne scroll no iOS */
+        }
+
         #initial-loader {
             position: fixed;
             inset: 0;
             background: #000;
+            display: grid;
+            place-items: center;
+            align-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        .loader-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.4s ease-out, visibility 0.4s;
+            min-width: 200px;
         }
 
         .spinner {
-            width: 40px;
-
-            height: 40px;
-
-            border: 2px solid rgba(59, 130, 246, 0.2);
-            border-top: 2px solid text-performance;
+            /* 2. Tamanho fixo e imutável */
+            width: 42px !important;
+            height: 42px !important;
+            border: 3px solid rgba(59, 130, 246, 0.1);
+            border-top: 3px solid #3b82f6;
             border-radius: 50%;
-            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            animation: spin 0.8s linear infinite;
+            flex-shrink: 0;
         }
 
         .loader-text {
-            margin-top: 24px;
-            color: text-performance;
-            /* Blue-500 */
-            font-family: sans-serif;
-            font-size: 8px;
-            /* Mais pequeno como no novo PinLogin */
+            margin-top: 28px;
+            color: #3b82f6;
+            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+            font-size: 9px;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.6em;
-            /* Mais espaçado para o look técnico */
+            letter-spacing: 0.8em;
+            padding-left: 0.8em;
+            /* Centro ótico perfeito */
             opacity: 0.8;
-            animation: pulse 3s infinite;
+            animation: pulse 2s infinite;
+            white-space: nowrap;
         }
 
         @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-
             to {
                 transform: rotate(360deg);
             }
@@ -76,10 +94,9 @@
             }
         }
 
-        /* Classe para esconder o loader */
         .loader-hidden {
-            opacity: 0;
-            visibility: hidden;
+            opacity: 0 !important;
+            visibility: hidden !important;
         }
     </style>
 
@@ -89,32 +106,33 @@
     @inertiaHead
 </head>
 
-<body class="font-sans antialiased bg-black">
+<body class="font-sans antialiased bg-black loading">
     <div id="initial-loader">
-        <div class="spinner"></div>
-        <div class="loader-text">Command Center</div>
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <div class="loader-text">Command Center</div>
+        </div>
     </div>
 
     @inertia
 
     <script>
-        // Esconde o loader assim que o Inertia carregar a primeira página
-        document.addEventListener('inertia:finish', function() {
+        // Função Global de Encerramento
+        window.terminateLoader = function() {
             const loader = document.getElementById('initial-loader');
-            if (loader) {
+            if (loader && !loader.classList.contains('loader-hidden')) {
                 loader.classList.add('loader-hidden');
-                setTimeout(() => loader.remove(), 500);
+                document.body.classList.remove('loading');
+                setTimeout(() => {
+                    if (loader && loader.parentNode) loader.remove();
+                }, 500);
             }
-        });
+        };
 
-        // Para o carregamento inicial
-        window.addEventListener('load', function() {
-            const loader = document.getElementById('initial-loader');
-            if (loader) {
-                loader.classList.add('loader-hidden');
-                setTimeout(() => loader.remove(), 500);
-            }
-        });
+        // Fail-safe: Se algo correr mal, a app abre ao fim de 4s
+        setTimeout(() => {
+            window.terminateLoader();
+        }, 4000);
     </script>
 </body>
 

@@ -2,39 +2,71 @@ import { Link } from "@inertiajs/react";
 import { HiChevronRight } from "react-icons/hi";
 
 const SessionExerciseCard = ({ name, setsCount, exerciseId, workoutId }) => {
+    // Lógica para verificar se está ativo
+    const isActive = setsCount > 0;
+
     return (
         <Link
             href={`/workout/${workoutId}/exercise/${exerciseId}`}
-            className="group block w-full relative transition-all duration-300 active:scale-[0.98]"
+            className="block w-full relative active:scale-[0.98] transition-transform"
         >
-            {/* CARD CONTAINER: Trocado blue-500 por system */}
-            <div className="relative bg-system/5 border border-system/10 rounded-2xl p-5 px-4 flex justify-between items-center overflow-hidden transition-all group-hover:border-system/40 backdrop-blur-sm">
-                {/* Efeito de luz interna no hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-system/0 via-system/5 to-system/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-
-                <div className="relative z-10 flex-1">
+            {/* 1. Borda Dinâmica: Se tiver sets, a borda fica mais forte (opacity-100 ou azul sólido) */}
+            <div
+                className={`relative  border rounded-2xl p-5 px-4 flex justify-between items-center overflow-hidden transition-colors min-h-[100px]
+                ${
+                    isActive
+                        ? "border-system shadow-[0_0_10px_rgba(var(--color-system-rgb),0.1)]"
+                        : "border-system/30"
+                } active:border-system`}
+            >
+                <div className="relative z-10 flex-1 flex flex-col justify-center h-full">
                     <div className="flex items-center gap-3 mb-2">
-                        {/* Ponto pulsante azul usando a variável system */}
-                        <div className="w-1.5 h-1.5 bg-system rounded-full animate-pulse shadow-[0_0_8px_var(--color-system)]" />
+                        {/* 2. Ponto Dinâmico: Azul se parado, Verde se tiver sets */}
+                        <div
+                            className={`w-1.5 h-1.5 rounded-full animate-pulse shrink-0 ${
+                                isActive
+                                    ? "bg-emerald-400 shadow-[0_0_8px_#10b981]"
+                                    : "bg-system"
+                            }`}
+                        />
 
-                        <h2 className="text-white font-black uppercase italic tracking-tighter text-lg leading-none">
+                        <h2
+                            className={`font-black uppercase italic tracking-tighter text-base leading-[1.1] line-clamp-2 transition-colors ${
+                                isActive ? "text-white" : "text-zinc-400"
+                            }`}
+                        >
                             {name}
                         </h2>
                     </div>
 
-                    {/* Badge de Sets: Ajustado para o sistema */}
-                    <div className="inline-flex items-center gap-2 px-2 py-0.5 bg-system/10 border border-system/20 rounded-md">
-                        <span className="text-[9px] text-system-light font-bold uppercase tracking-[0.2em] tabular-nums">
+                    {/* 3. Badge Dinâmico */}
+                    <div
+                        className={`inline-flex items-center gap-2 px-2 py-0.5 border rounded-md self-start transition-colors ${
+                            isActive
+                                ? "bg-system/20 border-system text-white"
+                                : "bg-system/5 border-system/20 text-system-light"
+                        }`}
+                    >
+                        <span className="text-[9px] font-bold uppercase tracking-[0.2em] tabular-nums">
                             {setsCount} {setsCount === 1 ? "Set" : "Sets"}{" "}
                             Active
                         </span>
                     </div>
                 </div>
 
-                {/* BOTÃO DE AÇÃO */}
-                <div className="relative z-10 ml-4">
-                    <div className="w-10 h-10 rounded-xl bg-system/10 border border-system/20 flex items-center justify-center transition-all group-hover:bg-system group-hover:border-system group-hover:shadow-[0_0_15px_var(--color-system)]">
-                        <HiChevronRight className="text-system text-xl group-hover:text-black transition-all" />
+                <div className="relative z-10 ml-4 shrink-0">
+                    <div
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all ${
+                            isActive
+                                ? "bg-system border-system"
+                                : "bg-system/5 border-system/30"
+                        }`}
+                    >
+                        <HiChevronRight
+                            className={`text-xl ${
+                                isActive ? "text-black" : "text-system"
+                            }`}
+                        />
                     </div>
                 </div>
             </div>

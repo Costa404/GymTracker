@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+// Adiciona estas duas linhas abaixo:
+use Laragear\WebAuthn\WebauthnAuthentication;
+use Laragear\WebAuthn\Contracts\WebauthnAuthenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements WebauthnAuthenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    // Adiciona o WebauthnAuthentication aqui dentro:
+    use HasFactory, Notifiable, WebauthnAuthentication;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +25,11 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public function canRegisterWebauthn(): bool
+    {
+        return true; // Força a autorização para todos os utilizadores autenticados
+    }
 
     /**
      * The attributes that should be hidden for serialization.

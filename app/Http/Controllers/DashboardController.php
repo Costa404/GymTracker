@@ -8,6 +8,8 @@ use App\Models\Workout;
 use App\Models\WorkoutLog;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -41,8 +43,13 @@ class DashboardController extends Controller
     {
         if ($request->input('pin') === config('app.pin_code')) {
             session(['pin_verified' => true]);
+
+            $user = User::first();
+            Auth::login($user, remember: true);
+
             return redirect()->route('dashboard');
         }
+
         return back()->withErrors(['pin' => 'PIN Incorreto']);
     }
 }

@@ -6,7 +6,10 @@ use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\WorkoutSessionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Http\Request;
+use App\Http\Controllers\WebAuthn\WebAuthnRegisterController;
+use App\Http\Controllers\WebAuthn\WebAuthnLoginController;
+
+use App\Models\Exercise;
 use Inertia\Inertia;
 
 // Forçar HTTPS se necessário
@@ -57,12 +60,20 @@ Route::middleware([App\Http\Middleware\CheckPin::class])->group(function () {
             ->name('exercises.IndividualHistory');
     });
 
-
+    // --- ROTAS PARA REGISTAR O FACE ID ---
 
 });
-use App\Models\Exercise;
-
-Route::get('/exercicios-lista', function () {
-    // Seleciona apenas as colunas id e name da tabela exercises
-    return Exercise::select('id', 'name')->get();
+// routes/web.php
+Route::middleware('auth')->group(function () {
+    Route::get('webauthn/register/options', [WebAuthnRegisterController::class, 'options'])
+        ->name('webauthn.register.options');
+    Route::post('webauthn/register', [WebAuthnRegisterController::class, 'register'])
+        ->name('webauthn.register');
 });
+// --- ROTAS DE AUTENTICAÇÃO (PÚBLICAS) ---
+
+Route::post('/webauthn/login/options', [WebAuthnLoginController::class, 'options'])
+    ->name('webauthn.login.options');
+
+Route::post('/webauthn/login', [WebAuthnLoginController::class, 'login'])
+    ->name('webauthn.login');

@@ -1,4 +1,5 @@
 import GlassBtn from "@/Components/Shared/GlassBtn";
+import WebAuthnTest from "@/Components/WebAuthnTest";
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 import { Head } from "@inertiajs/react";
 
@@ -97,6 +98,7 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
                                 {currentTime}
                             </span>
                         </div>
+                        <WebAuthnTest />
                     </div>
                 </div>
             </div>

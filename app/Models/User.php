@@ -5,21 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-// Adiciona estas duas linhas abaixo:
-use Laragear\WebAuthn\WebauthnAuthentication;
-use Laragear\WebAuthn\Contracts\WebauthnAuthenticatable;
+use Laragear\WebAuthn\WebAuthnAuthentication;
+use Laragear\WebAuthn\Contracts\WebAuthnAuthenticatable;
 
-class User extends Authenticatable implements WebauthnAuthenticatable
+use Ramsey\Uuid\Uuid;
+
+class User extends Authenticatable implements WebAuthnAuthenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    // Adiciona o WebauthnAuthentication aqui dentro:
-    use HasFactory, Notifiable, WebauthnAuthentication;
+    use HasFactory, Notifiable, WebAuthnAuthentication;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -28,24 +22,30 @@ class User extends Authenticatable implements WebauthnAuthenticatable
 
     public function canRegisterWebauthn(): bool
     {
-        return true; // Força a autorização para todos os utilizadores autenticados
+        return true;
     }
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Indica ao pacote WebAuthn para usar a coluna UUID como identificador.
      */
+    public function getWebAuthnIdentifier(): string
+    {
+        // Isto vai devolver sempre "1" (como string) para o teu user.
+        // É impossível o iPhone e o Laravel não concordarem com isto.
+        return (string) $this->id;
+    }
+
+    // public function webAuthnId(): \Ramsey\Uuid\UuidInterface
+    // {
+    //     // Usa o UUID guardado sem hífens, convertido para bytes
+    //     $hex = str_replace('-', '', $this->uuid);
+    //     return \Ramsey\Uuid\Uuid::fromBytes(hex2bin($hex));
+    // }
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [

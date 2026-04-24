@@ -32,3 +32,7 @@ console_command = 'php /var/www/html/artisan tinker'
 [[vm]]
   memory = '256mb'
   cpus = 1
+
+
+[swap]
+  size_mb = 512

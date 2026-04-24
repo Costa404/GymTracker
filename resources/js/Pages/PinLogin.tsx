@@ -24,16 +24,19 @@ const PinLogin = () => {
 
     const handleFaceId = async () => {
         try {
-            // ✅ POST em vez de GET
             const { data: options } = await axios.post(
                 "/webauthn/login/options",
             );
             const assertion = await startAuthentication(options);
             await axios.post("/webauthn/login", assertion);
             router.visit("/dashboard");
-        } catch (error) {
-            console.error("Erro no Face ID:", error);
-            alert("Autenticação falhou ou foi cancelada.");
+        } catch (error: any) {
+            // Mostra o erro real no iPhone
+            alert(
+                error?.response?.data?.message ||
+                    error?.message ||
+                    JSON.stringify(error),
+            );
         }
     };
     return (

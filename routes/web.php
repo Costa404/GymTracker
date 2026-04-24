@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\WebAuthn\WebAuthnLoginController;
+use App\Http\Controllers\WebAuthn\WebAuthnRegisterController;
 use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\WorkoutSessionController;
+use App\Models\Exercise;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
-use App\Http\Controllers\WebAuthn\WebAuthnRegisterController;
-use App\Http\Controllers\WebAuthn\WebAuthnLoginController;
-
-use App\Models\Exercise;
 use Inertia\Inertia;
 
 // Forçar HTTPS se necessário
@@ -77,3 +77,9 @@ Route::post('/webauthn/login/options', [WebAuthnLoginController::class, 'options
 
 Route::post('/webauthn/login', [WebAuthnLoginController::class, 'login'])
     ->name('webauthn.login');
+Route::post('/logout', function () {
+    Auth::logout();
+    session()->invalidate();
+    session()->regenerateToken();
+    return redirect('/login-pin');
+})->name('logout');

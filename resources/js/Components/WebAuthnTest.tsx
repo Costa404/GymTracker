@@ -22,7 +22,17 @@ const WebAuthnTest = () => {
     };
 
     return (
-        <button onClick={handleRegister}>🚀 Ativar Face ID (via iPhone)</button>
+        <>
+            <button onClick={handleRegister}>
+                🚀 Ativar Face ID (via iPhone)
+            </button>
+            <button
+                onClick={() => router.post("/logout")}
+                className="w-full py-3 rounded-xl border border-red-500/30 bg-red-500/5 text-red-400/70 text-[9px] font-black uppercase tracking-widest hover:bg-red-500/10"
+            >
+                Logout
+            </button>
+        </>
     );
 };
 export default WebAuthnTest;

@@ -60,13 +60,14 @@ import { usePage } from "@inertiajs/react";
 // }
 
 // export default MainLayout;
+
 function MainLayout({ children }) {
     const { url } = usePage();
-    const isPinPage = url.startsWith("/login-pin");
+    const isPinPage = url.startsWith("/auth");
 
     return (
         <div className="fixed inset-0 bg-black overflow-hidden font-sans antialiased text-gray-300">
-            {/* 1. O GLOW (Z-0) - Fica colado ao fundo do ecrã, imovél */}
+            {/* 1. O GLOW (Z-0) */}
             {!isPinPage && (
                 <div
                     className="absolute inset-x-0 top-0 h-[500px] pointer-events-none z-0 opacity-30"
@@ -77,35 +78,39 @@ function MainLayout({ children }) {
                 />
             )}
 
-            {/* 2. NAVBAR (Z-50) - Transparente por cima do Glow */}
+            {/* 2. NAVBAR (Z-50) */}
             {!isPinPage && <Navbar />}
 
-            {/* 3. ÁREA DE SCROLL (Z-10) */}
-            <main
-                className="absolute inset-0 overflow-y-auto no-scrollbar"
-                style={{
-                    /* O segredo: o scroll começa aqui, mas o clip-path impede-o de subir */
-                    paddingTop: "calc(env(safe-area-inset-top) + 4.5rem)",
-                    clipPath:
-                        "inset(calc(env(safe-area-inset-top) + 2.5rem) 0 0 0)",
-                }}
-            >
-                <div
-                    className={`${!isPinPage ? "max-w-md mx-auto px-6 py-5 pb-20" : ""}`}
-                >
+            {/* 3. MAIN */}
+            {isPinPage ? (
+                <main className="absolute inset-0 flex items-center justify-center">
                     {children}
-                </div>
-            </main>
+                </main>
+            ) : (
+                <main
+                    className="absolute inset-0 overflow-y-auto no-scrollbar"
+                    style={{
+                        paddingTop: "calc(env(safe-area-inset-top) + 4.5rem)",
+                        clipPath:
+                            "inset(calc(env(safe-area-inset-top) + 2.5rem) 0 0 0)",
+                    }}
+                >
+                    <div className="max-w-md mx-auto px-6 py-3 pb-20">
+                        {children}
+                    </div>
+                </main>
+            )}
 
             <style
                 dangerouslySetInnerHTML={{
                     __html: `
-                .no-scrollbar::-webkit-scrollbar { display: none; }
-                .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-            `,
+                        .no-scrollbar::-webkit-scrollbar { display: none; }
+                        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+                    `,
                 }}
             />
         </div>
     );
 }
+
 export default MainLayout;

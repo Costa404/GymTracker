@@ -19,11 +19,11 @@ if (request()->isSecure() || str_contains(request()->getHost(), 'ngrok')) {
 
 // --- ROTAS DO PIN (PÚBLICAS) ---
 
-Route::get('/login-pin', function () {
-    return Inertia::render('PinLogin');
+Route::get('/auth', function () {
+    return Inertia::render('Auth/Auth');
 })->name('pin.show');
 
-Route::post('/login-pin', [DashboardController::class, 'verifyPin'])->name('pin.verify');
+Route::post('/auth', [DashboardController::class, 'verifyPin'])->name('pin.verify');
 
 
 // --- TODAS AS TUAS ROTAS ORIGINAIS (PROTEGIDAS) ---
@@ -81,5 +81,5 @@ Route::post('/logout', function () {
     Auth::logout();
     session()->invalidate();
     session()->regenerateToken();
-    return redirect('/login-pin');
+    return redirect('/auth');
 })->name('logout');

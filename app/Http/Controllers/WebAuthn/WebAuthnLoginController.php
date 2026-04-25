@@ -29,6 +29,7 @@ class WebAuthnLoginController
 
             if ($user) {
                 Auth::login($user);
+                session(['pin_verified' => true]);
                 return response()->noContent();
             }
 

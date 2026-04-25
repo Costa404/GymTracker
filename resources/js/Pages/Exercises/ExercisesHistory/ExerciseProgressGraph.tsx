@@ -131,28 +131,43 @@ const ExerciseProgress = ({ data }: ChartProps) => {
             {/* Linha Divisória */}
             <div className="h-[1px] w-full bg-performance/10 my-6" />
 
-            {/* Secção de Estatísticas Unificada */}
-            <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col">
-                    <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">
+            {/* Secção de Estatísticas Unificada (Corrigida) */}
+            <div className="flex items-center justify-between w-full">
+                {/* Lado Esquerdo - Initial */}
+                <div className="flex flex-col w-[45%]">
+                    <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1">
                         Initial Weight
                     </p>
-                    <p className="text-white text-2xl font-bold">
-                        {initialWeight} kg
-                    </p>
+                    <div className="flex items-baseline gap-1 whitespace-nowrap">
+                        <span className="text-white text-3xl font-black tracking-tighter">
+                            {initialWeight}
+                        </span>
+                        <span className="text-gray-500 text-sm font-bold">
+                            kg
+                        </span>
+                    </div>
                 </div>
 
-                <div className="flex flex-col border-l border-performance/10 pl-6">
-                    <p className="text-performance text-xs uppercase tracking-wider mb-1">
+                {/* Separador Vertical */}
+                <div className="h-10 w-[1px] bg-performance/20" />
+
+                {/* Lado Direito - Current */}
+                <div className="flex flex-col w-[45%] pl-4">
+                    <p className="text-performance text-[10px] font-black uppercase tracking-[0.2em] mb-1">
                         Current Weight
                     </p>
-                    <div className="flex items-baseline gap-2">
-                        <p className="text-white text-2xl font-bold">
-                            {currentWeight} kg
-                        </p>
-                        <span className="text-performance text-sm font-bold">
-                            ({diff >= 0 ? "+" : ""}
-                            {percentage}%)
+                    <div className="flex items-baseline gap-2 whitespace-nowrap">
+                        <div className="flex items-baseline gap-1">
+                            <span className="text-white text-3xl font-black tracking-tighter">
+                                {currentWeight}
+                            </span>
+                            <span className="text-gray-500 text-sm font-bold">
+                                kg
+                            </span>
+                        </div>
+                        <span className="text-performance text-sm font-black bg-performance/10 px-2 py-0.5 rounded-md">
+                            {diff >= 0 ? "+" : ""}
+                            {percentage}%
                         </span>
                     </div>
                 </div>

@@ -79,7 +79,7 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
                         </p>
                     </div>
 
-                    {/* Cards de Info (System Context) */}
+                    {/*
                     <div className="grid grid-cols-2 gap-3">
                         <div className="bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col items-center backdrop-blur-sm">
                             <span className="text-[7px] font-black uppercase text-zinc-600 tracking-[0.2em] mb-2">
@@ -98,8 +98,9 @@ const Dashboard = ({ weeklyVolume, currentDate, currentTime }: Props) => {
                                 {currentTime}
                             </span>
                         </div>
+
                         <WebAuthnTest />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

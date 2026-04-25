@@ -15,15 +15,11 @@ const WorkoutsHistory = ({ workouts, filters }: Props) => {
             <Head title="Past Workouts" />
 
             {/* HEADER REFORMULADO */}
-            <div className="mb-4 text-center">
-                <h1 className="text-5xl font-black italic text-white uppercase tracking-tighter leading-none">
+            <div className="text-center mb-4">
+                <h1 className="text-system-light font-black uppercase tracking-italic text-xl ">
                     Archive
                 </h1>
-                <div className="inline-block  px-3 py-1 bg-performance/10 border border-performance/20 rounded-full">
-                    <p className="text-performance text-[9px] font-black uppercase tracking-[0.2em]">
-                        {workouts.length} Total Sessions
-                    </p>
-                </div>
+                <div className="h-[1px] w-12 bg-system/20 mx-auto mt-4" />
             </div>
 
             {/* FILTROS COM SCROLL HORIZONTAL (Caso cresçam) */}

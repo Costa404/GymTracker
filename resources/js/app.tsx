@@ -5,6 +5,7 @@ import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createRoot } from "react-dom/client";
 import MainLayout from "@/Layouts/MainLayout";
 import { route } from "ziggy-js";
+import { router } from "@inertiajs/react";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 

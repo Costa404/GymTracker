@@ -14,7 +14,7 @@ const CategoryFilterWorkoutsHistory = ({ currentType }: Props) => {
 
     return (
         <div className="flex justify-center w-full mb-4">
-            <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 items-center">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar items-center">
                 <Link
                     href="/workouts/history"
                     className={`px-4 py-1.5 rounded-md border text-[9px] font-black uppercase italic tracking-[0.15em] transition-all duration-200 flex-shrink-0 ${getStyle(null)}`}

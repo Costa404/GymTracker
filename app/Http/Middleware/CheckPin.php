@@ -4,17 +4,31 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckPin
 {
     public function handle(Request $request, Closure $next)
     {
-        // Se a rota atual não for a de login e o PIN não estiver na sessão, bloqueia
+        if (Auth::check()) {
+            $lastActivity = session('last_activity');
+
+            // Se passou mais de 3 horas, pede Face ID novamente
+            if ($lastActivity && now()->diffInMinutes($lastActivity) > 180) {
+                Auth::logout();
+                session()->flush();
+                return redirect()->route('pin.show');
+            }
+
+            // Atualiza o timestamp de atividade
+            session(['last_activity' => now(), 'pin_verified' => true]);
+            return $next($request);
+        }
+
         if (!$request->session()->get('pin_verified') && !$request->is('login-pin*')) {
             return redirect()->route('pin.show');
         }
 
-        // ALTERAÇÃO AQUI: Passa o $request e não o $next
         return $next($request);
     }
 }

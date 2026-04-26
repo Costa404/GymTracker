@@ -65,7 +65,6 @@ class WorkoutSessionController extends Controller
         $workoutModel->update(['completed_at' => now(), 'duration_seconds' => $request->input('duration_seconds'),]);
 
 
-
-        return redirect()->route('workouts.setup');
+        return redirect()->route('dashboard');
     }
 }

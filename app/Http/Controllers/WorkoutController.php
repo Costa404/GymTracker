@@ -38,9 +38,10 @@ class WorkoutController extends Controller
 
         $active = Workout::whereNull('completed_at')->latest()->first();
 
+
         return Inertia::render('WorkoutsSetup/WorkoutSetup', [
             'templates' => $templates,
-            'workout' => $active
+            'active' => $active,
         ]);
     }
 

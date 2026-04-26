@@ -1,6 +1,7 @@
 import React from "react";
 import ActiveExercisesInSession from "./ActiveExercisesInSession";
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import GlassBtn from "@/Components/Shared/GlassBtn";
 
 const TEMPLATES_MAP: Record<string, any[]> = {
     PUSH: [{ name: "Push", ids: [7, 8, 10, 11, 12, 13, 14, 9] }],
@@ -63,10 +64,10 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
 
                     <div className="grid grid-cols-2 gap-3">
                         {currentTemplates.map((template, idx) => (
-                            <button
+                            <GlassBtn
                                 key={idx}
                                 onClick={() => handleLoadTemplate(template.ids)}
-                                className={`group relative p-5 bg-system/5 border border-system/15 rounded-[1rem] text-left transition-all active:scale-95 hover:border-system/40 hover:bg-system/10 backdrop-blur-sm ${
+                                className={`group relative w-full p-6 bg-system/5 border border-system/20 rounded-2xl text-left transition-all active:scale-[0.98] active:bg-system/10 active:border-system/40 backdrop-blur-sm text-system-light font-black uppercase italic tracking-widest text-[11px]    ${
                                     currentTemplates.length === 1
                                         ? "col-span-2"
                                         : "col-span-1"
@@ -82,8 +83,7 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
                                 </div>
 
                                 {/* Efeito de brilho sutil no canto ao passar o rato */}
-                                <div className="absolute top-0 right-0 w-16 h-16 bg-system/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </button>
+                            </GlassBtn>
                         ))}
                     </div>
                 </section>

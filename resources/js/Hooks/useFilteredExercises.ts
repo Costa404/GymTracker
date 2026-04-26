@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 
 const useFilteredExercises = (
-    exercises: any[],
-    activeExercises: any[],
-    workoutName: string,
+    exercises?: any[],
+    activeExercises?: any[],
+    workoutName?: string,
 ) => {
     return useMemo(() => {
         // Transformamos o nome do treino em minúsculas para comparar

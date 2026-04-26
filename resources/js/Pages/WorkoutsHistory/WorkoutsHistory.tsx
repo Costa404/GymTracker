@@ -11,19 +11,23 @@ interface Props {
 
 const WorkoutsHistory = ({ workouts, filters }: Props) => {
     return (
-        <div className="max-w-2xl mx-auto  pb-24  font-sans">
+        <div className="max-w-2xl mx-auto pb-24 font-sans">
             <Head title="Past Workouts" />
 
-            {/* HEADER REFORMULADO */}
-            <div className="text-center mb-4">
-                <h1 className="text-system-light font-black uppercase tracking-italic text-xl ">
+            {/* HEADER */}
+            <div className="text-center mb-6">
+                <h1 className="text-system-light font-black uppercase italic tracking-tighter text-2xl ">
                     Archive
                 </h1>
-                <div className="h-[1px] w-12 bg-system/20 mx-auto mt-4" />
+                <div className="inline-block px-3 py-1 bg-performance/10 border border-performance/20 rounded-full">
+                    <p className="text-performance text-[9px] font-black uppercase tracking-[0.2em]">
+                        {workouts.length} Total Sessions
+                    </p>
+                </div>
             </div>
 
-            {/* FILTROS COM SCROLL HORIZONTAL (Caso cresçam) */}
-            <div className=" overflow-x-auto no-scrollbar">
+            {/* FILTROS */}
+            <div className="overflow-x-auto no-scrollbar mb-4">
                 <div className="flex justify-center min-w-max">
                     <CategoryFilterWorkoutsHistory currentType={filters.type} />
                 </div>
@@ -33,7 +37,7 @@ const WorkoutsHistory = ({ workouts, filters }: Props) => {
             <div className="space-y-4">
                 {workouts.length > 0 ? (
                     <div className="flex flex-col">
-                        {workouts.map((workout, index) => (
+                        {workouts.map((workout) => (
                             <WorkoutsHistoryItem
                                 key={workout.id}
                                 workout={workout}
@@ -46,7 +50,7 @@ const WorkoutsHistory = ({ workouts, filters }: Props) => {
                             <div className="w-16 h-[1px] bg-zinc-500" />
                         </div>
                         <p className="text-zinc-500 font-black text-[10px] uppercase tracking-[0.4em]">
-                            No records in this category
+                            No records found
                         </p>
                     </div>
                 )}

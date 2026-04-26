@@ -54,7 +54,6 @@ const ExerciseDisplay = ({ exercise, workout, lastWeights, lastReps }: any) => {
                     className=" border-2 border-performance/30 ring-1 ring-performance/5 rounded-[2.5rem] p-8 shadow-[0_0_50px_rgba(16,185,129,0.05)] relative overflow-hidden"
                 >
                     {/* Brilho interno no canto superior direito */}
-                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-performance/15 blur-[40px] pointer-events-none" />
 
                     <div className="grid grid-cols-2 gap-8 relative z-10">
                         <InputGroup

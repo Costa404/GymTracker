@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { router } from "@inertiajs/react";
 import { useShallow } from "zustand/react/shallow";
 import { useWorkoutSessionStore } from "./SessionStore/useWorkoutSessionStore";
+
 export const useFinishWorkout = () => {
+    const [isFinishing, setIsFinishing] = useState(false);
+
     const { activeSessionId, sessionExercises, finishSession } =
         useWorkoutSessionStore(
             useShallow((s) => ({
@@ -22,10 +26,15 @@ export const useFinishWorkout = () => {
                     useWorkoutSessionStore.getState().elapsedSeconds,
             },
             {
-                onSuccess: () => finishSession(),
+                onStart: () => setIsFinishing(true),
+                onSuccess: () => {
+                    finishSession();
+                    router.visit(route("dashboard"));
+                },
+                onFinish: () => setIsFinishing(false),
             },
         );
     };
 
-    return { finishWorkout };
+    return { finishWorkout, isFinishing };
 };

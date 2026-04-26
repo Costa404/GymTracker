@@ -17,65 +17,54 @@ const DetailsWorkoutsHistory = ({
     workout,
     workoutData,
 }: DetailsWorkoutsHistoryProps) => {
+    // MAGIA: Limpar a data do título, exatamente como fizemos na lista
+    const cleanName = workout?.name ? workout.name.split(" - ")[0] : "Workout";
+
     return (
         <div className="w-full text-white pb-20">
-            <Head title={`Report: ${workout.name}`} />
+            <Head title={`Report: ${cleanName}`} />
 
-            {/* HEADER AREA - Compacta e Técnica */}
+            {/* HEADER AREA */}
             <div className="mb-8">
-                <GlassBtn
-                    href={route("workouts.history")}
-                    variant="system"
-                    className="h-[32px] px-3 text-[9px] mb-6"
-                >
-                    <HiOutlineArrowLeft className="mr-2" />
-                    Back to Archive
-                </GlassBtn>
-
-                <div className="flex justify-between items-end border-b border-white/[0.05] pb-6">
-                    <div className="min-w-0">
-                        {/* Título Reduzido: Mais elegante e profissional */}
-                        <h1 className="text-xl font-black italic text-white uppercase tracking-tight leading-none mb-3">
-                            {workout.name}
+                <div className="border-b border-white/[0.05] pb-6">
+                    {/* Título e Info na mesma linha */}
+                    <div className="flex justify-between items-baseline gap-4 w-full">
+                        {/* Esquerda: Título Limpo */}
+                        <h1 className="text-xl font-black italic text-white uppercase tracking-tight leading-none truncate min-w-0">
+                            {cleanName}
                         </h1>
 
-                        <div className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.2em]">
+                        {/* Direita: Info (Data e Relógio) */}
+                        <div className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.1em] shrink-0">
                             <div className="flex items-center gap-1.5 text-zinc-500">
-                                <HiOutlineCalendar className="text-system" />
+                                <HiOutlineCalendar className="text-performance text-sm" />
                                 <span>
                                     {new Date(
                                         workout.completed_at ||
                                             workout.created_at,
-                                    ).toLocaleDateString("pt-PT", {
-                                        day: "2-digit",
+                                    ).toLocaleDateString("en-US", {
                                         month: "short",
-                                        year: "numeric",
+                                        day: "numeric",
                                     })}
                                 </span>
                             </div>
 
                             {workout.duration_seconds && (
                                 <div className="flex items-center gap-1.5 text-zinc-500">
-                                    <HiOutlineClock className="text-system" />
+                                    <HiOutlineClock className="text-performance text-sm" />
                                     <span>
                                         {Math.floor(
                                             workout.duration_seconds / 60,
                                         )}
-                                        m {workout.duration_seconds % 60}s
+                                        m
                                     </span>
                                 </div>
                             )}
                         </div>
                     </div>
-
-                    {/* Botão Delete: Discreto mas acessível */}
-                    <button className="p-2.5 rounded-xl border border-red-500/10 bg-red-500/5 text-red-500/40 hover:text-red-500 transition-all active:scale-90">
-                        <HiOutlineTrash className="text-lg" />
-                    </button>
                 </div>
             </div>
-
-            {/* EXERCISES LIST - Mantendo a clareza técnica */}
+            {/* EXERCISES LIST */}
             <div className="space-y-4">
                 {Object.entries(workoutData).map(
                     ([exerciseName, sets]: [string, any[]]) => (
@@ -88,13 +77,14 @@ const DetailsWorkoutsHistory = ({
                                     "exercises.IndividualHistory",
                                     sets[0].exercise_id,
                                 )}
-                                className="flex justify-between items-center px-5 py-4 bg-white/[0.02] border-b border-white/[0.03] group/header hover:bg-white/[0.05] transition-all"
+                                /* Removido o group-hover para otimizar para mobile */
+                                className="flex justify-between items-center px-5 py-4 bg-white/[0.02] border-b border-white/[0.03] active:bg-white/[0.05] transition-all"
                             >
-                                <h2 className="text-zinc-400 text-[10px] font-black uppercase tracking-[0.2em] italic group-hover/header:text-system-light transition-colors">
+                                <h2 className="text-zinc-400 text-[10px] font-black uppercase tracking-[0.2em] italic">
                                     {exerciseName}
                                 </h2>
-                                <span className="text-[8px] text-system/40 font-black uppercase opacity-0 group-hover/header:opacity-100 transition-opacity">
-                                    Telemetry →
+                                <span className="text-[15px] text-system/40 font-black uppercase">
+                                    →
                                 </span>
                             </Link>
 
@@ -102,7 +92,7 @@ const DetailsWorkoutsHistory = ({
                                 {sets.map((set, idx) => (
                                     <div
                                         key={idx}
-                                        className="flex justify-between items-center group"
+                                        className="flex justify-between items-center"
                                     >
                                         <span className="text-zinc-600 font-black italic text-[9px] uppercase tracking-tighter">
                                             Set {idx + 1}

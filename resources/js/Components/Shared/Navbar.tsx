@@ -8,22 +8,29 @@ function Navbar() {
     const activeSessionId = useWorkoutSessionStore((s) => s.activeSessionId);
 
     return (
-        <nav className="fixed top-7 left-0 right-0 z-[100] h-16 overflow-hidden">
+        <nav className="fixed top-7 left-0 right-0 z-[100] h-22 overflow-hidden">
             <div className="relative z-20 max-w-md mx-auto h-full flex justify-between items-center px-6">
                 {/* Logo - Já funciona como botão "Home" */}
                 <div className="flex items-center gap-3">
                     <Link href="/" className="group inline-flex items-center">
-                        <h1 className="text-2xl font-black tracking-tighter italic">
-                            <span className="text-white opacity-90 group-hover:opacity-100 transition-opacity">
-                                my
-                            </span>
-                            <span className="ml-0.5 text-blue-500 font-black italic">
+                        <h1 className="text-2xl font-black tracking-tighter italic  flex items-center">
+                            {/* "my" em branco sólido para contraste */}
+                            <span className="text-white">my</span>
+
+                            {/* "Gym" Extravagante: Apenas o contorno limpo, sem sombras */}
+                            <span
+                                className="ml-1 italic"
+                                style={{
+                                    color: "transparent",
+                                    WebkitTextStroke:
+                                        "0.2px var(--color-system)",
+                                }}
+                            >
                                 Gym
                             </span>
                         </h1>
                     </Link>
                 </div>
-
                 {/* Área de Ação (Direita) */}
                 <div className="flex items-center">
                     {activeSessionId ? (

@@ -29,10 +29,9 @@ const CreateExercise = () => {
 
             {/* Header com tipografia de sistema */}
             <div className="text-center mb-4">
-                <h1 className="text-system-light font-black uppercase tracking-italic text-xl ">
+                <h1 className="text-system-light font-black uppercase italic tracking-tighter text-2xl">
                     Add New Exercise
                 </h1>
-                <div className="h-[1px] w-12 bg-system/20 mx-auto mt-4" />
             </div>
 
             <form onSubmit={submit} className="space-y-10">

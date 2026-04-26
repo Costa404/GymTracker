@@ -23,26 +23,6 @@ const HeaderWorkoutSession = ({ workout }: HeaderWorkoutSessionProps) => {
                         </p>
                     </div>
                 </div>
-
-                {/* Console/Settings Link: Estilo Glassmorphism */}
-                <Link
-                    href="/workouts/setup"
-                    className="p-2.5 bg-white/5 border border-white/10 rounded-xl text-zinc-400 hover:text-white hover:bg-white/10 active:scale-90 transition-all backdrop-blur-md"
-                >
-                    <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2.5" /* Um pouco mais grosso para parecer UI de sistema */
-                            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                        />
-                    </svg>
-                </Link>
             </div>
         </header>
     );

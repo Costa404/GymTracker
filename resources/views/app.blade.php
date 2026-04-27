@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="myGym">
     <link rel="apple-touch-icon" href="/icon.png">
-
+    <link rel="manifest" href="/manifest.json">
     <style>
         /* 1. Reset Global para evitar o salto de tamanho quando o Tailwind carrega */
         *,
@@ -134,6 +134,20 @@
             window.terminateLoader();
         }, 4000);
     </script>
+
+    @production
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js').then(reg => {
+                        console.log('SW registado com sucesso:', reg);
+                    }).catch(err => {
+                        console.log('Erro ao registar SW:', err);
+                    });
+                });
+            }
+        </script>
+    @endproduction
 </body>
 
 </html>

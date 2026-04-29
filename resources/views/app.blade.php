@@ -118,7 +118,7 @@
     @inertia
 
     <script>
-        // Função Global de Encerramento
+        // 1. Função Global de Encerramento
         window.terminateLoader = function() {
             const loader = document.getElementById('initial-loader');
             if (loader && !loader.classList.contains('loader-hidden')) {
@@ -130,26 +130,21 @@
             }
         };
 
-        <
-        script >
-            // Este script destrói qualquer Service Worker antigo que tenha ficado preso
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                    for (let registration of registrations) {
-                        registration.unregister();
-                        console.log('Service Worker antigo removido.');
-                    }
-                });
-            } <
-            />
+        // 2. Mata o Service Worker antigo
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for (let registration of registrations) {
+                    registration.unregister();
+                    console.log('Service Worker antigo removido.');
+                }
+            });
+        }
 
-        // Fail-safe: Se algo correr mal, a app abre ao fim de 4s
+        // 3. Fail-safe: Se algo correr mal, a app abre ao fim de 4s
         setTimeout(() => {
             window.terminateLoader();
         }, 4000);
     </script>
-
-
 </body>
 
 </html>

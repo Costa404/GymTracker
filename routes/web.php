@@ -27,7 +27,7 @@ Route::post('/auth', [DashboardController::class, 'verifyPin'])->name('pin.verif
 
 
 // --- TODAS AS TUAS ROTAS ORIGINAIS (PROTEGIDAS) ---
-Route::middleware([App\Http\Middleware\CheckPin::class])->group(function () {
+Route::middleware([App\Http\Middleware\AuthorizeAccess::class])->group(function () {
 
     // 1. DASHBOARD
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

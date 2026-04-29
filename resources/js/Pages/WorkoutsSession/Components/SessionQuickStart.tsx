@@ -67,7 +67,7 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
                             <GlassBtn
                                 key={idx}
                                 onClick={() => handleLoadTemplate(template.ids)}
-                                className={`group relative w-full p-6 bg-system/5 border border-system/20 rounded-2xl text-left transition-all active:scale-[0.98] active:bg-system/10 active:border-system/40 backdrop-blur-sm text-system-light font-black uppercase italic tracking-widest text-[11px]    ${
+                                className={`group relative flex flex-col items-start justify-start transition-all active:scale-[0.98] active:bg-system/10 active:border-system/40 w-full p-6 bg-system/5 border border-system/20 rounded-2xl backdrop-blur-sm text-left text-system-light font-black uppercase italic tracking-widest text-[11px]  ${
                                     currentTemplates.length === 1
                                         ? "col-span-2"
                                         : "col-span-1"

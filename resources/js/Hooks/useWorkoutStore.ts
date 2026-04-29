@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { router } from "@inertiajs/react";
 import { WorkoutStore } from "@/types";
+import { db } from "@/spa/db"; // Importa a tua base de dados Dexie
+import { useWorkoutSessionStore } from "./SessionStore/useWorkoutSessionStore"; // Para ativar a sessão
 
 const useWorkoutStore = create<WorkoutStore>()(
     persist(
@@ -31,22 +32,42 @@ const useWorkoutStore = create<WorkoutStore>()(
                             : 0,
                 })),
 
-            handleStart: (type, id = null) => {
+            // Adicionamos o 'navigate' como 3º parâmetro
+            handleStart: async (type, id = null, navigate) => {
                 set({ isStarting: true });
 
-                router.post(
-                    "/workouts/start",
-                    { type, template_id: id },
-                    {
-                        onSuccess: () => set({ isStarting: false }),
-                        onError: () => set({ isStarting: false }),
-                    },
-                );
+                try {
+                    const now = new Date().toISOString();
+
+                    // 1. Cria a sessão no Dexie exatamente com a estrutura do Laravel
+                    const newSessionId = await db.workouts.add({
+                        name: type, // Ex: "Push Day"
+                        duration_seconds: null,
+                        completed_at: null,
+                        created_at: now,
+                        updated_at: now,
+                    });
+
+                    // 2. Avisa o resto da app que há um treino a decorrer
+                    useWorkoutSessionStore.setState({
+                        activeSessionId: Number(newSessionId),
+                    });
+
+                    set({ isStarting: false });
+
+                    // 3. Muda de página suavemente com o React Router
+                    if (navigate) {
+                        navigate("/workouts/active");
+                    }
+                } catch (error) {
+                    console.error("Erro ao iniciar treino no Dexie:", error);
+                    set({ isStarting: false });
+                }
             },
         }),
         {
             name: "gym-tracker-storage",
-            // Gravamos apenas o selectedIndex para o utilizador voltar onde estava
+            // Só guardamos o selectedIndex, não precisamos de guardar o isStarting nem os templates aqui
             partialize: (state) => ({ selectedIndex: state.selectedIndex }),
         },
     ),

@@ -1,9 +1,12 @@
-import { Link, usePage } from "@inertiajs/react";
+import { Link, useLocation } from "react-router-dom"; // O Inertia bazou, entra o React Router
 import TimerDisplay from "./TimerDisplay";
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 
 function Navbar() {
-    const { url } = usePage();
+    // Substituímos o usePage do Inertia pelo useLocation do React Router
+    const location = useLocation();
+    const url = location.pathname;
+
     const isDashboard = url === "/" || url === "/dashboard";
     const activeSessionId = useWorkoutSessionStore((s) => s.activeSessionId);
 
@@ -12,7 +15,8 @@ function Navbar() {
             <div className="relative z-20 max-w-md mx-auto h-full flex justify-between items-center px-6">
                 {/* Logo - Já funciona como botão "Home" */}
                 <div className="flex items-center gap-3">
-                    <Link href="/" className="group inline-flex items-center">
+                    {/* Alterado de href para to */}
+                    <Link to="/" className="group inline-flex items-center">
                         <h1 className="text-2xl font-black tracking-tighter italic  flex items-center">
                             {/* "my" em branco sólido para contraste */}
                             <span className="text-white">my</span>
@@ -38,8 +42,9 @@ function Navbar() {
                     ) : (
                         /* Só mostra a "Casa" se NÃO estivermos no Dashboard */
                         !isDashboard && (
+                            // Alterado de href para to
                             <Link
-                                href="/"
+                                to="/"
                                 className="p-2.5 rounded-xl text-zinc-500 hover:text-blue-500 transition-all duration-300 active:scale-90"
                                 aria-label="Voltar para Dashboard"
                             >

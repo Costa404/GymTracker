@@ -36,6 +36,7 @@ export interface SessionStore {
     startTime: number | null;
     elapsedSeconds: number;
     tick: () => void;
+
     startSession: (id: number) => void;
     addSet: (
         exerciseId: number,
@@ -55,7 +56,11 @@ export interface WorkoutActions {
     setTemplates: (templates: Template[]) => void;
     next: () => void;
     prev: () => void;
-    handleStart: (type: string, id?: number | null) => void;
+    handleStart: (
+        type: string,
+        id?: number | null,
+        navigate?: (path: string) => void,
+    ) => void;
 }
 
 // Interface completa para o Store

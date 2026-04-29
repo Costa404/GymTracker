@@ -1,36 +1,36 @@
 {
-  "_ActiveSessionDecider-CaQPJCfl.js": {
-    "file": "assets/ActiveSessionDecider-CaQPJCfl.js",
+  "_ActiveSessionDecider-H8eSgFvD.js": {
+    "file": "assets/ActiveSessionDecider-H8eSgFvD.js",
     "name": "ActiveSessionDecider",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_GlassBtn-Cy82DqRw.js"
+      "_GlassBtn-Dy_xgq65.js"
     ]
   },
-  "_AreaChart-AC6weVpf.js": {
-    "file": "assets/AreaChart-AC6weVpf.js",
+  "_AreaChart-BwN0hAP-.js": {
+    "file": "assets/AreaChart-BwN0hAP-.js",
     "name": "AreaChart",
     "imports": [
       "resources/js/app.tsx"
     ]
   },
-  "_GlassBtn-Cy82DqRw.js": {
-    "file": "assets/GlassBtn-Cy82DqRw.js",
+  "_GlassBtn-Dy_xgq65.js": {
+    "file": "assets/GlassBtn-Dy_xgq65.js",
     "name": "GlassBtn",
     "imports": [
       "resources/js/app.tsx"
     ]
   },
-  "_index-71u9RIDb.js": {
-    "file": "assets/index-71u9RIDb.js",
+  "_index-BzGl0uX2.js": {
+    "file": "assets/index-BzGl0uX2.js",
     "name": "index",
     "imports": [
       "resources/js/app.tsx"
     ]
   },
   "resources/js/Pages/Auth/Auth.tsx": {
-    "file": "assets/Auth-q6AP0Unk.js",
+    "file": "assets/Auth-Be6uVTEP.js",
     "name": "Auth",
     "src": "resources/js/Pages/Auth/Auth.tsx",
     "isDynamicEntry": true,
@@ -41,7 +41,7 @@
     ]
   },
   "resources/js/Pages/Auth/FaceIdAuth.tsx": {
-    "file": "assets/FaceIdAuth-D_lzizJP.js",
+    "file": "assets/FaceIdAuth-DJZgWm6H.js",
     "name": "FaceIdAuth",
     "src": "resources/js/Pages/Auth/FaceIdAuth.tsx",
     "isDynamicEntry": true,
@@ -50,7 +50,7 @@
     ]
   },
   "resources/js/Pages/Auth/PinLogin.tsx": {
-    "file": "assets/PinLogin-B_PtPBg5.js",
+    "file": "assets/PinLogin-B5cknK-Q.js",
     "name": "PinLogin",
     "src": "resources/js/Pages/Auth/PinLogin.tsx",
     "isDynamicEntry": true,
@@ -59,27 +59,27 @@
     ]
   },
   "resources/js/Pages/Dashboard.tsx": {
-    "file": "assets/Dashboard-jrEvonkS.js",
+    "file": "assets/Dashboard-NLcWwZ9Z.js",
     "name": "Dashboard",
     "src": "resources/js/Pages/Dashboard.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_GlassBtn-Cy82DqRw.js"
+      "_GlassBtn-Dy_xgq65.js"
     ]
   },
   "resources/js/Pages/Exercises/Components/ExercisesHeader.tsx": {
-    "file": "assets/ExercisesHeader-CL3dlQny.js",
+    "file": "assets/ExercisesHeader-Exjuafso.js",
     "name": "ExercisesHeader",
     "src": "resources/js/Pages/Exercises/Components/ExercisesHeader.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_GlassBtn-Cy82DqRw.js"
+      "_GlassBtn-Dy_xgq65.js"
     ]
   },
   "resources/js/Pages/Exercises/Components/InputGroup.tsx": {
-    "file": "assets/InputGroup-BdiAg4S1.js",
+    "file": "assets/InputGroup-CJNkUsGO.js",
     "name": "InputGroup",
     "src": "resources/js/Pages/Exercises/Components/InputGroup.tsx",
     "isDynamicEntry": true,
@@ -88,17 +88,17 @@
     ]
   },
   "resources/js/Pages/Exercises/Components/LogSetList.tsx": {
-    "file": "assets/LogSetList-3TNfVXLM.js",
+    "file": "assets/LogSetList-ElNOtRoS.js",
     "name": "LogSetList",
     "src": "resources/js/Pages/Exercises/Components/LogSetList.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_index-71u9RIDb.js"
+      "_index-BzGl0uX2.js"
     ]
   },
   "resources/js/Pages/Exercises/Components/RirSelector.tsx": {
-    "file": "assets/RirSelector-Bwjg1nVh.js",
+    "file": "assets/RirSelector-RKHxD58N.js",
     "name": "RirSelector",
     "src": "resources/js/Pages/Exercises/Components/RirSelector.tsx",
     "isDynamicEntry": true,
@@ -107,17 +107,17 @@
     ]
   },
   "resources/js/Pages/Exercises/CreateExercise.tsx": {
-    "file": "assets/CreateExercise-ByUzEja3.js",
+    "file": "assets/CreateExercise-YugPPhSN.js",
     "name": "CreateExercise",
     "src": "resources/js/Pages/Exercises/CreateExercise.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_GlassBtn-Cy82DqRw.js"
+      "_GlassBtn-Dy_xgq65.js"
     ]
   },
   "resources/js/Pages/Exercises/ExerciseDisplay.tsx": {
-    "file": "assets/ExerciseDisplay-JzSWUFgC.js",
+    "file": "assets/ExerciseDisplay-CIxdWGks.js",
     "name": "ExerciseDisplay",
     "src": "resources/js/Pages/Exercises/ExerciseDisplay.tsx",
     "isDynamicEntry": true,
@@ -127,12 +127,12 @@
       "resources/js/Pages/Exercises/Components/RirSelector.tsx",
       "resources/js/Pages/Exercises/Components/InputGroup.tsx",
       "resources/js/Pages/Exercises/Components/ExercisesHeader.tsx",
-      "_index-71u9RIDb.js",
-      "_GlassBtn-Cy82DqRw.js"
+      "_index-BzGl0uX2.js",
+      "_GlassBtn-Dy_xgq65.js"
     ]
   },
   "resources/js/Pages/Exercises/ExercisesHistory/ExerciseHistory.tsx": {
-    "file": "assets/ExerciseHistory-lD-kSq75.js",
+    "file": "assets/ExerciseHistory-Cm1aOwar.js",
     "name": "ExerciseHistory",
     "src": "resources/js/Pages/Exercises/ExercisesHistory/ExerciseHistory.tsx",
     "isDynamicEntry": true,
@@ -141,12 +141,12 @@
       "resources/js/Pages/Exercises/Components/ExercisesHeader.tsx",
       "resources/js/Pages/Exercises/ExercisesHistory/ExerciseHistoryUI.tsx",
       "resources/js/Pages/Exercises/ExercisesHistory/ExerciseProgressGraph.tsx",
-      "_GlassBtn-Cy82DqRw.js",
-      "_AreaChart-AC6weVpf.js"
+      "_GlassBtn-Dy_xgq65.js",
+      "_AreaChart-BwN0hAP-.js"
     ]
   },
   "resources/js/Pages/Exercises/ExercisesHistory/ExerciseHistoryUI.tsx": {
-    "file": "assets/ExerciseHistoryUI-CHaH934z.js",
+    "file": "assets/ExerciseHistoryUI-5drj_b-N.js",
     "name": "ExerciseHistoryUI",
     "src": "resources/js/Pages/Exercises/ExercisesHistory/ExerciseHistoryUI.tsx",
     "isDynamicEntry": true,
@@ -155,27 +155,27 @@
     ]
   },
   "resources/js/Pages/Exercises/ExercisesHistory/ExerciseProgressGraph.tsx": {
-    "file": "assets/ExerciseProgressGraph-9X_W8LxB.js",
+    "file": "assets/ExerciseProgressGraph-BYxuXbs_.js",
     "name": "ExerciseProgressGraph",
     "src": "resources/js/Pages/Exercises/ExercisesHistory/ExerciseProgressGraph.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AreaChart-AC6weVpf.js"
+      "_AreaChart-BwN0hAP-.js"
     ]
   },
   "resources/js/Pages/GraficoTeste.tsx": {
-    "file": "assets/GraficoTeste-BbMd07tv.js",
+    "file": "assets/GraficoTeste-Dl9qSXR-.js",
     "name": "GraficoTeste",
     "src": "resources/js/Pages/GraficoTeste.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AreaChart-AC6weVpf.js"
+      "_AreaChart-BwN0hAP-.js"
     ]
   },
   "resources/js/Pages/WorkoutsHistory/CategoryFilterWorkoutsHistory.tsx": {
-    "file": "assets/CategoryFilterWorkoutsHistory-BzM87wb9.js",
+    "file": "assets/CategoryFilterWorkoutsHistory-BvxCqrhX.js",
     "name": "CategoryFilterWorkoutsHistory",
     "src": "resources/js/Pages/WorkoutsHistory/CategoryFilterWorkoutsHistory.tsx",
     "isDynamicEntry": true,
@@ -184,17 +184,17 @@
     ]
   },
   "resources/js/Pages/WorkoutsHistory/DetailsWorkoutsHistory.tsx": {
-    "file": "assets/DetailsWorkoutsHistory-pXR46STv.js",
+    "file": "assets/DetailsWorkoutsHistory-D9gTip87.js",
     "name": "DetailsWorkoutsHistory",
     "src": "resources/js/Pages/WorkoutsHistory/DetailsWorkoutsHistory.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_index-71u9RIDb.js"
+      "_index-BzGl0uX2.js"
     ]
   },
   "resources/js/Pages/WorkoutsHistory/WorkoutsHistory.tsx": {
-    "file": "assets/WorkoutsHistory-BDMw2muX.js",
+    "file": "assets/WorkoutsHistory-BaP06-zX.js",
     "name": "WorkoutsHistory",
     "src": "resources/js/Pages/WorkoutsHistory/WorkoutsHistory.tsx",
     "isDynamicEntry": true,
@@ -202,32 +202,32 @@
       "resources/js/app.tsx",
       "resources/js/Pages/WorkoutsHistory/WorkoutsHistoryItem.tsx",
       "resources/js/Pages/WorkoutsHistory/CategoryFilterWorkoutsHistory.tsx",
-      "_index-71u9RIDb.js"
+      "_index-BzGl0uX2.js"
     ]
   },
   "resources/js/Pages/WorkoutsHistory/WorkoutsHistoryItem.tsx": {
-    "file": "assets/WorkoutsHistoryItem-BMCGTPMp.js",
+    "file": "assets/WorkoutsHistoryItem-CytJ-uSj.js",
     "name": "WorkoutsHistoryItem",
     "src": "resources/js/Pages/WorkoutsHistory/WorkoutsHistoryItem.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_index-71u9RIDb.js"
+      "_index-BzGl0uX2.js"
     ]
   },
   "resources/js/Pages/WorkoutsSession/Components/ActiveExercisesInSession.tsx": {
-    "file": "assets/ActiveExercisesInSession-D_bzRA32.js",
+    "file": "assets/ActiveExercisesInSession-CnYrn_fj.js",
     "name": "ActiveExercisesInSession",
     "src": "resources/js/Pages/WorkoutsSession/Components/ActiveExercisesInSession.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
       "resources/js/Pages/WorkoutsSession/Components/SessionExerciseCard.tsx",
-      "_index-71u9RIDb.js"
+      "_index-BzGl0uX2.js"
     ]
   },
   "resources/js/Pages/WorkoutsSession/Components/HeaderWorkoutSession.tsx": {
-    "file": "assets/HeaderWorkoutSession-CvHl_eqD.js",
+    "file": "assets/HeaderWorkoutSession-V2IiE-SY.js",
     "name": "HeaderWorkoutSession",
     "src": "resources/js/Pages/WorkoutsSession/Components/HeaderWorkoutSession.tsx",
     "isDynamicEntry": true,
@@ -236,51 +236,51 @@
     ]
   },
   "resources/js/Pages/WorkoutsSession/Components/SessionExerciseCard.tsx": {
-    "file": "assets/SessionExerciseCard-COAnNd94.js",
+    "file": "assets/SessionExerciseCard-CSNR8-xN.js",
     "name": "SessionExerciseCard",
     "src": "resources/js/Pages/WorkoutsSession/Components/SessionExerciseCard.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_index-71u9RIDb.js"
+      "_index-BzGl0uX2.js"
     ]
   },
   "resources/js/Pages/WorkoutsSession/Components/SessionExercisePicker.tsx": {
-    "file": "assets/SessionExercisePicker-YK9r4j26.js",
+    "file": "assets/SessionExercisePicker-C-sGRCcO.js",
     "name": "SessionExercisePicker",
     "src": "resources/js/Pages/WorkoutsSession/Components/SessionExercisePicker.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_index-71u9RIDb.js"
+      "_index-BzGl0uX2.js"
     ]
   },
   "resources/js/Pages/WorkoutsSession/Components/SessionLibraryPicker.tsx": {
-    "file": "assets/SessionLibraryPicker-SZGsqNXp.js",
+    "file": "assets/SessionLibraryPicker-D6QH9FgT.js",
     "name": "SessionLibraryPicker",
     "src": "resources/js/Pages/WorkoutsSession/Components/SessionLibraryPicker.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
       "resources/js/Pages/WorkoutsSession/Components/SessionExercisePicker.tsx",
-      "_index-71u9RIDb.js"
+      "_index-BzGl0uX2.js"
     ]
   },
   "resources/js/Pages/WorkoutsSession/Components/SessionQuickStart.tsx": {
-    "file": "assets/SessionQuickStart-DvSXo83G.js",
+    "file": "assets/SessionQuickStart-CIr-__3J.js",
     "name": "SessionQuickStart",
     "src": "resources/js/Pages/WorkoutsSession/Components/SessionQuickStart.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
       "resources/js/Pages/WorkoutsSession/Components/ActiveExercisesInSession.tsx",
-      "_GlassBtn-Cy82DqRw.js",
+      "_GlassBtn-Dy_xgq65.js",
       "resources/js/Pages/WorkoutsSession/Components/SessionExerciseCard.tsx",
-      "_index-71u9RIDb.js"
+      "_index-BzGl0uX2.js"
     ]
   },
   "resources/js/Pages/WorkoutsSession/WorkoutSession.tsx": {
-    "file": "assets/WorkoutSession-BECvuxGE.js",
+    "file": "assets/WorkoutSession-DajLCbvq.js",
     "name": "WorkoutSession",
     "src": "resources/js/Pages/WorkoutsSession/WorkoutSession.tsx",
     "isDynamicEntry": true,
@@ -291,24 +291,24 @@
       "resources/js/Pages/WorkoutsSession/Components/SessionLibraryPicker.tsx",
       "resources/js/Pages/WorkoutsSession/Components/ActiveExercisesInSession.tsx",
       "resources/js/Pages/WorkoutsSession/Components/SessionExerciseCard.tsx",
-      "_index-71u9RIDb.js",
-      "_GlassBtn-Cy82DqRw.js",
+      "_index-BzGl0uX2.js",
+      "_GlassBtn-Dy_xgq65.js",
       "resources/js/Pages/WorkoutsSession/Components/SessionExercisePicker.tsx"
     ]
   },
   "resources/js/Pages/WorkoutsSetup/WorkoutSetup.tsx": {
-    "file": "assets/WorkoutSetup-Dx2tNrE1.js",
+    "file": "assets/WorkoutSetup-gRA6pBHn.js",
     "name": "WorkoutSetup",
     "src": "resources/js/Pages/WorkoutsSetup/WorkoutSetup.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_GlassBtn-Cy82DqRw.js",
-      "_ActiveSessionDecider-CaQPJCfl.js"
+      "_GlassBtn-Dy_xgq65.js",
+      "_ActiveSessionDecider-H8eSgFvD.js"
     ]
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-CLC2QRNC.js",
+    "file": "assets/app-CbVLl-mF.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
@@ -338,11 +338,11 @@
       "resources/js/Pages/WorkoutsSession/Components/SessionLibraryPicker.tsx",
       "resources/js/Pages/WorkoutsSession/Components/SessionQuickStart.tsx",
       "resources/js/Pages/WorkoutsSession/WorkoutSession.tsx",
-      "_ActiveSessionDecider-CaQPJCfl.js",
+      "_ActiveSessionDecider-H8eSgFvD.js",
       "resources/js/Pages/WorkoutsSetup/WorkoutSetup.tsx"
     ],
     "css": [
-      "assets/app-CsGj-rCH.css"
+      "assets/app-Cf5cKmfn.css"
     ]
   }
 }

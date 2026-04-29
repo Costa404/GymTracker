@@ -78,6 +78,8 @@ class WorkoutController extends Controller
         $workout->delete();
 
         // 3. Redirecionar de volta para o histórico com uma mensagem
-        return redirect()->route('workouts.history')->with('message', 'Workout deleted successfully');
+        return redirect()
+            ->route('workouts.history', [], 303)
+            ->with('message', 'Treino eliminado com sucesso');
     }
 }

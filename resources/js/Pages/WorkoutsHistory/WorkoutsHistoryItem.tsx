@@ -14,14 +14,16 @@ const WorkoutsHistoryItem = ({ workout }: { workout: Workout }) => {
 
     const handleDelete = (e: React.MouseEvent) => {
         e.preventDefault();
-        e.stopPropagation();
-        if (confirm("Tens a certeza que queres eliminar este treino?")) {
-            router.delete(route("workouts.destroy", workout.id), {
-                preserveScroll: true,
-            });
-        }
-    };
+        // Remove o stopPropagation daqui
 
+        router.delete(route("workouts.destroy", workout.id), {
+            preserveScroll: true,
+            onBefore: () =>
+                confirm("Tens a certeza que queres eliminar este treino?"),
+            onSuccess: () => {},
+            onError: (err) => console.error("Erro no delete:", err),
+        });
+    };
     return (
         <div className="relative w-full mb-3">
             <Link

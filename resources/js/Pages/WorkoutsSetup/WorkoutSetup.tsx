@@ -16,7 +16,7 @@ const WorkoutSetup = ({ templates, active }) => {
     );
 
     const activeSessionId = useWorkoutSessionStore((s) => s.activeSessionId);
-    console.log("WorkoutSetup active prop:", active);
+
     useEffect(() => {
         setTemplates(templates);
     }, [templates]);

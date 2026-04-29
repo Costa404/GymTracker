@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('https://gymtracker799.fly.dev/sw.js', { scope: 'https://gymtracker799.fly.dev/' })})}

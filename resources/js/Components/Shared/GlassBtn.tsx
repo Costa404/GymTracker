@@ -23,7 +23,7 @@ interface Props {
 }
 
 const GlassBtn = ({
-    to, // MUDOU AQUI
+    to,
     onClick,
     children,
     className = "",
@@ -31,29 +31,30 @@ const GlassBtn = ({
     type = "button",
     disabled,
 }: Props) => {
-    // CSS ORIGINAL SEM MEXER EM NADA
+    // 1. Removemos o duration-300 (muito lento para touch)
+    // 2. O active:scale-95 é o que realmente importa aqui
     const baseStyle =
-        "inline-flex items-center justify-center px-4 py-2 rounded-xl border backdrop-blur-md transition-all duration-300 font-black uppercase text-[10px] tracking-widest active:scale-95 touch-none select-none disabled:opacity-30 disabled:pointer-events-none";
+        "inline-flex items-center justify-center px-4 py-2 rounded-xl border backdrop-blur-md transition-all duration-75 font-black uppercase text-[10px] tracking-widest active:scale-95 touch-none select-none disabled:opacity-30 disabled:pointer-events-none";
 
     const variants = {
+        // Removemos todas as classes 'hover:'
         performance:
-            "bg-performance/10 text-performance-light border-performance/20 hover:bg-performance/20 shadow-[0_0_15px_rgba(var(--performance-rgb),0.1)]",
-        system: "bg-system/10 text-system-light border-system/20 hover:bg-system/25 shadow-[0_0_15px_rgba(var(--color-system-rgb),0.1)]",
-        blue: "bg-blue-600/20 text-white border-blue-500/30 hover:bg-blue-600/30 shadow-[0_0_15px_rgba(37,99,235,0.1)]",
-        zinc: "bg-zinc-900/50 text-zinc-400 border-zinc-800 hover:bg-zinc-800/80",
-        ghost: "bg-transparent text-zinc-500 border-zinc-800 hover:border-zinc-700 hover:text-zinc-300",
-        red: "bg-red-600/10 text-red-500 border-red-500/30 hover:bg-red-600/20 shadow-xl shadow-red-500/5",
-        slate: "bg-slate-800/20 text-slate-400 border-slate-700/50 hover:bg-slate-800/40 hover:text-slate-300",
-        white: "bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:text-white/90",
-        green: "bg-emerald-600/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-600/20",
+            "bg-performance/10 text-performance-light border-performance/20 active:bg-performance/30",
+        system: "bg-system/10 text-system-light border-system/20 active:bg-system/30",
+        blue: "bg-blue-600/20 text-white border-blue-500/30 active:bg-blue-600/40",
+        zinc: "bg-zinc-900/50 text-zinc-400 border-zinc-800 active:bg-zinc-800",
+        ghost: "bg-transparent text-zinc-500 border-zinc-800 active:border-zinc-600 active:text-zinc-300",
+        red: "bg-red-600/10 text-red-500 border-red-500/30 active:bg-red-600/20",
+        slate: "bg-slate-800/20 text-slate-400 border-slate-700/50 active:bg-slate-800/40",
+        white: "bg-white/5 text-white/60 border-white/10 active:bg-white/20 active:text-white",
+        green: "bg-emerald-600/10 text-emerald-400 border-emerald-500/30 active:bg-emerald-600/20",
         fuchsia:
-            "bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/30 hover:bg-fuchsia-500/20 shadow-[0_0_20px_rgba(217,70,239,0.15)]",
-        lime: "bg-lime-400/10 text-lime-400 border-lime-400/30 hover:bg-lime-400/20 shadow-[0_0_15px_rgba(163,230,53,0.1)]",
-        cyan: "bg-cyan-500/10 text-cyan-400 border-cyan-500/40 hover:bg-cyan-500/20 hover:text-cyan-300 shadow-[0_0_20px_rgba(6,182,212,0.15)]",
+            "bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/30 active:bg-fuchsia-500/20",
+        lime: "bg-lime-400/10 text-lime-400 border-lime-400/30 active:bg-lime-400/20",
+        cyan: "bg-cyan-500/10 text-cyan-400 border-cyan-500/40 active:bg-cyan-500/30",
     };
 
     const combinedStyle = `${baseStyle} ${variants[variant]} ${className}`;
-
     if (to) {
         // MUDOU AQUI
         return (

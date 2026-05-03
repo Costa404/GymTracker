@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { router } from "@inertiajs/react";
+import { useNavigate } from "react-router-dom";
 import {
     startAuthentication,
     browserSupportsWebAuthn,
@@ -8,35 +8,32 @@ import {
 
 const FaceIdAuth = () => {
     const [isProcessing, setIsProcessing] = useState(false);
+    const navigate = useNavigate();
 
     const handleFaceId = async () => {
         try {
-            // 1. Pedir opções (Ainda não mostramos loader aqui)
+            // 1. Pedir opções ao Laravel
             const { data: options } = await axios.post(
                 "/webauthn/login/options",
             );
 
-            // 2. O iOS abre a janela nativa.
-            // O código "para" aqui enquanto o utilizador olha para o iPhone.
+            // 2. O iOS/Android abre a janela nativa.
             const assertion = await startAuthentication(options);
 
-            // --- MOMENTO DO "DONE" NO IPHONE ---
-            // Assim que o utilizador vê o visto verde, o código continua:
-
-            // 3. Ativar o Loading Screen IMEDIATAMENTE
+            // 3. Ativar o Loading Screen IMEDIATAMENTE após o "visto" verde do sistema
             setIsProcessing(true);
 
-            // 4. Validar a resposta no Laravel
+            // 4. Validar no backend
             await axios.post("/webauthn/login", assertion);
 
-            // 5. Pequena pausa de 1s para o utilizador ver o teu loader e não ser um corte seco
+            // 5. Delay estratégico para suavizar a transição na SPA
             setTimeout(() => {
-                router.visit("/dashboard");
+                navigate("/");
             }, 1000);
         } catch (error: any) {
-            // Se falhar ou cancelar, garantimos que o loader desliga
             setIsProcessing(false);
 
+            // NotAllowedError significa que o user cancelou a face scan
             if (error.name !== "NotAllowedError") {
                 alert("Erro na autenticação");
             }
@@ -47,11 +44,13 @@ const FaceIdAuth = () => {
 
     return (
         <>
-            {/* Overlay de Transição: Reutiliza o teu CSS do Blade */}
+            {/* Overlay de Transição - Essencial para Mobile */}
             {isProcessing && (
                 <div className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center">
-                    <div className="spinner"></div>
-                    <p className="loader-text">Verifying</p>
+                    <div className="w-8 h-8 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4"></div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-500/50 italic animate-pulse">
+                        Verifying
+                    </p>
                 </div>
             )}
 
@@ -59,15 +58,15 @@ const FaceIdAuth = () => {
                 <button
                     onClick={handleFaceId}
                     disabled={isProcessing}
-                    className="flex items-center gap-2 px-6 py-3 rounded-2xl border border-blue-500/20 bg-blue-500/[0.03] text-blue-400 text-xs font-bold uppercase tracking-widest hover:border-blue-500/60 hover:bg-blue-500/10 transition-all duration-300 disabled:opacity-30"
+                    className="flex items-center gap-3 px-8 py-4 rounded-2xl border border-blue-500/20 bg-blue-500/[0.03] text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] italic transition-all duration-200 active:scale-95 active:bg-blue-500/10 active:border-blue-500/40 touch-manipulation disabled:opacity-20"
                 >
                     <svg
-                        width="16"
-                        height="16"
+                        width="18"
+                        height="18"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        strokeWidth="1.5"
+                        strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                     >

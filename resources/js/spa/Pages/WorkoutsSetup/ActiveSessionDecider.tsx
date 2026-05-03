@@ -1,20 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GlassBtn from "@/Components/Shared/GlassBtn";
 import TimerDisplay from "@/Components/Shared/TimerDisplay";
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 import { useFinishWorkout } from "@/Hooks/useFinishWorkout";
+import { db } from "@/spa/db";
 
-const ActiveSessionDecider = ({ activeWorkout }) => {
-    const sessionId = useWorkoutSessionStore((s) => s.activeSessionId);
+const ActiveSessionDecider = () => {
     const exercisesCount = useWorkoutSessionStore(
         (s) => s.sessionExercises.length,
     );
-
-    // Puxamos a lógica e o estado de carregamento do hook customizado
+    const activeSessionId = useWorkoutSessionStore((s) => s.activeSessionId);
     const { finishWorkout, isFinishing } = useFinishWorkout();
 
-    const cleanWorkoutName =
-        activeWorkout?.name?.split("-")[0].trim() || "Active Mission";
+    const [workoutName, setWorkoutName] = useState("Active Mission");
+
+    useEffect(() => {
+        if (!activeSessionId) return;
+        db.workouts.get(activeSessionId).then((workout) => {
+            if (workout?.name) setWorkoutName(workout.name);
+        });
+    }, [activeSessionId]);
+
+    const cleanWorkoutName = workoutName.split("-")[0].trim();
 
     const currentDate = new Date().toLocaleDateString("en-US", {
         month: "short",
@@ -24,7 +31,7 @@ const ActiveSessionDecider = ({ activeWorkout }) => {
 
     return (
         <>
-            {/* OVERLAY DE SINCRONIZAÇÃO: Bloqueia o "soluço" visual durante o redirect */}
+            {/* OVERLAY DE SINCRONIZAÇÃO */}
             {isFinishing && (
                 <div className="fixed inset-0 z-[999] bg-[#050505]/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in duration-300">
                     <div className="flex flex-col items-center gap-4">
@@ -62,7 +69,7 @@ const ActiveSessionDecider = ({ activeWorkout }) => {
                     </div>
 
                     {/* CAMADA 3: INFO TÉCNICA (DATA | TIMER) */}
-                    <div className="flex items-center gap-5 px-6 py-2  rounded-full border border-white/5">
+                    <div className="flex items-center gap-5 px-6 py-2 rounded-full border border-white/5">
                         <span className="text-zinc-500 font-black uppercase text-[9px] tracking-[0.2em] italic">
                             {currentDate}
                         </span>
@@ -82,26 +89,26 @@ const ActiveSessionDecider = ({ activeWorkout }) => {
                     </div>
                 </div>
 
-                {/* BOTÕES DE AÇÃO */}
+                {/* BOTÕES DE AÇÃO HOMOGÉNEOS */}
+
+                {/* Botão System */}
                 <GlassBtn
                     to="/workouts/active"
-                    className="w-full py-6 rounded-2xl bg-system/5 border border-system/20 text-system-light font-black uppercase italic tracking-widest active:bg-system/10 active:border-system/40 transition-all text-[11px] active:scale-[0.98] flex items-center justify-center"
+                    className="w-full py-6 rounded-2xl bg-system/5 border border-system/20 text-system-light font-black uppercase italic tracking-widest active:bg-system/10 active:border-system/40 text-[11px]"
                 >
                     Continue Workout
                 </GlassBtn>
 
-                <button
+                {/* Botão Danger - Letras garantidamente a vermelho! */}
+                <GlassBtn
                     onClick={finishWorkout}
                     disabled={isFinishing}
-                    className="w-full py-5 rounded-xl border border-red-500/20 bg-red-500/5 text-red-500/50 active:bg-red-500/10 active:text-red-500 transition-all flex flex-col items-center gap-1 active:scale-[0.98] disabled:opacity-0"
+                    className="w-full py-6 rounded-2xl border border-red-500/20 bg-red-500/5 !text-red-500 active:bg-red-500/10 active:border-red-500/40 flex items-center justify-center disabled:opacity-0"
                 >
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em]">
-                        — Finish Workout —
+                    <span className="text-red-500 text-[11px] font-black uppercase tracking-widest italic">
+                        Finish Workout
                     </span>
-                    <span className="opacity-40 text-[7px] font-bold uppercase tracking-wider">
-                        (Sync data to cloud)
-                    </span>
-                </button>
+                </GlassBtn>
             </div>
         </>
     );

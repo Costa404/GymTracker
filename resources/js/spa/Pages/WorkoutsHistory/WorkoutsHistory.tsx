@@ -1,18 +1,36 @@
-import { Head } from "@inertiajs/react";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "@/spa/db";
 import WorkoutsHistoryItem from "./WorkoutsHistoryItem";
-import CategoryFilterWorkoutsHistory from "@/Pages/WorkoutsHistory/CategoryFilterWorkoutsHistory";
+import CategoryFilterWorkoutsHistory from "./CategoryFilterWorkoutsHistory";
+import { useState } from "react";
 
-interface Props {
-    workouts: any[];
-    filters: {
-        type: string | null;
-    };
-}
+const WorkoutsHistory = () => {
+    // 1. Estado local para filtros (substitui os filtros que vinham do URL via Inertia)
+    const [filterType, setFilterType] = useState<string | null>(null);
 
-const WorkoutsHistory = ({ workouts, filters }: Props) => {
+    // 2. Query ao Dexie (Archive)
+    const workouts =
+        useLiveQuery(async () => {
+            let collection = db.workouts.toCollection();
+
+            // Filtra apenas treinos completados
+            collection = collection.filter((w) => w.completed_at !== null);
+
+            let results = await collection.reverse().sortBy("completed_at");
+
+            // Aplica o filtro de categoria se existir (ex: Push, Pull, Legs)
+            if (filterType) {
+                results = results.filter((w) =>
+                    w.name?.toLowerCase().includes(filterType.toLowerCase()),
+                );
+            }
+
+            return results;
+        }, [filterType]) || [];
+
     return (
-        <div className="max-w-2xl mx-auto pb-24 font-sans">
-            <Head title="Past Workouts" />
+        <div className="  font-sans">
+            {/* Removido o <Head /> do Inertia */}
 
             {/* HEADER */}
             <div className="text-center mb-6">
@@ -28,8 +46,12 @@ const WorkoutsHistory = ({ workouts, filters }: Props) => {
 
             {/* FILTROS */}
             <div className="overflow-x-auto no-scrollbar mb-4">
-                <div className="flex justify-center min-w-max">
-                    <CategoryFilterWorkoutsHistory currentType={filters.type} />
+                <div className="flex ">
+                    {/* Passamos o setFilterType para o componente de filtro gerir o estado local */}
+                    <CategoryFilterWorkoutsHistory
+                        currentType={filterType}
+                        onFilterChange={setFilterType}
+                    />
                 </div>
             </div>
 

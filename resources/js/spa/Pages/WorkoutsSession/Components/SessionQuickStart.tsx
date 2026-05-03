@@ -1,17 +1,7 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import ActiveExercisesInSession from "./ActiveExercisesInSession";
 import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
 import GlassBtn from "@/Components/Shared/GlassBtn";
-
-const TEMPLATES_MAP: Record<string, any[]> = {
-    PUSH: [{ name: "Push", ids: [7, 8, 10, 11, 12, 13, 14, 9] }],
-    PULL: [{ name: "Pull", ids: [27, 30, 28, 29, 32, 33, 31] }],
-    LEGS: [
-        { name: "Legs A", ids: [1, 2, 3, 4, 6] },
-        { name: "Legs B", ids: [35, 36, 3, 4, 37] },
-    ],
-    UPPER: [{ name: "Upper", ids: [8, 10, 11, 9, 18, 16, 21, 25, 26] }],
-};
 
 interface SessionQuickStartProps {
     workout: any;
@@ -23,28 +13,26 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
     const startSession = useWorkoutSessionStore((s) => s.startSession);
     const sessionExercises = useWorkoutSessionStore((s) => s.sessionExercises);
 
-    const getActiveTemplates = () => {
-        const name = workout?.name?.toUpperCase() || "";
-        if (name.includes("PUSH")) return TEMPLATES_MAP["PUSH"];
-        if (name.includes("PULL")) return TEMPLATES_MAP["PULL"];
-        if (name.includes("LEGS")) return TEMPLATES_MAP["LEGS"];
-        if (name.includes("UPPER")) return TEMPLATES_MAP["UPPER"];
-        // if (name.includes("FULL")) return TEMPLATES_MAP["FULL"];
+    const [templates, setTemplates] = useState<any[]>([]);
 
-        // NAO PRECISAMOS ESTE ULTIMO IF PORQUE se for full VAI DAR RETURN EM TODOS OS EXERCICOS
-        return [];
-    };
-    // console.log("🟠 exercises prop:", exercises);
+    useEffect(() => {
+        if (!workout?.name) return;
 
-    const currentTemplates = getActiveTemplates();
+        fetch("/api/workout-config/templates")
+            .then((res) => res.json())
+            .then((data) => {
+                const workoutType = workout.name.split(" ")[0]; // "Push", "Pull", "Legs"...
+                const filtered = data.filter(
+                    (t: any) =>
+                        t.type.toLowerCase() === workoutType.toLowerCase(),
+                );
+                setTemplates(filtered);
+            });
+    }, [workout?.name]);
 
-    // console.log(
-    //     "🔵 SessionQuickStart Rendered with workout name:",
-    //     workout.name,
-    // );
-    const handleLoadTemplate = (exerciseIds: number[]) => {
+    const handleLoadTemplate = (template: any) => {
         startSession(workout.id);
-        loadTemplate(exerciseIds);
+        loadTemplate(template.exercises);
     };
 
     const isSessionClean =
@@ -53,9 +41,9 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
 
     return (
         <>
-            {isSessionClean && currentTemplates.length > 0 && (
+            {isSessionClean && templates.length > 0 && (
                 <section className="mb-4 animate-in fade-in zoom-in-95 duration-500">
-                    <div className="flex items-center gap-3 mb-2 px-1">
+                    <div className="flex items-center gap-3 mb-2">
                         <h2 className="text-[10px] text-zinc-600 font-black uppercase tracking-[0.4em] italic">
                             Quick Start
                         </h2>
@@ -63,26 +51,24 @@ const SessionQuickStart = ({ workout, exercises }: SessionQuickStartProps) => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
-                        {currentTemplates.map((template, idx) => (
+                        {templates.map((template, idx) => (
                             <GlassBtn
                                 key={idx}
-                                onClick={() => handleLoadTemplate(template.ids)}
-                                className={`group relative flex flex-col items-start justify-start transition-all active:scale-[0.98] active:bg-system/10 active:border-system/40 w-full p-6 bg-system/5 border border-system/20 rounded-2xl backdrop-blur-sm text-left text-system-light font-black uppercase italic tracking-widest text-[11px]  ${
-                                    currentTemplates.length === 1
+                                onClick={() => handleLoadTemplate(template)}
+                                className={`group relative flex flex-col items-start justify-start transition-all active:scale-[0.98] active:bg-system/10 active:border-system/40 w-full p-6 bg-system/5 border border-system/20 rounded-2xl backdrop-blur-sm text-left text-system-light font-black uppercase italic tracking-widest text-[11px] ${
+                                    templates.length === 1
                                         ? "col-span-2"
                                         : "col-span-1"
                                 }`}
                             >
                                 <div className="relative z-10">
-                                    <p className="text-system-light font-black uppercase italic text-[12px] tracking-tight group-hover:text-white transition-colors">
+                                    <p className="text-system-light font-black uppercase italic text-[12px] tracking-tight transition-colors">
                                         {template.name}
                                     </p>
                                     <p className="text-[8px] text-system/40 font-bold uppercase mt-1 tracking-widest">
-                                        {template.ids.length} Exercises
+                                        {template.exercises?.length} Exercises
                                     </p>
                                 </div>
-
-                                {/* Efeito de brilho sutil no canto ao passar o rato */}
                             </GlassBtn>
                         ))}
                     </div>

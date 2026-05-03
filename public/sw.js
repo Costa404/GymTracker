@@ -1,1 +1,186 @@
-if(!self.define){let s,e={};const i=(i,r)=>(i=new URL(i+".js",r).href,e[i]||new Promise(e=>{if("document"in self){const s=document.createElement("script");s.src=i,s.onload=e,document.head.appendChild(s)}else s=i,importScripts(i),e()}).then(()=>{let s=e[i];if(!s)throw new Error(`Module ${i} didn’t register its module`);return s}));self.define=(r,a)=>{const d=s||("document"in self?document.currentScript.src:"")||location.href;if(e[d])return;let b={};const c=s=>i(s,d),o={module:{uri:d},exports:b,require:c};e[d]=Promise.all(r.map(s=>o[s]||c(s))).then(s=>(a(...s),b))}}define(["./workbox-8c29f6e4"],function(s){"use strict";self.skipWaiting(),s.clientsClaim(),s.precacheAndRoute([{url:"favicon.ico",revision:"d41d8cd98f00b204e9800998ecf8427e"},{url:"build/registerSW.js",revision:"63469269effd11e3fce0c2cf85a37d3b"},{url:"build/assets/WorkoutsHistoryItem-BMCGTPMp.js",revision:"3284d3bff754e1aa547f4b41dfa7cd9b"},{url:"build/assets/WorkoutsHistory-BDMw2muX.js",revision:"5ed59300766fe6b64b9c8f7764cddd15"},{url:"build/assets/WorkoutSetup-Dx2tNrE1.js",revision:"f1c0b452c785b4596c1fa1f29d9b420b"},{url:"build/assets/WorkoutSession-BECvuxGE.js",revision:"0569906a0bb7b0bd48224e56a38bbb05"},{url:"build/assets/SessionQuickStart-DvSXo83G.js",revision:"44925b5326d8f5dd7a1726e3c44a50a5"},{url:"build/assets/SessionLibraryPicker-SZGsqNXp.js",revision:"c95b652dc0faa7fd5cf5534957bdd839"},{url:"build/assets/SessionExercisePicker-YK9r4j26.js",revision:"b93c67d9e911560553afac4611f3beac"},{url:"build/assets/SessionExerciseCard-COAnNd94.js",revision:"ed0426979b6100cbb298e6ec6a3caf21"},{url:"build/assets/RirSelector-Bwjg1nVh.js",revision:"7350ef4b66ea0fdd4012169e50f6a7f7"},{url:"build/assets/PinLogin-B_PtPBg5.js",revision:"33c92b972408a221925383ef84ca1158"},{url:"build/assets/LogSetList-3TNfVXLM.js",revision:"448dd4e9a155590a588c38b2ebf05990"},{url:"build/assets/InputGroup-BdiAg4S1.js",revision:"c897a0fce1d86b307e6b00ab44aab6a8"},{url:"build/assets/index-71u9RIDb.js",revision:"2de37c7626b716216c2c48a377882aff"},{url:"build/assets/HeaderWorkoutSession-CvHl_eqD.js",revision:"55773a5bcb3edaa942a241c5a3261fca"},{url:"build/assets/GraficoTeste-BbMd07tv.js",revision:"bb1bd10b8e34efc8fd14d8608c976700"},{url:"build/assets/GlassBtn-Cy82DqRw.js",revision:"875bfe857f92d8f1c8e25cc1bffec228"},{url:"build/assets/FaceIdAuth-D_lzizJP.js",revision:"ac787d87d22a03e9fa62e8d4a92cf53d"},{url:"build/assets/ExercisesHeader-CL3dlQny.js",revision:"c25388b026bc22fdb9a07ce91fd28e8c"},{url:"build/assets/ExerciseProgressGraph-9X_W8LxB.js",revision:"8d8f2a3147d834f4de758803f0a284c0"},{url:"build/assets/ExerciseHistoryUI-CHaH934z.js",revision:"53d728841bff23218a230a60b17db840"},{url:"build/assets/ExerciseHistory-lD-kSq75.js",revision:"1484d23e031498e16a7c1b99e1378c2b"},{url:"build/assets/ExerciseDisplay-JzSWUFgC.js",revision:"fc94951cde33564fdaba0cf67a9cf450"},{url:"build/assets/DetailsWorkoutsHistory-pXR46STv.js",revision:"7470e0ef0de79c6bc3641ba0b6ac56fe"},{url:"build/assets/Dashboard-jrEvonkS.js",revision:"6ee606d0e4d8363ee8071f61be89c966"},{url:"build/assets/CreateExercise-ByUzEja3.js",revision:"aad37b18140e24614aca4548eaef0003"},{url:"build/assets/CategoryFilterWorkoutsHistory-BzM87wb9.js",revision:"2bf71ea5f3df106e65dabe612898d92c"},{url:"build/assets/Auth-q6AP0Unk.js",revision:"327f5ce97bc08f9a1880411e86010e77"},{url:"build/assets/AreaChart-AC6weVpf.js",revision:"af1655a8288a29090973f3b88559a637"},{url:"build/assets/app-CsGj-rCH.css",revision:"8e55f7eb497d8579068d8522bcf52746"},{url:"build/assets/app-CLC2QRNC.js",revision:"b345a15ac343e6c971b0100fa614cda6"},{url:"build/assets/ActiveSessionDecider-CaQPJCfl.js",revision:"02576e26fd736220f09afc654c52004b"},{url:"build/assets/ActiveExercisesInSession-D_bzRA32.js",revision:"da4d39f3bbb4417edca52f2495026765"},{url:"manifest.json",revision:"905945cf322d8128e45dfba8c83baa47"}],{}),s.cleanupOutdatedCaches(),s.registerRoute(new s.NavigationRoute(s.createHandlerBoundToURL("/offline.html")))});
+if (!self.define) {
+    let s,
+        e = {};
+    const i = (i, r) => (
+        (i = new URL(i + ".js", r).href),
+        e[i] ||
+            new Promise((e) => {
+                if ("document" in self) {
+                    const s = document.createElement("script");
+                    ((s.src = i), (s.onload = e), document.head.appendChild(s));
+                } else ((s = i), importScripts(i), e());
+            }).then(() => {
+                let s = e[i];
+                if (!s)
+                    throw new Error(`Module ${i} didn’t register its module`);
+                return s;
+            })
+    );
+    self.define = (r, a) => {
+        const d =
+            s ||
+            ("document" in self ? document.currentScript.src : "") ||
+            location.href;
+        if (e[d]) return;
+        let b = {};
+        const c = (s) => i(s, d),
+            o = { module: { uri: d }, exports: b, require: c };
+        e[d] = Promise.all(r.map((s) => o[s] || c(s))).then(
+            (s) => (a(...s), b),
+        );
+    };
+}
+define(["./workbox-8c29f6e4"], function (s) {
+    "use strict";
+    (self.skipWaiting(),
+        s.clientsClaim(),
+        s.precacheAndRoute(
+            [
+                {
+                    url: "favicon.ico",
+                    revision: "d41d8cd98f00b204e9800998ecf8427e",
+                },
+                {
+                    url: "build/registerSW.js",
+                    revision: "63469269effd11e3fce0c2cf85a37d3b",
+                },
+                {
+                    url: "build/assets/WorkoutsHistoryItem-BMCGTPMp.js",
+                    revision: "3284d3bff754e1aa547f4b41dfa7cd9b",
+                },
+                {
+                    url: "build/assets/WorkoutsHistory-BDMw2muX.js",
+                    revision: "5ed59300766fe6b64b9c8f7764cddd15",
+                },
+                {
+                    url: "build/assets/WorkoutSetup-Dx2tNrE1.js",
+                    revision: "f1c0b452c785b4596c1fa1f29d9b420b",
+                },
+                {
+                    url: "build/assets/WorkoutSession-BECvuxGE.js",
+                    revision: "0569906a0bb7b0bd48224e56a38bbb05",
+                },
+                {
+                    url: "build/assets/SessionQuickStart-DvSXo83G.js",
+                    revision: "44925b5326d8f5dd7a1726e3c44a50a5",
+                },
+                {
+                    url: "build/assets/SessionLibraryPicker-SZGsqNXp.js",
+                    revision: "c95b652dc0faa7fd5cf5534957bdd839",
+                },
+                {
+                    url: "build/assets/SessionExercisePicker-YK9r4j26.js",
+                    revision: "b93c67d9e911560553afac4611f3beac",
+                },
+                {
+                    url: "build/assets/SessionExerciseCard-COAnNd94.js",
+                    revision: "ed0426979b6100cbb298e6ec6a3caf21",
+                },
+                {
+                    url: "build/assets/RirSelector-Bwjg1nVh.js",
+                    revision: "7350ef4b66ea0fdd4012169e50f6a7f7",
+                },
+                {
+                    url: "build/assets/PinLogin-B_PtPBg5.js",
+                    revision: "33c92b972408a221925383ef84ca1158",
+                },
+                {
+                    url: "build/assets/LogSetList-3TNfVXLM.js",
+                    revision: "448dd4e9a155590a588c38b2ebf05990",
+                },
+                {
+                    url: "build/assets/InputGroup-BdiAg4S1.js",
+                    revision: "c897a0fce1d86b307e6b00ab44aab6a8",
+                },
+                {
+                    url: "build/assets/index-71u9RIDb.js",
+                    revision: "2de37c7626b716216c2c48a377882aff",
+                },
+                {
+                    url: "build/assets/HeaderWorkoutSession-CvHl_eqD.js",
+                    revision: "55773a5bcb3edaa942a241c5a3261fca",
+                },
+                {
+                    url: "build/assets/GraficoTeste-BbMd07tv.js",
+                    revision: "bb1bd10b8e34efc8fd14d8608c976700",
+                },
+                {
+                    url: "build/assets/GlassBtn-Cy82DqRw.js",
+                    revision: "875bfe857f92d8f1c8e25cc1bffec228",
+                },
+                {
+                    url: "build/assets/FaceIdAuth-D_lzizJP.js",
+                    revision: "ac787d87d22a03e9fa62e8d4a92cf53d",
+                },
+                {
+                    url: "build/assets/ExercisesHeader-CL3dlQny.js",
+                    revision: "c25388b026bc22fdb9a07ce91fd28e8c",
+                },
+                {
+                    url: "build/assets/ExerciseProgressGraph-9X_W8LxB.js",
+                    revision: "8d8f2a3147d834f4de758803f0a284c0",
+                },
+                {
+                    url: "build/assets/ExerciseHistoryUI-CHaH934z.js",
+                    revision: "53d728841bff23218a230a60b17db840",
+                },
+                {
+                    url: "build/assets/ExerciseHistory-lD-kSq75.js",
+                    revision: "1484d23e031498e16a7c1b99e1378c2b",
+                },
+                {
+                    url: "build/assets/ExercisesPage-JzSWUFgC.js",
+                    revision: "fc94951cde33564fdaba0cf67a9cf450",
+                },
+                {
+                    url: "build/assets/DetailsWorkoutsHistory-pXR46STv.js",
+                    revision: "7470e0ef0de79c6bc3641ba0b6ac56fe",
+                },
+                {
+                    url: "build/assets/Dashboard-jrEvonkS.js",
+                    revision: "6ee606d0e4d8363ee8071f61be89c966",
+                },
+                {
+                    url: "build/assets/CreateExercise-ByUzEja3.js",
+                    revision: "aad37b18140e24614aca4548eaef0003",
+                },
+                {
+                    url: "build/assets/CategoryFilterWorkoutsHistory-BzM87wb9.js",
+                    revision: "2bf71ea5f3df106e65dabe612898d92c",
+                },
+                {
+                    url: "build/assets/Auth-q6AP0Unk.js",
+                    revision: "327f5ce97bc08f9a1880411e86010e77",
+                },
+                {
+                    url: "build/assets/AreaChart-AC6weVpf.js",
+                    revision: "af1655a8288a29090973f3b88559a637",
+                },
+                {
+                    url: "build/assets/app-CsGj-rCH.css",
+                    revision: "8e55f7eb497d8579068d8522bcf52746",
+                },
+                {
+                    url: "build/assets/app-CLC2QRNC.js",
+                    revision: "b345a15ac343e6c971b0100fa614cda6",
+                },
+                {
+                    url: "build/assets/ActiveSessionDecider-CaQPJCfl.js",
+                    revision: "02576e26fd736220f09afc654c52004b",
+                },
+                {
+                    url: "build/assets/ActiveExercisesInSession-D_bzRA32.js",
+                    revision: "da4d39f3bbb4417edca52f2495026765",
+                },
+                {
+                    url: "manifest.json",
+                    revision: "905945cf322d8128e45dfba8c83baa47",
+                },
+            ],
+            {},
+        ),
+        s.cleanupOutdatedCaches(),
+        s.registerRoute(
+            new s.NavigationRoute(s.createHandlerBoundToURL("/offline.html")),
+        ));
+});

@@ -1,21 +1,26 @@
 import React, { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom"; // Substitui o Inertia
-import Navbar from "@/Components/Shared/Navbar"; // Mantemos o teu Navbar original
+import { useLocation } from "react-router-dom";
+import Navbar from "@/Components/Shared/Navbar";
 
 interface Props {
     children: React.ReactNode;
 }
 
 const MainLayout = ({ children }: Props) => {
-    // Na SPA, usamos o hook do React Router para saber onde estamos
     const location = useLocation();
     const url = location.pathname;
-
-    // A tua lógica mantém-se intocável
-    const isFullPage =
-        url.startsWith("/auth") || url === "/" || url === "/workouts/setup";
-
     const mainRef = useRef<HTMLElement>(null);
+
+    // 1. Define aqui as rotas que queres centradas
+    // Podes adicionar ou remover rotas facilmente neste array
+    const centeredRoutes = [
+        "/",
+        "/login",
+        "/workouts/setup",
+        "/workout/config",
+    ];
+
+    const isCentered = centeredRoutes.includes(url);
 
     useEffect(() => {
         mainRef.current?.scrollTo({ top: 0, behavior: "instant" });
@@ -32,29 +37,30 @@ const MainLayout = ({ children }: Props) => {
                 }}
             />
 
-            {!isFullPage && <Navbar />}
+            <Navbar />
 
-            {isFullPage ? (
-                <main className="absolute inset-0 flex flex-col justify-center">
-                    <div className="w-full max-w-md mx-auto px-6">
-                        {children}
-                    </div>
-                </main>
-            ) : (
-                <main
-                    ref={mainRef}
-                    className="absolute inset-0 overflow-y-auto no-scrollbar"
-                    style={{
-                        paddingTop: "calc(env(safe-area-inset-top) + 3.5rem)",
-                        clipPath:
-                            "inset(calc(env(safe-area-inset-top) + 2.5rem) 0 0 0)",
-                    }}
+            <main
+                ref={mainRef}
+                className="absolute inset-0 overflow-y-auto no-scrollbar flex flex-col"
+                style={{
+                    paddingTop: "calc(env(safe-area-inset-top) + 3.5rem)",
+                    clipPath:
+                        "inset(calc(env(safe-area-inset-top) + 2.5rem) 0 0 0)",
+                }}
+            >
+                {/*
+                   O contentor interno expande sempre (flex-1).
+                   O justify-center só é aplicado se a rota estiver no array.
+                */}
+                <div
+                    className={`
+                    flex-1 flex flex-col w-full max-w-md mx-auto px-6 pb-20
+                    ${isCentered ? "justify-center" : "justify-start"}
+                `}
                 >
-                    <div className="max-w-md mx-auto px-6 pb-20">
-                        {children}
-                    </div>
-                </main>
-            )}
+                    {children}
+                </div>
+            </main>
 
             <style
                 dangerouslySetInnerHTML={{
@@ -67,5 +73,4 @@ const MainLayout = ({ children }: Props) => {
         </div>
     );
 };
-
 export default MainLayout;

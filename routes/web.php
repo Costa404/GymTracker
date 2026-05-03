@@ -54,8 +54,8 @@ use Illuminate\Support\Facades\Route;
 //     Route::controller(ExerciseController::class)->group(function () {
 //         Route::get('/exercises/create', 'create')->name('exercises.create');
 //         Route::post('/exercises', 'store')->name('exercises.store');
-//         Route::get('/exercises/{exercise}', 'ExerciseDisplay')->name('exercises.ExerciseDisplay');
-//         Route::get('/workout/{workout}/exercise/{exercise}', 'ExerciseDisplay')->name('exercises.workout.display');
+//         Route::get('/exercises/{exercise}', 'ExercisesPage')->name('exercises.ExercisesPage');
+//         Route::get('/workout/{workout}/exercise/{exercise}', 'ExercisesPage')->name('exercises.workout.display');
 //         Route::get('/workout/{workout}/exercise/{exercise}/history', 'ExerciseHistory')->name('exercises.ExerciseHistory');
 //         Route::get('/exercise/{exercise}/history', 'ExerciseHistory')
 //             ->name('exercises.IndividualHistory');

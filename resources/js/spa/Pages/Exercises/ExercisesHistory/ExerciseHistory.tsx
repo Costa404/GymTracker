@@ -1,12 +1,43 @@
-import { Head } from "@inertiajs/react";
-import ExercisesHeader from "../Components/ExercisesHeader";
+import { useParams } from "react-router-dom";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "@/spa/db";
+
 import { formatDate, useExerciseHistoryLogic } from "./useExerciseHistoryLogic";
 import { EmptyExerciseHistory, Stat } from "./ExerciseHistoryUI";
 import ExerciseProgressGraph from "./ExerciseProgressGraph";
+import ExercisesHeader from "../LogExercises/ExercisesHeader";
 
-const ExerciseHistory = ({ exercise, history, workout }: any) => {
+const ExerciseHistory = () => {
+    // 1. Capturar IDs da URL (workoutId pode ser undefined dependendo da rota)
+    const { workoutId, exerciseId } = useParams();
+
+    const exId = Number(exerciseId);
+    // Só tentamos converter o workoutId se ele existir na URL
+    const wkId = workoutId ? Number(workoutId) : null;
+
+    // 2. Queries ao Dexie com proteção rigorosa
+    const exercise = useLiveQuery(() => {
+        if (isNaN(exId) || exId === 0) return undefined;
+        return db.exercises.get(exId);
+    }, [exId]);
+
+    // O workout só é pesquisado se o wkId for um número válido
+    const workout = useLiveQuery(() => {
+        if (!wkId || isNaN(wkId)) return undefined;
+        return db.workouts.get(wkId);
+    }, [wkId]);
+
+    // O histórico precisa apenas do ID do exercício
+    const history =
+        useLiveQuery(() => {
+            if (isNaN(exId) || exId === 0) return [];
+            return db.workoutLogs.where("exercise_id").equals(exId).toArray();
+        }, [exId]) || [];
+
+    // 3. Aplicar a lógica de agrupamento
     const sortedGroups = useExerciseHistoryLogic(history);
-    // 2. Prepara os dados para o gráfico
+
+    // 4. Preparar os dados para o gráfico
     const chartData = sortedGroups
         .map((group: any) => ({
             date: formatDate(group.logs[0].created_at),
@@ -14,28 +45,48 @@ const ExerciseHistory = ({ exercise, history, workout }: any) => {
         }))
         .reverse();
 
-    return (
-        <div className="min-h-screen text-white font-sans  relative">
-            <Head title={`History | ${exercise.name}`} />
+    // 5. Guardas de carregamento (Apenas o exercise é obrigatório para renderizar)
+    if (!exercise) {
+        return (
+            <div className="min-h-screen flex items-center justify-center text-performance">
+                <span className="animate-pulse font-black uppercase italic tracking-widest text-[10px]">
+                    Loading History...
+                </span>
+            </div>
+        );
+    }
 
-            <div className="max-w-lg mx-auto relative z-10">
+    return (
+        <div className="min-h-screen text-white font-sans relative">
+            <div className="max-w-lg mx-auto relative z-10 ">
+                {/*
+                  O Header agora é inteligente:
+                  Se existir 'workout', usa o nome e ID dele.
+                  Se não existir, usa valores fallback lógicos.
+                */}
                 <ExercisesHeader
                     exerciseName={exercise.name}
                     exerciseId={exercise.id}
-                    workoutName={workout.name}
-                    workoutId={workout.id}
+                    workoutName={workout ? workout.name : "Global History"}
+                    workoutId={workout ? workout.id : 0}
                     showHistoryButton={false}
                 />
-                <ExerciseProgressGraph data={chartData} />
 
-                <div className="space-y-4">
+                {/* Gráfico de Progresso */}
+                {chartData.length > 0 && (
+                    <div className="mt-6">
+                        <ExerciseProgressGraph data={chartData} />
+                    </div>
+                )}
+
+                <div className="space-y-4 mt-6">
                     {sortedGroups.length > 0 ? (
                         sortedGroups.map((group: any, idx: number) => (
                             <div
                                 key={idx}
-                                className="bg-[#0a1220]/40 border border-performance/20 rounded-[2rem] p-6 py-4 shadow-xl"
+                                className="border border-performance/20 rounded-[2rem] p-6 py-4 shadow-xl"
                             >
-                                <span className="text-[10px] font-black uppercase tracking-widest text-performance/60 block ">
+                                <span className="text-[10px] font-black uppercase tracking-widest text-performance/60 block mb-2">
                                     {formatDate(group.logs[0].created_at)}
                                 </span>
 
@@ -75,7 +126,9 @@ const ExerciseHistory = ({ exercise, history, workout }: any) => {
                             </div>
                         ))
                     ) : (
-                        <EmptyExerciseHistory />
+                        <div className="pt-8">
+                            <EmptyExerciseHistory />
+                        </div>
                     )}
                 </div>
             </div>

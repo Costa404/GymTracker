@@ -4,7 +4,7 @@ import { WorkoutStore } from "@/types";
 import { db } from "@/spa/db"; // Importa a tua base de dados Dexie
 import { useWorkoutSessionStore } from "./SessionStore/useWorkoutSessionStore"; // Para ativar a sessão
 
-const useWorkoutStore = create<WorkoutStore>()(
+export const useWorkoutStore = create<WorkoutStore>()(
     persist(
         (set) => ({
             selectedIndex: 0,
@@ -46,6 +46,7 @@ const useWorkoutStore = create<WorkoutStore>()(
                         completed_at: null,
                         created_at: now,
                         updated_at: now,
+                        synced: 0, //
                     });
 
                     // 2. Avisa o resto da app que há um treino a decorrer
@@ -72,5 +73,3 @@ const useWorkoutStore = create<WorkoutStore>()(
         },
     ),
 );
-
-export default useWorkoutStore;

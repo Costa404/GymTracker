@@ -36,7 +36,6 @@ export interface SessionStore {
     startTime: number | null;
     elapsedSeconds: number;
     tick: () => void;
-
     startSession: (id: number) => void;
     addSet: (
         exerciseId: number,
@@ -45,6 +44,8 @@ export interface SessionStore {
         rir: number,
     ) => void;
     finishSession: () => void;
+    loadTemplate: (exercises: { id: number }[]) => void;
+    removeSet: (exerciseId: number, setIndex: number) => void;
 }
 export interface WorkoutState {
     selectedIndex: number;

@@ -41,10 +41,7 @@ const SessionLibraryPicker = ({
                     ))
                 ) : (
                     /* Empty State com estilo Glass Dashed */
-                    <div className="py-10 px-4 border border-dashed border-zinc-800/50 bg-zinc-900/[0.02] rounded-2xl flex flex-col items-center justify-center">
-                        <div className="w-8 h-8 rounded-full border border-zinc-800 flex items-center justify-center mb-3 opacity-20">
-                            <span className="text-xs">✓</span>
-                        </div>
+                    <div className="py-10 px-4 flex flex-col items-center justify-center">
                         <p className="text-center text-[10px] text-zinc-600 uppercase font-black tracking-widest italic">
                             All exercises added
                         </p>

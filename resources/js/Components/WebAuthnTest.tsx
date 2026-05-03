@@ -28,7 +28,7 @@ const WebAuthnTest = () => {
             </button>
             <button
                 onClick={() => router.post("/logout")}
-                className="w-full py-3 rounded-xl border border-red-500/30 bg-red-500/5 text-red-400/70 text-[9px] font-black uppercase tracking-widest hover:bg-red-500/10"
+                className="w-full py-3 rounded-xl border border-red-500/30 bg-red-500/5 text-red-400/70 text-[9px] font-black uppercase tracking-widest
             >
                 Logout
             </button>

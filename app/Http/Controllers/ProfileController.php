@@ -3,31 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
-use Inertia\Response;
+use Illuminate\Http\JsonResponse;
 
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Retorna os dados do utilizador.
+     * Útil se quiseres mostrar o nome ou ecrã de definições na SPA.
      */
-    public function edit(Request $request): Response
+    public function edit(Request $request): JsonResponse
     {
-        return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+        return response()->json([
+            'user' => $request->user(),
             'status' => session('status'),
         ]);
     }
 
     /**
-     * Update the user's profile information.
+     * Atualiza as informações básicas.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request): JsonResponse
     {
         $request->user()->fill($request->validated());
 
@@ -37,13 +34,16 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return response()->json([
+            'message' => 'Profile updated in Porto Seguro',
+            'user' => $request->user()
+        ]);
     }
 
     /**
-     * Delete the user's account.
+     * Elimina a conta (Limpa o Porto Seguro).
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request): JsonResponse
     {
         $request->validate([
             'password' => ['required', 'current_password'],
@@ -58,6 +58,8 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return response()->json([
+            'message' => 'Account deleted'
+        ]);
     }
 }

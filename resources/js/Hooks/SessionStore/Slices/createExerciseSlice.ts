@@ -15,19 +15,6 @@ export const createExerciseSlice = (set: any, get: any) => ({
         }
     },
 
-    // --- NOVA FUNÇÃO PARA TEMPLATES ---
-    loadTemplate: (exerciseIds: number[]) => {
-        // Mapeia os IDs para o formato de objeto da sessão
-        const templateExercises = exerciseIds.map((id) => ({
-            exercise_id: id,
-            sets: [], // Começa vazio, mas "ativo" na UI
-        }));
-
-        set({
-            sessionExercises: templateExercises,
-        });
-    },
-
     removeSet: (exerciseId: number, setIndex: number) => {
         set((state: any) => ({
             sessionExercises: state.sessionExercises.map((ex: any) =>

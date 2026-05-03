@@ -1,6 +1,6 @@
 import { InputGroupProps } from "@/types";
 
-export const InputGroup = ({
+const InputGroup = ({
     label,
     value,
     onChange,
@@ -8,9 +8,9 @@ export const InputGroup = ({
     placeholder = "0",
     lastSets = [],
 }: InputGroupProps & { lastSets?: (string | number)[] }) => (
-    /* Trocado emerald-500 por performance */
+    /* Removido o efeito de hover do grupo, mantendo apenas a transição de foco */
     <div className="group border-b border-white/5 focus-within:border-performance/50 transition-all pb-4">
-        <div className="flex flex-col mb-3 px-1 gap-2">
+        <div className="flex flex-col mb-3 gap-2">
             <label className="text-[10px] font-black uppercase text-zinc-600 tracking-[0.2em] group-focus-within:text-performance transition-colors italic leading-none">
                 {label}
             </label>
@@ -23,7 +23,7 @@ export const InputGroup = ({
                     {lastSets.slice(0, 3).map((val, idx) => (
                         <div
                             key={idx}
-                            className="bg-performance/5 border border-performance/10 w-[38px] h-[20px] flex items-center justify-center rounded-md shrink-0 transition-opacity hover:opacity-80"
+                            className="bg-performance/5 border border-performance/10 w-[38px] h-[20px] flex items-center justify-center rounded-md shrink-0"
                         >
                             <span className="text-[9px] font-black text-performance/60 italic leading-none">
                                 {val}
@@ -42,7 +42,8 @@ export const InputGroup = ({
                 inputMode="decimal"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full bg-transparent text-6xl font-black italic outline-none text-white placeholder:text-zinc-900 border-none p-0 focus:ring-0 leading-none tracking-tighter"
+                /* placeholder:text-zinc-900 para contraste em mobile, leading-none para evitar cortes */
+                className="w-full bg-transparent text-6xl font-black italic outline-none text-white placeholder:text-zinc-900 border-none p-0 focus:ring-0 leading-none tracking-tighter touch-manipulation"
                 placeholder={placeholder}
                 autoFocus={label === "Weight"}
             />
@@ -54,3 +55,5 @@ export const InputGroup = ({
         </div>
     </div>
 );
+
+export default InputGroup;

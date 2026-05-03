@@ -1,36 +1,53 @@
-import { Link } from "@inertiajs/react";
+import GlassBtn from "@/Components/Shared/GlassBtn";
 
 interface Props {
     currentType: string | null;
+    onFilterChange?: (type: string | null) => void;
 }
 
-const CategoryFilterWorkoutsHistory = ({ currentType }: Props) => {
-    const types = ["Upper ", "Push Day", "Pull Day", "Legs Day"];
-
-    const getStyle = (type: string | null) =>
-        currentType === type
-            ? "bg-blue-500/10 text-blue-400 border-blue-500/50 shadow-[0_0_12px_rgba(59,130,246,0.15)]"
-            : "bg-zinc-900/60 text-zinc-500 border-zinc-800 hover:border-zinc-700 hover:text-zinc-300";
+const CategoryFilterWorkoutsHistory = ({
+    currentType,
+    onFilterChange,
+}: Props) => {
+    // Mantendo a tua lista de tipos
+    const types = ["Upper", "Push Day", "Pull Day", "Legs Day"];
 
     return (
-        <div className="flex justify-center w-full mb-4">
-            <div className="flex gap-2 overflow-x-auto no-scrollbar items-center">
-                <Link
-                    href="/workouts/history"
-                    className={`px-4 py-1.5 rounded-md border text-[9px] font-black uppercase italic tracking-[0.15em] transition-all duration-200 flex-shrink-0 ${getStyle(null)}`}
+        <div className="flex justify-center w-full mb-6">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar items-center   pb-2">
+                {/* Botão ALL */}
+                <GlassBtn
+                    onClick={() => onFilterChange?.(null)}
+                    className={`px-5 py-2 rounded-xl transition-all duration-200 border flex-shrink-0 ${
+                        currentType === null
+                            ? "bg-transparent  text-system"
+                            : "bg-transparent border-white/5 text-zinc-500"
+                    }`}
                 >
-                    All
-                </Link>
+                    <span className="text-[9px] font-black uppercase italic tracking-[0.15em]">
+                        All
+                    </span>
+                </GlassBtn>
 
-                {types.map((type) => (
-                    <Link
-                        key={type}
-                        href={`/workouts/history?type=${type}`}
-                        className={`px-4 py-1.5 rounded-md border text-[9px] font-black uppercase italic tracking-[0.15em] whitespace-nowrap transition-all duration-200 flex-shrink-0 ${getStyle(type)}`}
-                    >
-                        {type.replace(" Day", "")}
-                    </Link>
-                ))}
+                {/* Mapeamento dos tipos com GlassBtn */}
+                {types.map((type) => {
+                    const isSelected = currentType === type;
+                    return (
+                        <GlassBtn
+                            key={type}
+                            onClick={() => onFilterChange?.(type)}
+                            className={`px-5 py-2 rounded-xl border whitespace-nowrap transition-all duration-200 flex-shrink-0 ${
+                                isSelected
+                                    ? "bg-transparent  text-system"
+                                    : "bg-transparent border-white/5 text-zinc-500"
+                            }`}
+                        >
+                            <span className="text-[9px] font-black uppercase italic tracking-[0.15em]">
+                                {type.replace(" Day", "")}
+                            </span>
+                        </GlassBtn>
+                    );
+                })}
             </div>
         </div>
     );

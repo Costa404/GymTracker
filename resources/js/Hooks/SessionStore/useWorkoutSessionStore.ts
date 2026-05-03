@@ -14,13 +14,21 @@ export const useWorkoutSessionStore = create<SessionStore>()(
         (set, get) => ({
             ...createTimerSlice(set, get),
             ...createExerciseSlice(set, get),
+
+            loadTemplate: (exercises: { id: number }[]) => {
+                const templateExercises = exercises.map((ex) => ({
+                    exercise_id: ex.id,
+                    sets: [],
+                }));
+                set({ sessionExercises: templateExercises });
+            },
         }),
         {
             name: "active-workout-session",
             partialize: (state) => ({
                 activeSessionId: state.activeSessionId,
                 sessionExercises: state.sessionExercises,
-                startTime: state.startTime, // ← persiste o startTime
+                startTime: state.startTime,
                 elapsedSeconds: state.elapsedSeconds,
             }),
         },

@@ -1,9 +1,10 @@
 // useWorkoutSessionStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { createTimerSlice } from "./Slices/createTimerSlice";
-import { createExerciseSlice } from "./Slices/createExerciseSlice";
+
 import { SessionStore } from "@/types";
+import { ExerciseCreateSlice } from "./Slices/createExerciseSlice";
+import { CreateTimerSlice } from "./Slices/createTimerSlice";
 
 // 1. Define o tipo que junta as fatias todas
 // Podes usar os tipos que já tens no @/types ou definir aqui para ser mais rápido
@@ -12,12 +13,12 @@ import { SessionStore } from "@/types";
 export const useWorkoutSessionStore = create<SessionStore>()(
     persist(
         (set, get) => ({
-            ...createTimerSlice(set, get),
-            ...createExerciseSlice(set, get),
+            ...CreateTimerSlice(set, get),
+            ...ExerciseCreateSlice(set, get),
 
-            loadTemplate: (exercises: { id: number }[]) => {
-                const templateExercises = exercises.map((ex) => ({
-                    exercise_id: ex.id,
+            loadTemplate: (exerciseIds: number[]) => {
+                const templateExercises = exerciseIds.map((id: number) => ({
+                    exercise_id: id,
                     sets: [],
                 }));
                 set({ sessionExercises: templateExercises });

@@ -1,4 +1,4 @@
-export const createTimerSlice = (set: any, get: any) => ({
+export const CreateTimerSlice = (set: any, get: any) => ({
     startTime: null,
     elapsedSeconds: 0,
     tick: () => {

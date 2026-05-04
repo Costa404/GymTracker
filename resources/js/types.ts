@@ -44,7 +44,7 @@ export interface SessionStore {
         rir: number,
     ) => void;
     finishSession: () => void;
-    loadTemplate: (exercises: { id: number }[]) => void;
+    loadTemplate: (exerciseIds: number[]) => void;
     removeSet: (exerciseId: number, setIndex: number) => void;
 }
 export interface WorkoutState {
@@ -75,7 +75,7 @@ export interface LogData {
     rir: string | number | null;
 }
 
-export interface InputGroupProps {
+export interface ExerciseLogInputGroupProps {
     label: string;
     value: string;
     onChange: (val: string) => void;

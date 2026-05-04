@@ -1,6 +1,7 @@
 import React from "react";
 import GlassBtn from "@/Components/Shared/GlassBtn";
 import PageTitle from "@/Components/Shared/PageTitle";
+import { SyncButton } from "@/spa/hooks/SyncButton";
 
 const WorkoutConfig = () => {
     return (
@@ -36,14 +37,7 @@ const WorkoutConfig = () => {
                 </GlassBtn>
 
                 {/* Utilidade de Sincronização */}
-                <GlassBtn
-                    variant="zinc"
-                    className="w-full py-7 rounded-2xl border-white/5 opacity-60"
-                >
-                    <span className="text-[10px] tracking-[0.3em] font-bold uppercase italic text-zinc-500">
-                        Sync to PC
-                    </span>
-                </GlassBtn>
+                <SyncButton />
             </div>
         </div>
     );

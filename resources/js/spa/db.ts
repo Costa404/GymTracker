@@ -22,6 +22,18 @@ export interface Exercise {
     category: string | null;
     created_at: string;
     updated_at: string;
+    synced: number;
+}
+
+// Nova Interface para os Templates
+export interface WorkoutTemplate {
+    id?: number;
+    name: string;
+    type: string;
+    exercise_ids: number[];
+    created_at: string;
+    updated_at: string;
+    synced: number;
 }
 
 export interface WorkoutLog {
@@ -37,6 +49,7 @@ export interface WorkoutLog {
     updated_at: string;
 }
 
+
 // ==========================================
 // DATABASE ENGINE
 // ==========================================
@@ -45,15 +58,17 @@ export class GymDatabase extends Dexie {
     workouts!: Table<Workout>;
     exercises!: Table<Exercise>;
     workoutLogs!: Table<WorkoutLog>;
+    workout_templates!: Table<WorkoutTemplate>; // Adicionada aqui
 
     constructor() {
         super("GymTrackerDB");
 
-        // Versioning: if you change this string, Dexie will handle migrations
-        this.version(1).stores({
+        // Subimos para a Versão 2 para o Dexie criar a nova tabela
+        this.version(2).stores({
             workouts: "++id, completed_at, synced",
             exercises: "++id, name, muscle_group",
             workoutLogs: "++id, workout_id, exercise_id",
+            workout_templates: "++id, name, type, synced", // Adicionada aqui
         });
     }
 }

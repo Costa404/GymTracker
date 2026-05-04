@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Route;
 
 //     // 2. GESTÃO DE TREINOS (WorkoutController)
 //     Route::controller(WorkoutController::class)->group(function () {
-//         Route::get('/workouts/history', 'workoutsHistory')->name('workouts.history');
+//         Route::get('/workouts/history', 'WorkoutHistory')->name('workouts.history');
 //         Route::get('/workouts/setup', 'setup')->name('workouts.setup');
 //         Route::post('/workouts/start', 'start')->name('workouts.start');
 //         Route::get('/workouts/{workout}/history-detail', 'showHistoryDetail')->name('workouts.history.detail');

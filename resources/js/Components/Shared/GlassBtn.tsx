@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 
 interface Props {
-    to?: string; // MUDOU AQUI: Passa a aceitar 'to' em vez de 'href'
-    onClick?: () => void;
+    to?: string;
+    onClick?: (e?: React.MouseEvent) => void;
+
     children: React.ReactNode;
     className?: string;
     variant?:

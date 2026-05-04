@@ -1,6 +1,6 @@
 import { createNewSet, updateExercisesWithSet } from "../sessionUtils";
 
-export const createExerciseSlice = (set: any, get: any) => ({
+export const ExerciseCreateSlice = (set: any, get: any) => ({
     activeSessionId: null,
     sessionExercises: [],
 

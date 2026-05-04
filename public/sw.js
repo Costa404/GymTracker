@@ -45,11 +45,11 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "63469269effd11e3fce0c2cf85a37d3b",
                 },
                 {
-                    url: "build/assets/WorkoutsHistoryItem-BMCGTPMp.js",
+                    url: "build/assets/WorkoutHistoryItem-BMCGTPMp.js",
                     revision: "3284d3bff754e1aa547f4b41dfa7cd9b",
                 },
                 {
-                    url: "build/assets/WorkoutsHistory-BDMw2muX.js",
+                    url: "build/assets/WorkoutHistory-BDMw2muX.js",
                     revision: "5ed59300766fe6b64b9c8f7764cddd15",
                 },
                 {
@@ -77,7 +77,7 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "ed0426979b6100cbb298e6ec6a3caf21",
                 },
                 {
-                    url: "build/assets/RirSelector-Bwjg1nVh.js",
+                    url: "build/assets/ExerciseLogRirSelector-Bwjg1nVh.js",
                     revision: "7350ef4b66ea0fdd4012169e50f6a7f7",
                 },
                 {
@@ -85,11 +85,11 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "33c92b972408a221925383ef84ca1158",
                 },
                 {
-                    url: "build/assets/LogSetList-3TNfVXLM.js",
+                    url: "build/assets/ExerciseLogSetList-3TNfVXLM.js",
                     revision: "448dd4e9a155590a588c38b2ebf05990",
                 },
                 {
-                    url: "build/assets/InputGroup-BdiAg4S1.js",
+                    url: "build/assets/ExerciseLogInputGroup-BdiAg4S1.js",
                     revision: "c897a0fce1d86b307e6b00ab44aab6a8",
                 },
                 {
@@ -97,7 +97,7 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "2de37c7626b716216c2c48a377882aff",
                 },
                 {
-                    url: "build/assets/HeaderWorkoutSession-CvHl_eqD.js",
+                    url: "build/assets/WorkoutSessionHeader-CvHl_eqD.js",
                     revision: "55773a5bcb3edaa942a241c5a3261fca",
                 },
                 {
@@ -113,7 +113,7 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "ac787d87d22a03e9fa62e8d4a92cf53d",
                 },
                 {
-                    url: "build/assets/ExercisesHeader-CL3dlQny.js",
+                    url: "build/assets/ExerciseLogHeader-CL3dlQny.js",
                     revision: "c25388b026bc22fdb9a07ce91fd28e8c",
                 },
                 {
@@ -133,7 +133,7 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "fc94951cde33564fdaba0cf67a9cf450",
                 },
                 {
-                    url: "build/assets/DetailsWorkoutsHistory-pXR46STv.js",
+                    url: "build/assets/WorkoutHistoryDetail-pXR46STv.js",
                     revision: "7470e0ef0de79c6bc3641ba0b6ac56fe",
                 },
                 {
@@ -141,11 +141,11 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "6ee606d0e4d8363ee8071f61be89c966",
                 },
                 {
-                    url: "build/assets/CreateExercise-ByUzEja3.js",
+                    url: "build/assets/ExerciseCreate-ByUzEja3.js",
                     revision: "aad37b18140e24614aca4548eaef0003",
                 },
                 {
-                    url: "build/assets/CategoryFilterWorkoutsHistory-BzM87wb9.js",
+                    url: "build/assets/WorkoutHistoryCategoryFilter-BzM87wb9.js",
                     revision: "2bf71ea5f3df106e65dabe612898d92c",
                 },
                 {
@@ -169,7 +169,7 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "02576e26fd736220f09afc654c52004b",
                 },
                 {
-                    url: "build/assets/ActiveExercisesInSession-D_bzRA32.js",
+                    url: "build/assets/SessionActiveExercises-D_bzRA32.js",
                     revision: "da4d39f3bbb4417edca52f2495026765",
                 },
                 {

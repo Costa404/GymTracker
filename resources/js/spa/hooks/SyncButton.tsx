@@ -10,12 +10,10 @@ export const SyncButton = () => {
     const handleSyncClick = async () => {
         setIsSyncing(true);
         try {
-            await useSyncData();
-            await pullDataFromPC();
-            alert("Sync complete: App is up to date.");
+            await pullDataFromPC(); // <- só isto por agora
+            alert("Sync complete!");
         } catch (error) {
             console.error("Sync borked:", error);
-            alert("Connection failed. Is the server running?");
         } finally {
             setIsSyncing(false);
         }
@@ -24,9 +22,9 @@ export const SyncButton = () => {
     return (
         <GlassBtn
             onClick={handleSyncClick}
-            variant="system"
+            variant="white"
             disabled={isSyncing}
-            className="w-full py-6 rounded-2xl border border-white/5 bg-transparent text-zinc-500 active:scale-[0.98] transition-all gap-3"
+            className="w-full py-6 gap-3"
         >
             {isSyncing ? (
                 <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">

@@ -28,13 +28,13 @@ class DashboardController extends Controller
         $exercises = Exercise::all();
 
         // 3. Últimos 5 Treinos realizados
-        $WorkoutsHistory = Workout::latest()->with('logs')->take(5)->get();
+        $WorkoutHistory = Workout::latest()->with('logs')->take(5)->get();
 
         // Retornamos JSON. O React (SPA) recebe isto e decide como desenhar.
         return response()->json([
             'weeklyVolume' => (int) $weeklyVolume,
             'exercises' => $exercises,
-            'WorkoutsHistory' => $WorkoutsHistory,
+            'WorkoutHistory' => $WorkoutHistory,
             // Nota: Data e Hora já não enviamos, o React faz isso localmente.
         ]);
     }

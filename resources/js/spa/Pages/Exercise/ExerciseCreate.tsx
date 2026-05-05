@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "@/spa/db";
-import GlassBtn from "@/Components/Shared/GlassBtn";
-import PageTitle from "@/Components/Shared/PageTitle";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
+import PageTitle from "@/spa/Components/Shared/PageTitle";
 
 const ExerciseCreate = () => {
     const navigate = useNavigate();
@@ -98,24 +98,21 @@ const ExerciseCreate = () => {
                         {muscleGroups.map((group) => {
                             const isActive = data.muscle_group === group;
                             return (
-                                <button
+                                <GlassBtn
                                     key={group}
-                                    type="button" // Importante para não submeter o form
+                                    variant={isActive ? "system" : "ghost"}
                                     onClick={() =>
                                         handleSetData("muscle_group", group)
                                     }
-                                    /* Removido hovers, adicionado active:scale-95 e touch-manipulation */
-                                    className={`
-                                        py-4 rounded-xl border text-[10px] font-black uppercase tracking-widest text-center transition-all duration-200 italic touch-manipulation active:scale-95
-                                        ${
-                                            isActive
-                                                ? "bg-system/20 border-system text-system-light shadow-[0_0_20px_rgba(var(--system-rgb),0.1)]"
-                                                : "bg-white/[0.02] border-white/[0.05] text-zinc-500"
-                                        }
-                                    `}
+                                    // Opcionalmente força a altura (py-4), largura (w-full) e o estilo itálico
+                                    className={`w-full !py-4 italic text-center ${
+                                        isActive
+                                            ? "shadow-[0_0_20px_rgba(var(--system-rgb),0.1)] !bg-system/20 !border-system"
+                                            : "!bg-white/[0.02] !border-white/[0.05]"
+                                    }`}
                                 >
                                     {group}
-                                </button>
+                                </GlassBtn>
                             );
                         })}
                     </div>

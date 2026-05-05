@@ -53,11 +53,11 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "5ed59300766fe6b64b9c8f7764cddd15",
                 },
                 {
-                    url: "build/assets/WorkoutSetup-Dx2tNrE1.js",
+                    url: "build/assets/workoutetup-Dx2tNrE1.js",
                     revision: "f1c0b452c785b4596c1fa1f29d9b420b",
                 },
                 {
-                    url: "build/assets/WorkoutSession-BECvuxGE.js",
+                    url: "build/assets/workoutession-BECvuxGE.js",
                     revision: "0569906a0bb7b0bd48224e56a38bbb05",
                 },
                 {
@@ -97,7 +97,7 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "2de37c7626b716216c2c48a377882aff",
                 },
                 {
-                    url: "build/assets/WorkoutSessionHeader-CvHl_eqD.js",
+                    url: "build/assets/workoutessionHeader-CvHl_eqD.js",
                     revision: "55773a5bcb3edaa942a241c5a3261fca",
                 },
                 {
@@ -129,7 +129,7 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "1484d23e031498e16a7c1b99e1378c2b",
                 },
                 {
-                    url: "build/assets/ExercisesPage-JzSWUFgC.js",
+                    url: "build/assets/ExercisePage-JzSWUFgC.js",
                     revision: "fc94951cde33564fdaba0cf67a9cf450",
                 },
                 {
@@ -165,7 +165,7 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "b345a15ac343e6c971b0100fa614cda6",
                 },
                 {
-                    url: "build/assets/ActiveSessionDecider-CaQPJCfl.js",
+                    url: "build/assets/workoutetupSessionDecider-CaQPJCfl.js",
                     revision: "02576e26fd736220f09afc654c52004b",
                 },
                 {

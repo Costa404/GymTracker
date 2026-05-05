@@ -1,5 +1,5 @@
-import GlassBtn from "@/Components/Shared/GlassBtn";
-import PageTitle from "@/Components/Shared/PageTitle";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
+import PageTitle from "@/spa/Components/Shared/PageTitle";
 
 const ExerciseLogHeader = ({
     exerciseName,

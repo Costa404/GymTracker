@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 const PinLogin = () => {
     const navigate = useNavigate();
 
-    // 1. Estados locais em vez do useForm do Inertia
     const [pin, setPin] = useState("");
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState("");
@@ -65,6 +64,7 @@ const PinLogin = () => {
                     autoFocus
                 />
             </div>
+
             {error && (
                 <p className="text-red-500/80 text-[9px] font-bold uppercase text-center tracking-widest">
                     {error}

@@ -1,90 +1,97 @@
-  <style>
-      /* Loader Styles - CSS Puro para ser instantâneo */
-      #initial-loader {
-          position: fixed;
-          inset: 0;
-          background: #000;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          z-index: 9999;
-          transition: opacity 0.4s ease-out, visibility 0.4s;
-      }
+<!DOCTYPE html>
+<html lang="pt-PT">
 
-      .spinner {
-          width: 40px;
-          /* Um pouco mais pequena para ser elegante */
-          height: 40px;
-          /* Usando a mesma opacidade que usaste no PIN (20%) para a borda base */
-          border: 2px solid rgba(59, 130, 246, 0.2);
-          /* O azul sólido Blue-500 para a parte que roda */
-          border-top: 2px solid text-performance;
-          border-radius: 50%;
-          animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <title>GymTracker V2</title>
 
-      .loader-text {
-          margin-top: 24px;
-          color: text-performance;
-          /* Blue-500 */
-          font-family: sans-serif;
-          font-size: 8px;
-          /* Mais pequeno como no novo PinLogin */
-          font-weight: 900;
-          text-transform: uppercase;
-          letter-spacing: 0.6em;
-          /* Mais espaçado para o look técnico */
-          opacity: 0.8;
-          animation: pulse 3s infinite;
-      }
+    <style>
+        #initial-loader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease-out, visibility 0.4s;
+        }
 
-      @keyframes spin {
-          from {
-              transform: rotate(0deg);
-          }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-top: 2px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
 
-          to {
-              transform: rotate(360deg);
-          }
-      }
+        .loader-text {
+            margin-top: 24px;
+            color: #3b82f6;
+            font-family: sans-serif;
+            font-size: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.6em;
+            opacity: 0.8;
+            animation: pulse 3s infinite;
+        }
 
-      @keyframes pulse {
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
 
-          0%,
-          100% {
-              opacity: 1;
-          }
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-          50% {
-              opacity: 0.4;
-          }
-      }
+        @keyframes pulse {
 
-      /* Classe para esconder o loader */
-      .loader-hidden {
-          opacity: 0;
-          visibility: hidden;
-      }
-  </style>
+            0%,
+            100% {
+                opacity: 1;
+            }
 
+            50% {
+                opacity: 0.4;
+            }
+        }
 
-  <script>
-      // Esconde o loader assim que o Inertia carregar a primeira página
-      document.addEventListener('inertia:finish', function() {
-          const loader = document.getElementById('initial-loader');
-          if (loader) {
-              loader.classList.add('loader-hidden');
-              setTimeout(() => loader.remove(), 500);
-          }
-      });
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
 
-      // Para o carregamento inicial
-      window.addEventListener('load', function() {
-          const loader = document.getElementById('initial-loader');
-          if (loader) {
-              loader.classList.add('loader-hidden');
-              setTimeout(() => loader.remove(), 500);
-          }
-      });
-  </script>
+    @viteReactRefresh
+    @vite(['resources/css/app.css', 'resources/js/spa/index.tsx'])
+</head>
+
+<body class="bg-black text-white h-screen w-screen overflow-hidden antialiased">
+
+    <div id="initial-loader">
+        <div class="spinner"></div>
+        <div class="loader-text">Command Center</div>
+    </div>
+
+    <div id="app" class="h-full w-full"></div>
+
+    <script>
+        // Fail-safe: esconde o loader após 4s se algo correr mal
+        setTimeout(() => {
+            const loader = document.getElementById('initial-loader');
+            if (loader) {
+                loader.classList.add('loader-hidden');
+                setTimeout(() => loader.remove(), 500);
+            }
+        }, 4000);
+    </script>
+
+</body>
+
+</html> 

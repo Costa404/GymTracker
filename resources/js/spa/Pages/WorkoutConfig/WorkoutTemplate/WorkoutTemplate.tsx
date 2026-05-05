@@ -1,6 +1,6 @@
 import { LuTrash2 } from "react-icons/lu";
-import GlassBtn from "@/Components/Shared/GlassBtn";
-import PageTitle from "@/Components/Shared/PageTitle";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
+import PageTitle from "@/spa/Components/Shared/PageTitle";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/spa/db";
 

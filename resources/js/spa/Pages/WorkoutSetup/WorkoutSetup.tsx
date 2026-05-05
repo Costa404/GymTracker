@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import GlassBtn from "@/Components/Shared/GlassBtn";
-import ActiveSessionDecider from "./ActiveSessionDecider";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
+
 import { useShallow } from "zustand/react/shallow";
-import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
-import { useWorkoutStore } from "@/Hooks/useWorkoutStore";
+import { useWorkoutSessionStore } from "@/spa/Hooks/SessionStore/useWorkoutSessionStore";
+import { useWorkoutStore } from "@/spa/Hooks/useWorkoutStore";
+import WorkoutSetupSessionDecider from "./WorkoutSetupSessionDecider";
 
 const WorkoutSetup = () => {
     const { handleStart } = useWorkoutStore(
@@ -25,7 +26,7 @@ const WorkoutSetup = () => {
     return (
         <div className="relative z-10 w-full py-10">
             {activeSessionId ? (
-                <ActiveSessionDecider />
+                <WorkoutSetupSessionDecider />
             ) : (
                 <div className="flex flex-col gap-6 w-full">
                     {/* HEADER */}

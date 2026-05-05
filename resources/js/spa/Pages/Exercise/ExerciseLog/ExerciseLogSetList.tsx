@@ -1,4 +1,4 @@
-import GlassBtn from "@/Components/Shared/GlassBtn";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 import React, { useState } from "react";
 import { HiOutlineTrash, HiOutlineCheck, HiOutlineX } from "react-icons/hi";
 

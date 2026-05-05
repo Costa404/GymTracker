@@ -1,4 +1,4 @@
-import GlassBtn from "@/Components/Shared/GlassBtn";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 import { LuTrash2, LuActivity } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
@@ -31,7 +31,7 @@ const ExerciseDisplay = ({ exercise, onDelete }: ExerciseDisplayProps) => {
             <div className="flex items-center gap-3 ml-4">
                 {/* INFO/HISTÓRICO: Border azul/cyan (Lógica de Dados/Info) */}
                 <Link
-                    to={`/exercises/${exercise.id}/history`}
+                    to={`/exercise/${exercise.id}/history`}
                     className="p-2.5 rounded-xl bg-sky-500/5 border border-sky-500/20 text-sky-500/50 active:text-sky-400 active:border-sky-400/50 active:bg-sky-500/10 transition-all active:scale-90"
                 >
                     <LuActivity size={18} />

@@ -7,7 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
     plugins: [
         laravel({
-            input: "resources/js/app.tsx",
+            input: "resources/js/spa/index.tsx",
             refresh: true,
         }),
         react(),
@@ -19,6 +19,6 @@ export default defineConfig({
         },
     },
     server: {
-        host: "127.0.0.1",
+        host: "localhost",
     },
 });

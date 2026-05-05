@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\SyncController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,7 @@ Route::get('/sync/pull', [SyncController::class, 'pullFromPC']);
 // Rota para o React enviar dados novos para o PC (Push)
 Route::post('/sync/bulk', [SyncController::class, 'pushFromApp']);
 
+// Auth
+Route::post('/auth', [AuthController::class, 'verifyPin']);
+Route::post('/auth/logout', [AuthController::class, 'logout']);
+    

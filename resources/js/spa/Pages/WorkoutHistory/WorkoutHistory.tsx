@@ -5,7 +5,6 @@ import WorkoutHistoryCategoryFilter from "./WorkoutHistoryCategoryFilter";
 import { useState } from "react";
 
 const WorkoutHistory = () => {
-    // 1. Estado local para filtros (substitui os filtros que vinham do URL via Inertia)
     const [filterType, setFilterType] = useState<string | null>(null);
 
     // 2. Query ao Dexie (Archive)
@@ -30,8 +29,6 @@ const WorkoutHistory = () => {
 
     return (
         <div className="  font-sans">
-            {/* Removido o <Head /> do Inertia */}
-
             {/* HEADER */}
             <div className="text-center mb-6">
                 <h1 className="text-system-light font-black uppercase italic tracking-tighter text-2xl ">

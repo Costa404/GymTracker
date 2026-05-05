@@ -1,5 +1,6 @@
-import GlassBtn from "@/Components/Shared/GlassBtn";
-import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
+import { useWorkoutSessionStore } from "@/spa/Hooks/SessionStore/useWorkoutSessionStore";
+import WebAuthnTest from "../Components/WebAuthnTest";
 
 const DashboardPage = () => {
     const activeSessionId = useWorkoutSessionStore((s) => s.activeSessionId);
@@ -9,7 +10,7 @@ const DashboardPage = () => {
         <div className="flex flex-col justify-center gap-4">
             {/* 1. BOTÃO PRINCIPAL: Dinâmico entre Performance e System */}
             <GlassBtn
-                to="/workouts/setup"
+                to="/workout/setup"
                 variant={activeSessionId ? "system" : "performance"}
                 className="w-full py-8 rounded-[2.5rem]"
             >
@@ -37,7 +38,7 @@ const DashboardPage = () => {
 
             {/* 3. PAST WORKOUTS */}
             <GlassBtn
-                to="/workouts/history"
+                to="/workout/history"
                 variant="zinc"
                 className="w-full py-5 rounded-2xl"
             >

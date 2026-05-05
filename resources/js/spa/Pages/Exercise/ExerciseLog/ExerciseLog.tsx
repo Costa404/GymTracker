@@ -2,19 +2,19 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/spa/db";
-import { useExerciseLog } from "@/Hooks/useExerciseLog";
-import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import { useExerciseLog } from "@/spa/Hooks/useExerciseLog";
+import { useWorkoutSessionStore } from "@/spa/Hooks/SessionStore/useWorkoutSessionStore";
 
 import ExerciseLogSetList from "./ExerciseLogSetList";
 import ExerciseLogHeader from "./ExerciseLogHeader";
-import GlassBtn from "@/Components/Shared/GlassBtn";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 import ExerciseLogInputGroup from "./ExerciseLogInputGroup";
 import ExerciseLogRirSelector from "./ExerciseLogRirSelector";
 
 // Componentes UI (Garante que os caminhos estão corretos)
 
 const ExerciseLog = () => {
-    // 1. Captura os IDs da URL (ex: /workouts/1/exercises/5)
+    // 1. Captura os IDs da URL (ex: /workout/1/exercise/5)
     const { workoutId, exerciseId } = useParams();
     const exId = Number(exerciseId);
     const wkId = Number(workoutId);

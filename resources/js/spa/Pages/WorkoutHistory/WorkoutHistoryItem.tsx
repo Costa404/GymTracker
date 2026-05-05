@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { HiOutlineTrash } from "react-icons/hi";
 import { db } from "@/spa/db"; // Import da tua DB Dexie
-import GlassBtn from "@/Components/Shared/GlassBtn";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 
 interface Workout {
     id: number;
@@ -44,7 +44,7 @@ const WorkoutHistoryItem = ({ workout }: { workout: Workout }) => {
     return (
         <div className="relative w-full mb-3">
             <Link
-                to={`/workouts/history/${workout.id}`} // Rota adaptada para SPA
+                to={`/workout/history/${workout.id}`} // Rota adaptada para SPA
                 className="block relative transition-all duration-200 active:scale-[0.98] active:opacity-70"
             >
                 {/* CARD CONTAINER */}

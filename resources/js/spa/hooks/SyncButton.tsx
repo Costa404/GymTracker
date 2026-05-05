@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useSyncData } from "@/Hooks/useSyncData";
-import { useDataPull } from "@/Hooks/useDataPull";
-import GlassBtn from "@/Components/Shared/GlassBtn";
+import { useSyncData } from "@/spa/Hooks/useSyncData";
+import { useDataPull } from "@/spa/Hooks/useDataPull";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 
 export const SyncButton = () => {
     const [isSyncing, setIsSyncing] = useState(false);

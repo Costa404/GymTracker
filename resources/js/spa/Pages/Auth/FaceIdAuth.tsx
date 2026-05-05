@@ -5,12 +5,16 @@ import {
     startAuthentication,
     browserSupportsWebAuthn,
 } from "@simplewebauthn/browser";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 
 const FaceIdAuth = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const navigate = useNavigate();
 
     const handleFaceId = async () => {
+        // Se já estiver a processar, não permite duplo clique
+        if (isProcessing) return;
+
         try {
             // 1. Pedir opções ao Laravel
             const { data: options } = await axios.post(
@@ -46,19 +50,26 @@ const FaceIdAuth = () => {
         <>
             {/* Overlay de Transição - Essencial para Mobile */}
             {isProcessing && (
-                <div className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center">
+                <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex flex-col items-center justify-center">
                     <div className="w-8 h-8 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4"></div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-500/50 italic animate-pulse">
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-500/80 italic animate-pulse">
                         Verifying
                     </p>
                 </div>
             )}
 
             <div className="flex flex-col items-center gap-3">
-                <button
+                <GlassBtn
+                    type="button"
                     onClick={handleFaceId}
-                    disabled={isProcessing}
-                    className="flex items-center gap-3 px-8 py-4 rounded-2xl border border-blue-500/20 bg-blue-500/[0.03] text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] italic transition-all duration-200 active:scale-95 active:bg-blue-500/10 active:border-blue-500/40 touch-manipulation disabled:opacity-20"
+                    variant="default" // Usa o default do teu GlassBtn
+                    className={`gap-3 px-8 py-4 rounded-2xl border text-[10px] uppercase tracking-[0.2em] touch-manipulation
+                        ${
+                            isProcessing
+                                ? "opacity-20 pointer-events-none" // Simula o disabled
+                                : "border-blue-500/20 bg-blue-500/[0.03] text-blue-400 active:bg-blue-500/10 active:border-blue-500/40"
+                        }
+                    `}
                 >
                     <svg
                         width="18"
@@ -79,7 +90,7 @@ const FaceIdAuth = () => {
                         <path d="M9 15a3 3 0 0 0 6 0" />
                     </svg>
                     Face ID
-                </button>
+                </GlassBtn>
             </div>
         </>
     );

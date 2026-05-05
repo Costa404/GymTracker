@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/spa/db";
 import { HiOutlineClock, HiOutlineCalendar } from "react-icons/hi";
-import PageTitle from "@/Components/Shared/PageTitle";
+import PageTitle from "@/spa/Components/Shared/PageTitle";
 
 const WorkoutHistoryDetail = () => {
     const { workoutId } = useParams();

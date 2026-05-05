@@ -1,7 +1,7 @@
 import React from "react";
-import GlassBtn from "@/Components/Shared/GlassBtn";
-import PageTitle from "@/Components/Shared/PageTitle";
-import { SyncButton } from "@/spa/hooks/SyncButton";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
+import PageTitle from "@/spa/Components/Shared/PageTitle";
+import { SyncButton } from "@/spa/Hooks/SyncButton";
 
 const WorkoutConfig = () => {
     return (
@@ -16,7 +16,7 @@ const WorkoutConfig = () => {
             <div className="space-y-4">
                 {/* Gestão de Exercícios */}
                 <GlassBtn
-                    to="/exercises"
+                    to="/exercise"
                     variant="system"
                     className="w-full py-7 rounded-2xl"
                 >

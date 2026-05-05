@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import Navbar from "@/Components/Shared/Navbar";
+import Navbar from "@/spa/Components/Shared/Navbar";
 
 interface Props {
     children: React.ReactNode;
@@ -13,12 +13,7 @@ const MainLayout = ({ children }: Props) => {
 
     // 1. Define aqui as rotas que queres centradas
     // Podes adicionar ou remover rotas facilmente neste array
-    const centeredRoutes = [
-        "/",
-        "/login",
-        "/workouts/setup",
-        "/workout/config",
-    ];
+    const centeredRoutes = ["/", "/login", "/workout/setup", "/workout/config"];
 
     const isCentered = centeredRoutes.includes(url);
 

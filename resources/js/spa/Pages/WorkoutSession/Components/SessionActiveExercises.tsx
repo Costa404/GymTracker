@@ -1,6 +1,6 @@
 // Components/SessionActiveExercises.tsx
 
-import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import { useWorkoutSessionStore } from "@/spa/Hooks/SessionStore/useWorkoutSessionStore";
 import SessionExerciseCard from "./SessionExerciseCard";
 
 interface SessionActiveExercisesProps {

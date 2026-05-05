@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import SessionActiveExercises from "./SessionActiveExercises";
-import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
-import GlassBtn from "@/Components/Shared/GlassBtn";
+import { useWorkoutSessionStore } from "@/spa/Hooks/SessionStore/useWorkoutSessionStore";
+import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 
 import { db } from "@/spa/db";
 import { useLiveQuery } from "dexie-react-hooks";

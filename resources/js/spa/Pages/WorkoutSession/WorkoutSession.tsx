@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "@/spa/db"; // O teu ficheiro da base de dados Dexie
-import useFilteredExercises from "@/Hooks/useFilteredExercises";
-import { useWorkoutSessionStore } from "@/Hooks/SessionStore/useWorkoutSessionStore";
+import { db } from "@/spa/db";
+import useFilteredExercises from "@/spa/Hooks/useFilteredExercises";
+import { useWorkoutSessionStore } from "@/spa/Hooks/SessionStore/useWorkoutSessionStore";
 
 import SessionQuickStart from "./Components/SessionQuickStart";
-import WorkoutSessionHeader from "./Components/WorkoutSessionHeader";
-import SessionLibraryPicker from "./Components/SessionLibraryPicker";
 
-// 1. Já não recebe props! As props vinham do Inertia.
-// ... imports iguais
+import SessionLibraryPicker from "./Components/SessionLibraryPicker";
+import WorkoutSessionHeader from "./Components/WorkoutSessionHeader";
 
 const WorkoutSession = () => {
     const navigate = useNavigate();

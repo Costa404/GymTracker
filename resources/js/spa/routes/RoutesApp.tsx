@@ -1,37 +1,40 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import DashboardPage from "../Pages/DashboardPage";
-import WorkoutSession from "../Pages/WorkoutSession/WorkoutSession";
-
-// Exercises & Log Station
-
-import ExerciseCreate from "../Pages/Exercises/ExerciseCreate";
-// Nome sugerido
-import ExerciseHistory from "../Pages/Exercises/ExerciseHistory/ExerciseHistory";
-
-// Workout Config
 import WorkoutConfig from "../Pages/WorkoutConfig/WorkoutConfig";
-
-import { db } from "../db";
-import { useLiveQuery } from "dexie-react-hooks";
-import ExercisesPage from "../Pages/Exercises/ExercisesPage";
-import ExerciseLog from "../Pages/Exercises/ExerciseLog/ExerciseLog";
-
-import WorkoutSetup from "../Pages/WorkoutSetup/WorkoutSetup";
 import WorkoutHistory from "../Pages/WorkoutHistory/WorkoutHistory";
 import WorkoutHistoryDetail from "../Pages/WorkoutHistory/WorkoutHistoryDetail";
-import WorkoutTemplate from "../Pages/WorkoutConfig/WorkoutTemplates/WorkoutTemplate";
-import WorkoutTemplateCreate from "../Pages/WorkoutConfig/WorkoutTemplates/CreateWorkoutTemplates/WorkoutTemplateCreate";
+import ExerciseCreate from "../Pages/Exercise/ExerciseCreate";
+import ExercisePage from "../Pages/Exercise/ExercisePage";
+import ExerciseHistory from "../Pages/Exercise/ExerciseHistory/ExerciseHistory";
+import ExerciseLog from "../Pages/Exercise/ExerciseLog/ExerciseLog";
+import WorkoutTemplate from "../Pages/WorkoutConfig/WorkoutTemplate/WorkoutTemplate";
+import WorkoutTemplateCreate from "../Pages/WorkoutConfig/WorkoutTemplate/WorkoutTemplateCreate/WorkoutTemplateCreate";
+import WorkoutSession from "../Pages/WorkoutSession/WorkoutSession";
+import WorkoutSetup from "../Pages/WorkoutSetup/WorkoutSetup";
+import Auth from "../Pages/Auth/Auth";
+import WorkoutSummary from "../Pages/WorkoutSummary/WorkoutSummary";
 
 const RoutesApp = () => {
+    const isAuth = localStorage.getItem("pin_verified") === "true";
+
+    // if (!isAuth) {
+    //     return (
+    //         <Routes>
+    //             <Route path="*" element={<Auth />} />
+    //         </Routes>
+    //     );
+    // }
+
     return (
         <Routes>
             {/* DASHBOARD */}
             <Route path="/" element={<DashboardPage />} />
 
             {/* SESSÃO ATIVA (TREINO NO GINÁSIO) */}
-            <Route path="/workouts/active" element={<WorkoutSession />} />
-            <Route path="/workouts/setup" element={<WorkoutSetup />} />
+            <Route path="/workout/session" element={<WorkoutSession />} />
+            <Route path="/workout/setup" element={<WorkoutSetup />} />
+            <Route path="/workout/summary" element={<WorkoutSummary />} />
 
             {/* LOG STATION: Onde registas as séries (Peso/Reps) */}
             <Route
@@ -44,8 +47,8 @@ const RoutesApp = () => {
             />
 
             {/* BIBLIOTECA DE EXERCÍCIOS (HUB CENTRAL) */}
-            <Route path="/exercises">
-                <Route index element={<ExercisesPage />} />
+            <Route path="/exercise">
+                <Route index element={<ExercisePage />} />
                 <Route path="create" element={<ExerciseCreate />} />
                 <Route
                     path=":exerciseId/history"
@@ -54,26 +57,27 @@ const RoutesApp = () => {
             </Route>
 
             {/* HISTÓRICO DE TREINOS CONCLUÍDOS */}
-            <Route path="/workouts/history" element={<WorkoutHistory />} />
+            <Route path="/workout/history" element={<WorkoutHistory />} />
             <Route
-                path="/workouts/history/:workoutId"
+                path="/workout/history/:workoutId"
                 element={<WorkoutHistoryDetail />}
             />
 
             {/* CONFIGURAÇÃO DE TEMPLATES */}
             <Route path="/workout/config">
-                {/* Menu Principal: Exercises, Templates, Sync */}
+                {/* Menu Principal */}
                 <Route index element={<WorkoutConfig />} />
-
                 {/* Gestão de Templates */}
                 <Route path="templates">
-                    {/* Lista de todos os templates (O "Pai") */}
+                    {/* Lista de todos os templates */}
                     <Route index element={<WorkoutTemplate />} />
-
                     {/* Criar novo template */}
                     <Route path="create" element={<WorkoutTemplateCreate />} />
                 </Route>
             </Route>
+
+            {/* FALLBACK */}
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );
 };

@@ -31,7 +31,7 @@ class ExerciseController extends Controller
     /**
      * Retorna os dados para exibir o exercício e as marcas do treino anterior.
      */
-    public function ExercisesPage(Workout $workout, Exercise $exercise)
+    public function ExercisePage(Workout $workout, Exercise $exercise)
     {
         $lastWorkoutId = WorkoutLog::where('exercise_id', $exercise->id)
             ->where('user_id', 1)

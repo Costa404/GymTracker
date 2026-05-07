@@ -1,30 +1,39 @@
-import { useNavigate } from "react-router-dom";
 import GlassBtn from "./Shared/GlassBtn";
+import { useAuthStore } from "../hooks/useAuthStore";
 
 const WebAuthnTest = () => {
-    const navigate = useNavigate();
+    const logout = useAuthStore((state) => state.logout);
 
     const handleRegister = async () => {
         try {
-            const { data: options } = await window.axios.get(
-                "/webauthn/register/options",
-            );
+            const options = await fetch("/webauthn/register/options", {
+                method: "GET",
+                headers: { Accept: "application/json" },
+            }).then((r) => r.json());
+
             const { startRegistration } =
                 await import("@simplewebauthn/browser");
             const attestation = await startRegistration(options);
-            await window.axios.post("/webauthn/register", attestation);
-            alert("Face ID registado com sucesso!");
+
+            await fetch("/webauthn/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(attestation),
+            });
+
+            alert("Face ID register done!");
         } catch (error) {
             console.error("Erro:", error);
         }
     };
 
     const handleLogout = async () => {
-        await window.axios.post("/api/auth/logout");
-        localStorage.removeItem("pin_verified");
-        navigate("/auth");
+        await fetch("/api/auth/logout", { method: "POST" });
+        logout();
     };
-
     return (
         <div className="flex flex-col gap-4">
             {/* Botão de Registo */}

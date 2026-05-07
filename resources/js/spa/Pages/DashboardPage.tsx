@@ -1,6 +1,6 @@
-import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 import { useWorkoutSessionStore } from "@/spa/Hooks/SessionStore/useWorkoutSessionStore";
 import WebAuthnTest from "../Components/WebAuthnTest";
+import GlassBtn from "../Components/Shared/GlassBtn";
 
 const DashboardPage = () => {
     const activeSessionId = useWorkoutSessionStore((s) => s.activeSessionId);
@@ -68,6 +68,7 @@ const DashboardPage = () => {
                     Total effort • Last 7 Days
                 </p>
             </div>
+            <WebAuthnTest />
         </div>
     );
 };

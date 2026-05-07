@@ -14,17 +14,18 @@ import WorkoutSession from "../Pages/WorkoutSession/WorkoutSession";
 import WorkoutSetup from "../Pages/WorkoutSetup/WorkoutSetup";
 import Auth from "../Pages/Auth/Auth";
 import WorkoutSummary from "../Pages/WorkoutSummary/WorkoutSummary";
+import { useAuthStore } from "../hooks/useAuthStore";
 
 const RoutesApp = () => {
-    const isAuth = localStorage.getItem("pin_verified") === "true";
+    const isAuth = useAuthStore((state) => state.isAuth);
 
-    // if (!isAuth) {
-    //     return (
-    //         <Routes>
-    //             <Route path="*" element={<Auth />} />
-    //         </Routes>
-    //     );
-    // }
+    if (!isAuth) {
+        return (
+            <Routes>
+                <Route path="*" element={<Auth />} />
+            </Routes>
+        );
+    }
 
     return (
         <Routes>

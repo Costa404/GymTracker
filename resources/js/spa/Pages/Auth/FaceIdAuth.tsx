@@ -6,33 +6,45 @@ import {
     browserSupportsWebAuthn,
 } from "@simplewebauthn/browser";
 import GlassBtn from "@/spa/Components/Shared/GlassBtn";
+import { useAuthStore } from "@/spa/hooks/useAuthStore";
 
 const FaceIdAuth = () => {
     const [isProcessing, setIsProcessing] = useState(false);
-    const navigate = useNavigate();
+    const login = useAuthStore((state) => state.login);
 
     const handleFaceId = async () => {
-        // Se já estiver a processar, não permite duplo clique
         if (isProcessing) return;
 
         try {
-            // 1. Pedir opções ao Laravel
-            const { data: options } = await axios.post(
-                "/webauthn/login/options",
-            );
+            // axios.post → fetch
+            // 1. Buscar opções
+            const options = await fetch("/webauthn/login/options", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+            }).then((r) => r.json());
 
-            // 2. O iOS/Android abre a janela nativa.
+            // 2. Abrir Face ID nativo
             const assertion = await startAuthentication(options);
 
-            // 3. Ativar o Loading Screen IMEDIATAMENTE após o "visto" verde do sistema
+            // 3. Ativar loading APÓS o "visto" verde
             setIsProcessing(true);
 
             // 4. Validar no backend
-            await axios.post("/webauthn/login", assertion);
+            await fetch("/webauthn/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(assertion),
+            });
 
-            // 5. Delay estratégico para suavizar a transição na SPA
+            // 5. Login
             setTimeout(() => {
-                navigate("/");
+                login();
             }, 1000);
         } catch (error: any) {
             setIsProcessing(false);

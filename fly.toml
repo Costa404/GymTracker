@@ -15,7 +15,7 @@ console_command = 'php /var/www/html/artisan tinker'
   SESSION_DRIVER = 'cookie'
   SESSION_SECURE_COOKIE = 'true'
   DB_CONNECTION = 'sqlite'
-  DB_DATABASE = '/data/database.sqlite'
+  DB_DATABASE = ':memory:'
 
 [http_service]
   internal_port = 8080
@@ -25,9 +25,6 @@ console_command = 'php /var/www/html/artisan tinker'
   min_machines_running = 0
   processes = ['app']
 
-[mounts]
-  source = 'sqlite_data'
-  destination = '/data'
 
 [[vm]]
   memory = '256mb'

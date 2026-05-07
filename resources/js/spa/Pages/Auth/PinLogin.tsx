@@ -1,53 +1,50 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "@/spa/hooks/useAuthStore";
+import { useState, useEffect, useRef } from "react";
 
 const PinLogin = () => {
-    const navigate = useNavigate();
-
+    const login = useAuthStore((state) => state.login);
     const [pin, setPin] = useState("");
-    const [processing, setProcessing] = useState(false);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const processingRef = useRef(false);
 
     useEffect(() => {
+        if (pin.length !== 6 || processingRef.current) return;
+
         const authenticate = async () => {
-            if (pin.length === 6 && !processing) {
-                setProcessing(true);
-                setError(""); // Limpa erros anteriores
+            processingRef.current = true;
+            setLoading(true);
+            setError("");
 
-                try {
-                    /*
-                     * 2. Lógica de Autenticação SPA
-                     * Aqui deves fazer o pedido à tua API (ex: Laravel Sanctum/Passport)
-                     * Se usares apenas uma validação local simples, substitui o bloco fetch.
-                     */
-                    const response = await fetch("/api/auth", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Accept: "application/json",
-                        },
-                        body: JSON.stringify({ pin }),
-                    });
+            try {
+                const response = await fetch("/api/auth", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify({ pin }),
+                });
 
-                    if (response.ok) {
-                        // Sucesso: Vai para o Dashboard
-                        navigate("/");
-                    } else {
-                        // Falha: Mostra erro e limpa o PIN
-                        setError("Invalid PIN");
-                        setPin("");
-                    }
-                } catch (err) {
-                    setError("Connection error");
+                const body = await response.json();
+
+                if (body.authenticated === true) {
+                    login(); // ← zustand + persist trata do localStorage e re-renderiza o RoutesApp
+                } else {
+                    setError("PIN invalid");
                     setPin("");
-                } finally {
-                    setProcessing(false);
                 }
+            } catch {
+                setError("Erro de ligação");
+                setPin("");
+            } finally {
+                processingRef.current = false;
+                setLoading(false);
             }
         };
 
         authenticate();
-    }, [pin, processing, navigate]);
+    }, [pin]);
 
     return (
         <div className="space-y-6">
@@ -58,13 +55,12 @@ const PinLogin = () => {
                     maxLength={6}
                     value={pin}
                     onChange={(e) => setPin(e.target.value)}
-                    disabled={processing}
-                    className="w-full bg-blue-500/[0.03] border border-blue-500/20 rounded-2xl py-4 text-center text-3xl text-white tracking-[0.4em] focus:outline-none"
+                    disabled={loading}
+                    className="w-full bg-blue-500/[0.03] border border-blue-500/20 rounded-2xl py-4 text-center text-3xl text-white tracking-[0.4em] focus:outline-none disabled:opacity-40 transition-opacity"
                     placeholder="••••••"
                     autoFocus
                 />
             </div>
-
             {error && (
                 <p className="text-red-500/80 text-[9px] font-bold uppercase text-center tracking-widest">
                     {error}

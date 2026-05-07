@@ -24,4 +24,3 @@ Route::post('/sync/bulk', [SyncController::class, 'pushFromApp']);
 // Auth
 Route::post('/auth', [AuthController::class, 'verifyPin']);
 Route::post('/auth/logout', [AuthController::class, 'logout']);
-    

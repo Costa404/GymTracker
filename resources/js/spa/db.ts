@@ -49,7 +49,6 @@ export interface WorkoutLog {
     updated_at: string;
 }
 
-
 // ==========================================
 // DATABASE ENGINE
 // ==========================================

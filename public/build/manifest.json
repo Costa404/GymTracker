@@ -1,11 +1,26 @@
 {
-  "resources/js/app.tsx": {
-    "file": "assets/app-BzAzLPrh.js",
-    "name": "app",
-    "src": "resources/js/app.tsx",
+  "node_modules/@simplewebauthn/browser/esm/index.js": {
+    "file": "assets/index-BDkarAkX.js",
+    "name": "index",
+    "src": "node_modules/@simplewebauthn/browser/esm/index.js",
+    "isDynamicEntry": true
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-OQC_NGz3.css",
+    "src": "resources/css/app.css",
     "isEntry": true,
-    "css": [
-      "assets/app-B0VlKdx_.css"
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/spa/index.tsx": {
+    "file": "assets/index-BnrvHmKt.js",
+    "name": "index",
+    "src": "resources/js/spa/index.tsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/@simplewebauthn/browser/esm/index.js"
     ]
   }
 }

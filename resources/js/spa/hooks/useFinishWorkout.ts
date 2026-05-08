@@ -71,7 +71,8 @@ export const useFinishWorkout = () => {
             // Cleanup session state
             finishSession();
             setIsFinishing(false);
-            navigate("/workout/summary");
+            // navigate("/workout/summary");
+            navigate("/");
         } catch (error) {
             console.error("Critical error while finishing session:", error);
             alert("Failed to save workout. Please try again.");

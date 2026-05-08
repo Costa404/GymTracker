@@ -109,7 +109,7 @@ define(["./workbox-8c29f6e4"], function (s) {
                     revision: "875bfe857f92d8f1c8e25cc1bffec228",
                 },
                 {
-                    url: "build/assets/FaceIdAuth-D_lzizJP.js",
+                    url: "build/assets/LoginFaceId-D_lzizJP.js",
                     revision: "ac787d87d22a03e9fa62e8d4a92cf53d",
                 },
                 {

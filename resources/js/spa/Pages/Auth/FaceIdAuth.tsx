@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
     startAuthentication,
     browserSupportsWebAuthn,
 } from "@simplewebauthn/browser";
 import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 import { useAuthStore } from "@/spa/hooks/useAuthStore";
+import { getCsrfToken } from "@/spa/hooks/csrf";
 
-const FaceIdAuth = () => {
+const LoginFaceId = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const login = useAuthStore((state) => state.login);
 
@@ -16,40 +15,34 @@ const FaceIdAuth = () => {
         if (isProcessing) return;
 
         try {
-            // axios.post → fetch
-            // 1. Buscar opções
             const options = await fetch("/webauthn/login/options", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
+                    "X-XSRF-TOKEN": getCsrfToken(),
                 },
             }).then((r) => r.json());
 
-            // 2. Abrir Face ID nativo
             const assertion = await startAuthentication(options);
 
-            // 3. Ativar loading APÓS o "visto" verde
             setIsProcessing(true);
 
-            // 4. Validar no backend
             await fetch("/webauthn/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
+                    "X-XSRF-TOKEN": getCsrfToken(),
                 },
                 body: JSON.stringify(assertion),
             });
 
-            // 5. Login
             setTimeout(() => {
                 login();
             }, 1000);
         } catch (error: any) {
             setIsProcessing(false);
-
-            // NotAllowedError significa que o user cancelou a face scan
             if (error.name !== "NotAllowedError") {
                 alert("Erro na autenticação");
             }
@@ -60,7 +53,6 @@ const FaceIdAuth = () => {
 
     return (
         <>
-            {/* Overlay de Transição - Essencial para Mobile */}
             {isProcessing && (
                 <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex flex-col items-center justify-center">
                     <div className="w-8 h-8 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4"></div>
@@ -74,11 +66,11 @@ const FaceIdAuth = () => {
                 <GlassBtn
                     type="button"
                     onClick={handleFaceId}
-                    variant="default" // Usa o default do teu GlassBtn
+                    variant="default"
                     className={`gap-3 px-8 py-4 rounded-2xl border text-[10px] uppercase tracking-[0.2em] touch-manipulation
                         ${
                             isProcessing
-                                ? "opacity-20 pointer-events-none" // Simula o disabled
+                                ? "opacity-20 pointer-events-none"
                                 : "border-blue-500/20 bg-blue-500/[0.03] text-blue-400 active:bg-blue-500/10 active:border-blue-500/40"
                         }
                     `}
@@ -108,4 +100,4 @@ const FaceIdAuth = () => {
     );
 };
 
-export default FaceIdAuth;
+export default LoginFaceId;

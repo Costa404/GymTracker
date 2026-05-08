@@ -4,30 +4,32 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller; // 👈 Importação obrigatória adicionada
 use Illuminate\Http\Request;
-use App\Models\Workout;
-use App\Models\Exercise;
+use Illuminate\Support\Facades\Cache;
+
 
 class SyncController extends Controller
 {
     /**
      * Exporta todos os dados do PC para a SPA (Telemóvel/Browser)
      */
+    // SyncController.php (Server-side)
+    public function pushFromApp(Request $request)
+    {
+        // Save the payload into the Cache forever
+        // We use Cache instead of Database to avoid SQLite issues on Fly.io
+        Cache::forever('sync_package', $request->all());
+
+        return response()->json(['status' => 'Data cached successfully']);
+    }
+
     public function pullFromPC()
     {
-        // 1. Buscamos apenas os treinos que têm exercícios (limpeza automática)
-        // Carregamos também os logs associados a cada treino
-        $workouts = Workout::has('logs')
-            ->with('logs')
-            ->get();
+        $workouts = \App\Models\Workout::with('logs')->get();
+        $exercises = \App\Models\Exercise::all();
 
-        // 2. Buscamos a lista de exercícios para garantir que o Dexie está atualizado
-        $exercises = Exercise::all();
-
-        // 3. Retornamos tudo num pacote JSON estruturado
         return response()->json([
             'workouts' => $workouts,
             'exercises' => $exercises,
-            'pulled_at' => now()->toISOString(),
-        ], 200);
+        ]);
     }
 }

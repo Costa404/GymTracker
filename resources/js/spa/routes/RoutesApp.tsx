@@ -48,7 +48,7 @@ const RoutesApp = () => {
             />
 
             {/* BIBLIOTECA DE EXERCÍCIOS (HUB CENTRAL) */}
-            <Route path="/exercise">
+            <Route path="/exercises">
                 <Route index element={<ExercisePage />} />
                 <Route path="create" element={<ExerciseCreate />} />
                 <Route

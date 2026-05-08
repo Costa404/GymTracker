@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\SyncController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,3 +25,17 @@ Route::post('/sync/bulk', [SyncController::class, 'pushFromApp']);
 // Auth
 Route::post('/auth', [AuthController::class, 'verifyPin']);
 Route::post('/auth/logout', [AuthController::class, 'logout']);
+
+
+// Temporary route on your local machine
+Route::get('/bootstrap-cloud', function () {
+    $payload = [
+        'workouts' => \App\Models\Workout::with('logs')->get(),
+        'exercises' => \App\Models\Exercise::all(),
+    ];
+
+    // Send local SQLite data to Fly.io
+    $response = Http::post('https://gymtracker799.fly.dev/api/sync/bulk', $payload);
+
+    return $response->ok() ? "Cloud is primed!" : "Upload failed";
+});

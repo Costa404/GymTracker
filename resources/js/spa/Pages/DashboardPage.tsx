@@ -1,5 +1,5 @@
 import { useWorkoutSessionStore } from "@/spa/Hooks/SessionStore/useWorkoutSessionStore";
-import WebAuthnTest from "../Components/WebAuthnTest";
+import RegisterFaceId from "./Auth/RegisterFaceId";
 import GlassBtn from "../Components/Shared/GlassBtn";
 
 const DashboardPage = () => {
@@ -12,26 +12,29 @@ const DashboardPage = () => {
             <GlassBtn
                 to="/workout/setup"
                 variant={activeSessionId ? "system" : "performance"}
-                className="w-full py-8 rounded-[2.5rem]"
+                className={`w-full rounded-[2.5rem] ${
+                    activeSessionId
+                        ? "py-7 bg-system/5 border-2 border-system/20"
+                        : "py-7 bg-performance/10 border-2 border-performance/20"
+                }`}
             >
                 <span
-                    className={
+                    className={`italic font-black uppercase ${
                         activeSessionId
                             ? "text-[11px] tracking-widest"
-                            : "text-lg tracking-[0.2em]"
-                    }
+                            : "text-[11px] tracking-[0.3em] text-white "
+                    }`}
                 >
                     {activeSessionId ? "CONTINUE WORKOUT" : "START WORKOUT"}
                 </span>
             </GlassBtn>
-
             {/* 2. WORKOUT CONFIG */}
             <GlassBtn
                 to="/workout/config"
                 variant="system"
                 className="w-full py-5 rounded-2xl"
             >
-                <span className="text-[9px] tracking-[0.3em]">
+                <span className="text-[9px] tracking-[0.3em] italic font-black">
                     Workout Config
                 </span>
             </GlassBtn>
@@ -42,11 +45,10 @@ const DashboardPage = () => {
                 variant="zinc"
                 className="w-full py-5 rounded-2xl"
             >
-                <span className="text-[9px] tracking-[0.3em]">
+                <span className="text-[9px] tracking-[0.3em] italic font-black">
                     Past Workouts
                 </span>
             </GlassBtn>
-
             {/* 4. PAINEL DE PERFORMANCE */}
             <div className="w-full bg-performance/5 border-2 border-performance/20 rounded-[2.5rem] p-10 flex flex-col items-center justify-center text-center relative overflow-hidden">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-performance/50 mb-4 italic">
@@ -68,7 +70,6 @@ const DashboardPage = () => {
                     Total effort • Last 7 Days
                 </p>
             </div>
-            <WebAuthnTest />
         </div>
     );
 };

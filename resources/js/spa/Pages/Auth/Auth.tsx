@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FaceIdAuth from "./FaceIdAuth";
+
 import PinLogin from "./PinLogin";
 import GlassBtn from "@/spa/Components/Shared/GlassBtn";
 
@@ -36,8 +36,6 @@ const Auth = () => {
                 <div className="min-h-[160px] flex flex-col items-center justify-center w-full">
                     {mode === "faceid" ? (
                         <div className="flex flex-col items-center gap-8 w-full animate-in fade-in zoom-in duration-300">
-                            <FaceIdAuth />
-
                             {/* Botão de Alternância usando GlassBtn */}
                             <GlassBtn
                                 variant="ghost"
